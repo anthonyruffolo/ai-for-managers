@@ -1,99 +1,144 @@
 # AI for Managers Dashboard
 
-This folder contains the actual website project for the AI for Managers course.
+This is the website project for a 7-week business course called AI for Managers.
 
-## Live website
+The app is designed for students with no coding experience. It should feel like a course portal or learning dashboard, not like a technical tool.
+
+## Live site
 
 https://ai-for-managers-dashboard.vercel.app
 
-## What this project does
+## What this app is for
 
-This app is a student-facing dashboard that shows:
+This dashboard is meant to support a business course about responsible AI use in management.
 
-- the 15-week course roadmap
-- assignments and deadlines
-- task tracking and progress
-- discussion prompts
-- grades and expectations
-- help templates for students
-- AI planning and briefing tools
+Students should be able to:
 
-## Tech stack
+- see weekly lessons and outcomes
+- view assignments and deadlines
+- track workload and progress
+- view discussion prompts
+- check grades and status
+- use AI help templates and guidance
+- understand what AI can and cannot do in a business context
 
-This app uses:
+## Why this project matters
 
-- Next.js
-- React
-- TypeScript
-- CSS styling
+This course is about helping future managers learn how to use AI thoughtfully.
 
-## Run it locally
+The goal is not to teach coding. The goal is to help students become better business decision-makers who know how to:
 
-From this folder, run:
+- ask good questions
+- verify information
+- use AI as a support tool
+- think critically about risk and judgment
+- understand responsible AI use in the workplace
+
+## The main files you might edit
+
+- app/page.tsx — the course content, weekly modules, tasks, and text
+- app/globals.css — colors, spacing, layout, and styling
+- app/layout.tsx — site title and global page settings
+
+Most changes for this project will be simple text and visual edits.
+
+## How to run locally
+
+Open a terminal and go to this folder:
+
+```bash
+cd ai-for-managers-dashboard
+```
+
+Then run:
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Then open:
+Open the local address shown in the terminal, usually:
 
 ```text
 http://localhost:3000
 ```
 
-## Production build
+## How to edit without coding experience
 
-```bash
-pnpm build
-```
+You do not need to be a developer to help.
 
-## Important files
+The easiest ways to contribute are:
 
-- app/page.tsx — most of the actual dashboard content and website behavior
-- app/globals.css — layout, colors, spacing, and design styling
-- app/layout.tsx — page metadata and global layout wrapper
-- public/ — images and shared media
-- package.json — scripts and dependency setup
-- .openai/hosting.json — environment config needed for the Vite/OpenAI setup used during local development
+- update lesson wording
+- change assignment text
+- edit a weekly module
+- improve the FAQ
+- make the page easier to read
+- change color or layout styling
 
-## For non-coders
+## Use GitHub AI to help you
 
-If you are not comfortable editing code, the easiest places to change content are:
+This is encouraged.
 
-- week descriptions in app/page.tsx
-- assignment text in app/page.tsx
-- FAQ and help copy in app/page.tsx
-- styling in app/globals.css
+GitHub Copilot or other AI helpers can be useful for:
 
-You can usually update text without needing any advanced coding knowledge.
+- rewriting text in simpler language
+- reducing jargon for business students
+- brainstorming course wording
+- improving clarity and readability
+- helping with small edits and cleanup
 
-## Deployment and GitHub flow
+Use AI as a helper, not as the final source of truth. Always check the result before publishing it.
 
-This project is connected to GitHub and Vercel. Once changes are pushed to the main branch, Vercel will publish the new site automatically.
+## Simple workflow for the team
 
-This lets teammates use the live link without needing to install anything.
+1. Open the project in VS Code
+2. Edit the text or design you want to change
+3. Save the file
+4. Run pnpm dev to preview it locally
+5. Check that it looks right
+6. Commit the change
+7. Push to GitHub
+8. Vercel updates the live website automatically
 
-## Basic editing workflow
-
-1. Open the project in VS Code.
-2. Edit the text or style you want to change.
-3. Save the file.
-4. Run pnpm dev to preview it locally.
-5. Commit and push when you are ready.
-6. Vercel publishes the new version automatically.
-
-## If you get stuck
-
-Run:
+## Basic commands
 
 ```bash
 pnpm install
+pnpm dev
 pnpm build
 ```
 
-If the build fails, the terminal output usually points to the exact file or wording causing the issue.
+### What they mean
 
-## Summary
+- pnpm install — install project dependencies
+- pnpm dev — run the app locally
+- pnpm build — test whether the app is ready to publish
 
-This is a simple, student-friendly web app. Most meaningful updates are text or design changes, not complicated backend changes. If you want to help, the main areas to look at are app/page.tsx and app/globals.css.
+## If something seems confusing
+
+Remember: this is a course project for business students, not a software engineering project.
+
+If you are unsure what to do, start here:
+
+- content changes: app/page.tsx
+- visual changes: app/globals.css
+- site information: app/layout.tsx
+
+That is usually enough for most updates.
+
+## Final direction
+
+The goal is to keep this project understandable, polished, and student-friendly.
+
+The course should feel practical and realistic, not technical or intimidating.
+
+If you are editing this project, think like a business course designer:
+
+- clear
+- useful
+- student-centered
+- realistic
+- responsible with AI
+
+That is the standard we are aiming for.
