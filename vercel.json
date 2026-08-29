@@ -1,0 +1,6 @@
+{
+  "framework": "nextjs",
+  "installCommand": "cd ai-for-managers-dashboard && pnpm install",
+  "buildCommand": "cd ai-for-managers-dashboard && pnpm build",
+  "outputDirectory": "ai-for-managers-dashboard/.next"
+}
