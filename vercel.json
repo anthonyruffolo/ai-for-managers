@@ -1,6 +1,10 @@
 {
   "framework": "nextjs",
-  "installCommand": "cd ai-for-managers-dashboard && pnpm install",
+  "installCommand": "cd ai-for-managers-dashboard && pnpm install --frozen-lockfile",
   "buildCommand": "cd ai-for-managers-dashboard && pnpm build",
-  "outputDirectory": "ai-for-managers-dashboard/.next"
+  "outputDirectory": "ai-for-managers-dashboard/.next",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- ai-for-managers-dashboard",
+  "projectSettings": {
+    "nodeVersion": "22"
+  }
 }
