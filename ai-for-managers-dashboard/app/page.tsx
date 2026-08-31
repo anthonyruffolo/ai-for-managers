@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 
 type Priority = 'High' | 'Medium' | 'Low';
-type View = 'home' | 'content' | 'assignments' | 'discussions' | 'grades' | 'messages' | 'toolkit';
+type View = 'home' | 'content' | 'assignments' | 'discussions' | 'grades' | 'messages' | 'toolkit' | 'syllabus';
 type HelpMode = 'instructions' | 'technical' | 'team';
 type Task = {
   id: number;
@@ -49,6 +49,7 @@ const navItems: { id: View; label: string; icon: string }[] = [
   { id: 'grades', label: 'My Grades', icon: '▥' },
   { id: 'messages', label: 'Messages & Help', icon: '✉' },
   { id: 'toolkit', label: 'AI Toolkit', icon: '✦' },
+  { id: 'syllabus', label: 'Syllabus', icon: '📋' },
 ];
 
 const verificationItems = [
@@ -366,6 +367,196 @@ export default function Home() {
             <div className="toolkitView">
               <section className="lmsPanel briefBuilder"><div className="panelBar"><h3>AI Collaboration Brief</h3><span>Planning aid—not assessed work</span></div><p>Turn a fuzzy request into a clear, accountable starting brief for the AI tool your course permits.</p><div className="briefFields"><label>Goal<input value={goal} onChange={(event) => setGoal(event.target.value)} placeholder="What are you trying to accomplish?" /></label><label>Context<textarea value={context} onChange={(event) => setContext(event.target.value)} placeholder="Audience, situation, inputs, and background" /></label><label>Constraints<textarea value={constraints} onChange={(event) => setConstraints(event.target.value)} placeholder="Rules, privacy, time, format, and boundaries" /></label><label>Success standard<input value={success} onChange={(event) => setSuccess(event.target.value)} placeholder="How will you know it works?" /></label></div><pre>{aiBrief}</pre><button className="primaryAction" type="button" onClick={copyBrief}>{copied ? 'Copied to clipboard' : 'Copy AI brief'}</button></section>
               <aside className="lmsPanel verificationPanel"><div className="panelBar"><h3>Verify Before You Trust</h3><strong>{checkPercent}%</strong></div><p>Complete this before you submit, recommend, automate, or deploy an AI-assisted output.</p><div className="verificationProgress"><i style={{ width: `${checkPercent}%` }} /></div>{verificationItems.map((item, index) => <label className={checks[index] ? 'checked' : ''} key={item}><input type="checkbox" checked={checks[index]} onChange={() => setChecks((current) => current.map((value, checkIndex) => checkIndex === index ? !value : value))} /><span>{item}</span></label>)}<div className="dataWarning"><strong>Never enter</strong><span>FERPA-protected, confidential, proprietary, password, credential, or API-key data.</span></div></aside>
+            </div>
+          )}
+
+          {activeView === 'syllabus' && (
+            <div className="syllabusView">
+              <section className="lmsPanel">
+                <div className="syllabusHeader">
+                  <div>
+                    <p>BUSI 610</p>
+                    <h2>AI for Managers</h2>
+                    <p className="semester">Fall I 2026</p>
+                  </div>
+                </div>
+                
+                <div className="syllabusContent">
+                  <article>
+                    <h3>Course Description</h3>
+                    <p>This is a 7–15 week course designed for business students with no coding experience to understand how AI can be used responsibly in management, business decisions, teamwork, and everyday workplace problems.</p>
+                    <p>Rather than learning AI theory, students build a complete AI-enabled dashboard system from the ground up. Each week adds a new capability: prototyping, deployment, research workflows, data analysis, automation, governance, communication, customer insights, people management, forecasting, strategy, innovation, value measurement, adoption planning, and final integration.</p>
+                    <p>The course emphasizes judgment over features: framing problems, testing AI outputs, identifying risks, explaining decisions, and maintaining human accountability.</p>
+                  </article>
+
+                  <article>
+                    <h3>Learning Outcomes</h3>
+                    <p>By the end of this course, students can:</p>
+                    <ul>
+                      <li>Explain how generative AI works and identify its capabilities and limits</li>
+                      <li>Frame management problems in ways that AI can help solve</li>
+                      <li>Build, test, and iterate on AI-assisted prototypes and workflows</li>
+                      <li>Verify AI outputs, identify hallucinations and bias, and assess reliability</li>
+                      <li>Deploy working AI systems and support their users</li>
+                      <li>Conduct research, analysis, and decision-making with AI assistance</li>
+                      <li>Automate processes while maintaining human oversight and accountability</li>
+                      <li>Design systems that balance efficiency with governance and fairness</li>
+                      <li>Communicate AI-assisted work clearly and disclose AI involvement</li>
+                      <li>Evaluate innovation opportunities and measure business value responsibly</li>
+                      <li>Lead organizational adoption of AI-enabled work</li>
+                      <li>Defend management decisions about AI use to peers, leaders, and stakeholders</li>
+                    </ul>
+                  </article>
+
+                  <article>
+                    <h3>How Your Grade Works</h3>
+                    <div className="gradeBreakdown">
+                      {gradeItems.map((item) => (
+                        <div key={item.name}>
+                          <div><strong>{item.name}</strong></div>
+                          <div className="gradeBreakdownBar"><i style={{ width: `${item.weight}%` }} /></div>
+                          <div><strong>{item.weight}%</strong></div>
+                        </div>
+                      ))}
+                    </div>
+                    <p><strong>Team fairness promise:</strong> You are not graded only on the team's final polish or by one forced ranking. Weekly contribution records, demonstrations, and individual judgment checks show patterns over time. Your individual work and judgment are recognized throughout the semester.</p>
+                  </article>
+
+                  <article>
+                    <h3>Course Policies</h3>
+                    
+                    <h4>AI Use Policy</h4>
+                    <p>AI may support brainstorming, research organization, drafting, analysis, prototyping, and revision when the assignment permits it. You must:</p>
+                    <ul>
+                      <li>Verify all AI-assisted work before submitting</li>
+                      <li>Follow disclosure requirements—be clear about what AI did</li>
+                      <li>Be able to explain and defend everything you submit</li>
+                      <li>Retain responsibility for the final decision and output</li>
+                    </ul>
+
+                    <h4>Data Privacy and Security</h4>
+                    <p><strong>Never enter into an AI tool:</strong></p>
+                    <ul>
+                      <li>FERPA-protected student records</li>
+                      <li>Confidential or proprietary information</li>
+                      <li>Passwords, credentials, or API keys</li>
+                      <li>Private personnel data</li>
+                      <li>Any information you do not have permission to share</li>
+                    </ul>
+
+                    <h4>Academic Integrity</h4>
+                    <p>Academic dishonesty violates the university's code of conduct and this course's standards. Specifically:</p>
+                    <ul>
+                      <li>Do not submit work created entirely by AI without your own judgment, revision, and verification</li>
+                      <li>Do not plagiarize from classmates, sources, or AI outputs</li>
+                      <li>Do not misrepresent team contributions or individual work</li>
+                      <li>Disclose AI use honestly when required</li>
+                    </ul>
+                    <p>When in doubt, ask the instructor before submitting.</p>
+
+                    <h4>Attendance and Participation</h4>
+                    <p>Success in this course requires consistent engagement. Weekly participation includes:</p>
+                    <ul>
+                      <li>Completing assigned readings and module content</li>
+                      <li>Contributing to team work on the dashboard system</li>
+                      <li>Submitting deliverables by the stated deadline</li>
+                      <li>Participating in discussions and peer review</li>
+                      <li>Requesting help early when stuck</li>
+                    </ul>
+
+                    <h4>Late Work</h4>
+                    <p>Weekly deliverables are due by Friday at 11:59 PM. Late work accepted with reduced credit unless prior arrangement is made with the instructor. Communicate early if you anticipate a delay.</p>
+                  </article>
+
+                  <article>
+                    <h3>Course Expectations</h3>
+                    
+                    <h4>What This Course Is</h4>
+                    <ul>
+                      <li>A hands-on, project-based course where you build a working system</li>
+                      <li>An opportunity to develop judgment about responsible AI use</li>
+                      <li>A team experience that mirrors real workplace collaboration</li>
+                      <li>A low-code course—most changes involve content and design, not complex programming</li>
+                    </ul>
+
+                    <h4>What This Course Is Not</h4>
+                    <ul>
+                      <li>A computer science or software engineering course</li>
+                      <li>A deep dive into AI algorithms or machine learning</li>
+                      <li>A course where you code from scratch in Python or JavaScript</li>
+                      <li>A passive lecture series—you build and demonstrate throughout</li>
+                    </ul>
+
+                    <h4>Time Commitment</h4>
+                    <p>Expect 6–10 hours per week, depending on your background and the module. This includes readings, teamwork, prototyping, testing, and documentation.</p>
+                  </article>
+
+                  <article>
+                    <h3>Support and Resources</h3>
+                    
+                    <h4>Getting Help</h4>
+                    <p>Three types of support are available in the Messages & Help section:</p>
+                    <ul>
+                      <li><strong>Instruction questions:</strong> Use the template to ask about specific module instructions or assignments</li>
+                      <li><strong>Technical blockers:</strong> Report technical issues or setup problems you have already tried to resolve</li>
+                      <li><strong>Team check-ins:</strong> Request a private conversation about team dynamics or contribution concerns</li>
+                    </ul>
+                    <p><strong>Response goal:</strong> 1 business day for most questions.</p>
+
+                    <h4>When to Ask for Help</h4>
+                    <ul>
+                      <li>Name the smallest specific blocker</li>
+                      <li>Record what you already tried</li>
+                      <li>Ask for help early—before the blocker becomes a crisis</li>
+                    </ul>
+
+                    <h4>Accessibility</h4>
+                    <p>If you need accommodations for a disability or documented access need, contact the university's disability services office. I am committed to ensuring this course is accessible to all students. Please reach out early in the semester to discuss your needs.</p>
+
+                    <h4>Diversity and Inclusion</h4>
+                    <p>This course welcomes students of all backgrounds and experiences. Diverse perspectives strengthen our work. If you experience any barriers to participation or inclusion, please contact me or university support services.</p>
+                  </article>
+
+                  <article>
+                    <h3>Course Philosophy</h3>
+                    <p><strong>Build carefully. Verify evidence. Keep humans accountable.</strong></p>
+                    <p>This course is built on three core beliefs:</p>
+                    <ul>
+                      <li><strong>AI is a tool, not a replacement for judgment.</strong> Your role is to frame problems, evaluate outputs, identify risks, and make the final call. AI assists; you decide.</li>
+                      <li><strong>Responsible use matters more than speed or scale.</strong> A small, well-tested system with clear boundaries and human oversight beats a large system with hidden risks.</li>
+                      <li><strong>Learning happens through building and testing, not just reading.</strong> You will build things, test them, fail, learn, and improve. That cycle is where deep understanding comes from.</li>
+                    </ul>
+                  </article>
+
+                  <article>
+                    <h3>Course Schedule Overview</h3>
+                    <p>The course spans 15 weeks, with each week building one capability into the system:</p>
+                    <ul>
+                      <li><strong>Week 1:</strong> Orient & prototype</li>
+                      <li><strong>Week 2:</strong> Deploy & use</li>
+                      <li><strong>Week 3:</strong> Research & know</li>
+                      <li><strong>Week 4:</strong> Analyze & decide</li>
+                      <li><strong>Week 5:</strong> Automate & coordinate</li>
+                      <li><strong>Week 6:</strong> Test & govern</li>
+                      <li><strong>Week 7:</strong> Communicate & persuade</li>
+                      <li><strong>Week 8:</strong> Understand customers</li>
+                      <li><strong>Week 9:</strong> Support people & teams</li>
+                      <li><strong>Week 10:</strong> Forecast & plan</li>
+                      <li><strong>Week 11:</strong> Explore strategy</li>
+                      <li><strong>Week 12:</strong> Innovate & experiment</li>
+                      <li><strong>Week 13:</strong> Measure value</li>
+                      <li><strong>Week 14:</strong> Lead adoption</li>
+                      <li><strong>Week 15:</strong> Integrate & defend</li>
+                    </ul>
+                  </article>
+
+                  <article>
+                    <h3>Questions and Feedback</h3>
+                    <p>This syllabus is a guide, not a legal contract. I may update it based on class needs, feedback, and circumstances. I will notify the class of any significant changes.</p>
+                    <p>Your feedback is valuable. If something is not working—whether it is course design, pacing, or clarity—please let me know. The best learning experiences are built together.</p>
+                  </article>
+                </div>
+              </section>
             </div>
           )}
 
