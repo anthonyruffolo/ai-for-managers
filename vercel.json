@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "rootDirectory": "ai-for-managers-dashboard",
-  "buildCommand": "corepack pnpm build",
-  "installCommand": "corepack pnpm install --frozen-lockfile"
+  "buildCommand": "cd ai-for-managers-dashboard && pnpm build",
+  "installCommand": "cd ai-for-managers-dashboard && pnpm install --frozen-lockfile",
+  "outputDirectory": "ai-for-managers-dashboard/.next"
 }
