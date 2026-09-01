@@ -4,9 +4,9 @@
   --black: #161616;
   --charcoal: #252525;
   --charcoal-2: #343434;
-  --blue: #245c86;
-  --blue-dark: #163f60;
-  --blue-pale: #e8f2f8;
+  --blue: #277052;
+  --blue-dark: #1a4a37;
+  --blue-pale: #e8f5f0;
   --red: #b3312d;
   --green: #277052;
   --gold: #a86f08;
@@ -23,7 +23,7 @@ html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--canvas); color: var(--ink); font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif; }
 button, input, textarea, select, a { font: inherit; }
 button, select { cursor: pointer; }
-button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid rgb(54 135 190 / 38%); outline-offset: 2px; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid rgb(39 112 82 / 38%); outline-offset: 2px; }
 
 .lmsShell { min-height: 100vh; }
 .globalBar { min-height: 54px; display: flex; align-items: center; gap: 24px; padding: 8px 24px; background: var(--black); color: white; position: sticky; top: 0; z-index: 40; }
@@ -38,7 +38,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .globalActions button, .mobileMenu { width: 34px; height: 34px; border: 0; border-radius: 50%; background: transparent; color: white; font-weight: 750; }
 .globalActions button:hover, .mobileMenu:hover { background: #363636; }
 .globalActions .faqTrigger { border: 1px solid #555; font-size: 15px; }
-.globalActions .faqTrigger:hover, .globalActions .faqTrigger[aria-expanded='true'] { border-color: #8ec7eb; background: #28495f; }
+.globalActions .faqTrigger:hover, .globalActions .faqTrigger[aria-expanded='true'] { border-color: #5eb896; background: #1a4a37; }
 .profileBadge { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: #e3e3e3; color: #222; font-size: 11px; font-weight: 800; }
 .mobileMenu { display: none; font-size: 19px; }
 
@@ -56,12 +56,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .courseSidebar nav button { min-height: 47px; display: flex; align-items: center; gap: 13px; padding: 10px 20px; border: 0; border-left: 4px solid transparent; background: transparent; color: #e0e3e5; text-align: left; font-size: 12px; }
 .courseSidebar nav button > span { width: 20px; color: #b5bec4; font-size: 17px; text-align: center; }
 .courseSidebar nav button:hover { background: #303030; color: white; }
-.courseSidebar nav button.active { border-left-color: #6fb3df; background: white; color: #20262c; font-weight: 750; }
+.courseSidebar nav button.active { border-left-color: #5eb896; background: white; color: #20262c; font-weight: 750; }
 .courseSidebar nav button.active > span { color: var(--blue); }
 .sidebarHelp { margin: 28px 16px 0; padding: 17px; border: 1px solid #4d4d4d; background: #2c2c2c; }
 .sidebarHelp strong { font-size: 12px; }
 .sidebarHelp p { margin: 7px 0 13px; color: #c2c7ca; font-size: 10px; line-height: 1.55; }
-.sidebarHelp button { border: 0; background: transparent; color: #8ec7eb; padding: 0; font-size: 10px; font-weight: 750; }
+.sidebarHelp button { border: 0; background: transparent; color: #5eb896; padding: 0; font-size: 10px; font-weight: 750; }
 
 .portalContent { min-width: 0; padding: 22px 30px 0; }
 .breadcrumbs { color: #78828a; font-size: 10px; }
@@ -85,7 +85,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .searchResults > button small { margin-top: 3px; color: var(--muted); font-size: 8px; }
 .searchResults > p { margin: 0; padding: 20px; color: var(--muted); font-size: 10px; }
 
-.welcomeBanner { display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 38px; padding: 29px 32px; background: linear-gradient(117deg, #172c3d, #214f70); color: white; box-shadow: 0 4px 16px rgb(20 40 55 / 12%); }
+.welcomeBanner { display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 38px; padding: 29px 32px; background: linear-gradient(117deg, #1a4a37, #2a6b52); color: white; box-shadow: 0 4px 16px rgb(20 40 55 / 12%); }
 .weekLabel { font-size: 9px; font-weight: 850; letter-spacing: .14em; color: #9fd3f3; }
 .welcomeBanner h3 { margin: 10px 0 8px; font-size: clamp(25px, 3vw, 39px); line-height: 1.06; font-weight: 580; letter-spacing: -.03em; }
 .welcomeBanner p { max-width: 760px; margin: 0; color: #dbe8f0; font-size: 13px; line-height: 1.65; }
@@ -94,7 +94,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .weekProgress strong { font-size: 34px; font-weight: 500; }
 .weekProgress > span { margin: 2px 0 14px; color: #bcd4e3; font-size: 10px; text-transform: uppercase; letter-spacing: .09em; }
 .weekProgress > div { height: 6px; border-radius: 10px; background: rgb(255 255 255 / 20%); overflow: hidden; }
-.weekProgress i { display: block; height: 100%; background: #7bc1ed; }
+.weekProgress i { display: block; height: 100%; background: #5eb896; }
 .weekProgress small { margin-top: 8px; color: #d0e0e9; font-size: 10px; }
 
 .homeColumns { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(275px, .72fr); gap: 20px; margin-top: 20px; }
