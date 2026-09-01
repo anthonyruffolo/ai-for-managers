@@ -1,5 +1,8 @@
 {
   "name": "ai-for-managers",
   "private": true,
-  "packageManager": "pnpm@10.32.1"
+  "packageManager": "pnpm@10.32.1",
+  "dependencies": {
+    "next": "16.2.6"
+  }
 }
