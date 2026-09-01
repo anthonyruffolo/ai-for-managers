@@ -2,6 +2,11 @@
   "name": "ai-for-managers",
   "private": true,
   "packageManager": "pnpm@10.32.1",
+  "scripts": {
+    "dev": "cd ai-for-managers-dashboard && pnpm dev",
+    "build": "cd ai-for-managers-dashboard && pnpm build",
+    "start": "cd ai-for-managers-dashboard && pnpm start"
+  },
   "dependencies": {
     "next": "16.2.6"
   }
