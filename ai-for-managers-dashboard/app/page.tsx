@@ -61,6 +61,13 @@ const verificationItems = [
   'A human remains accountable for the final decision',
 ];
 
+const toolkitStarters = [
+  { id: 'research', label: 'Research a question', description: 'Turn a broad topic into an evidence-backed brief.', goal: 'Create a verified research brief about a management question', context: 'I am researching a question for a business audience. Help me separate claims that need evidence from ideas that need exploration.', constraints: 'Use credible, current sources. Flag uncertainty and do not invent citations. Do not include confidential or personal information.', success: 'Every important claim has a source I can open and check, with assumptions and open questions called out.' },
+  { id: 'decision', label: 'Prepare a decision', description: 'Compare options without handing over judgment.', goal: 'Prepare a decision memo with clear options and tradeoffs', context: 'I need to help a manager choose among realistic options. Organize the decision, surface missing information, and show what each option would require.', constraints: 'Distinguish facts, assumptions, and recommendations. Show risks and alternatives. A human makes the final decision.', success: 'A manager can compare the options, understand the tradeoffs, and see what evidence would change the recommendation.' },
+  { id: 'workflow', label: 'Improve a workflow', description: 'Find a useful, bounded place for AI assistance.', goal: 'Improve a repeatable management workflow with responsible AI assistance', context: 'Describe the current steps, who owns them, where time is lost, and what a better handoff could look like.', constraints: 'Keep a human checkpoint for consequential decisions. Exclude private data, credentials, and information I do not have permission to share.', success: 'The proposed workflow has an owner, a measurable improvement, failure handling, and a clear stop condition.' },
+  { id: 'brief', label: 'Draft a briefing', description: 'Shape a clear message for a real audience.', goal: 'Draft a concise management briefing for a specific audience', context: 'Help me organize the situation, recommendation, supporting evidence, and the action I am asking the audience to take.', constraints: 'Preserve my judgment and voice. Do not add unsupported claims. Make AI assistance easy to disclose and review.', success: 'The audience can understand the recommendation, why it matters, and what decision or action comes next.' },
+];
+
 const gradeItems = [
   { name: 'Progressive dashboard & weekly builds', weight: 42, status: 'In progress' },
   { name: 'Final integrated portfolio', weight: 18, status: 'Not started' },
@@ -99,6 +106,7 @@ export default function Home() {
   const [context, setContext] = useState('');
   const [constraints, setConstraints] = useState('');
   const [success, setSuccess] = useState('');
+  const [selectedStarter, setSelectedStarter] = useState('');
   const [copied, setCopied] = useState(false);
   const [studentPulse, setStudentPulse] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -233,6 +241,14 @@ export default function Home() {
     window.setTimeout(() => setCopied(false), 1800);
   }
 
+  function applyToolkitStarter(starter: typeof toolkitStarters[number]) {
+    setSelectedStarter(starter.id);
+    setGoal(starter.goal);
+    setContext(starter.context);
+    setConstraints(starter.constraints);
+    setSuccess(starter.success);
+  }
+
   return (
     <main className="lmsShell">
       <header className="globalBar">
@@ -365,7 +381,7 @@ export default function Home() {
 
           {activeView === 'toolkit' && (
             <div className="toolkitView">
-              <section className="lmsPanel briefBuilder"><div className="panelBar"><h3>AI Collaboration Brief</h3><span>Planning aid—not assessed work</span></div><p>Turn a fuzzy request into a clear, accountable starting brief for the AI tool your course permits.</p><div className="briefFields"><label>Goal<input value={goal} onChange={(event) => setGoal(event.target.value)} placeholder="What are you trying to accomplish?" /></label><label>Context<textarea value={context} onChange={(event) => setContext(event.target.value)} placeholder="Audience, situation, inputs, and background" /></label><label>Constraints<textarea value={constraints} onChange={(event) => setConstraints(event.target.value)} placeholder="Rules, privacy, time, format, and boundaries" /></label><label>Success standard<input value={success} onChange={(event) => setSuccess(event.target.value)} placeholder="How will you know it works?" /></label></div><pre>{aiBrief}</pre><button className="primaryAction" type="button" onClick={copyBrief}>{copied ? 'Copied to clipboard' : 'Copy AI brief'}</button></section>
+              <section className="lmsPanel briefBuilder"><div className="panelBar"><h3>AI Collaboration Brief</h3><span>Planning aid—not assessed work</span></div><div className="toolkitIntro"><strong>Start with the work in front of you.</strong><p>Choose a manager scenario to get useful starting language, then edit the brief until it matches your real situation.</p></div><div className="toolkitStarters" aria-label="AI brief starters">{toolkitStarters.map((starter) => <button className={selectedStarter === starter.id ? 'selected' : ''} type="button" onClick={() => applyToolkitStarter(starter)} key={starter.id}><span>{starter.label}</span><small>{starter.description}</small></button>)}</div><div className="briefFields"><label>Goal<input value={goal} onChange={(event) => { setGoal(event.target.value); setSelectedStarter(''); }} placeholder="What are you trying to accomplish?" /></label><label>Context<textarea value={context} onChange={(event) => { setContext(event.target.value); setSelectedStarter(''); }} placeholder="Audience, situation, inputs, and background" /></label><label>Constraints<textarea value={constraints} onChange={(event) => { setConstraints(event.target.value); setSelectedStarter(''); }} placeholder="Rules, privacy, time, format, and boundaries" /></label><label>Success standard<input value={success} onChange={(event) => { setSuccess(event.target.value); setSelectedStarter(''); }} placeholder="How will you know it works?" /></label></div><div className="briefOutput"><div><span>READY-TO-USE BRIEF</span><small>Review it, then paste it into the course-approved AI tool.</small></div><pre>{aiBrief}</pre><button className="primaryAction" type="button" onClick={copyBrief}>{copied ? 'Copied to clipboard' : 'Copy AI brief'}</button></div></section>
               <aside className="lmsPanel verificationPanel"><div className="panelBar"><h3>Verify Before You Trust</h3><strong>{checkPercent}%</strong></div><p>Complete this before you submit, recommend, automate, or deploy an AI-assisted output.</p><div className="verificationProgress"><i style={{ width: `${checkPercent}%` }} /></div>{verificationItems.map((item, index) => <label className={checks[index] ? 'checked' : ''} key={item}><input type="checkbox" checked={checks[index]} onChange={() => setChecks((current) => current.map((value, checkIndex) => checkIndex === index ? !value : value))} /><span>{item}</span></label>)}<div className="dataWarning"><strong>Never enter</strong><span>FERPA-protected, confidential, proprietary, password, credential, or API-key data.</span></div></aside>
             </div>
           )}
