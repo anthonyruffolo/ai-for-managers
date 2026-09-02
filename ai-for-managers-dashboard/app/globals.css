@@ -258,8 +258,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .responseGuide ul { margin: 0; padding: 18px 20px 18px 38px; color: #536069; font-size: 10px; line-height: 1.7; }
 
 .briefBuilder { padding-bottom: 18px; }
-.briefBuilder > p, .verificationPanel > p { margin: 16px 18px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.toolkitIntro { padding: 18px 18px 4px; }
+.toolkitIntro strong { color: var(--blue-dark); font-size: 14px; }
+.toolkitIntro p { margin: 5px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.toolkitStarters { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 12px 18px 18px; }
+.toolkitStarters button { min-height: 67px; display: flex; flex-direction: column; align-items: start; gap: 5px; padding: 10px; border: 1px solid #c5ccd1; border-radius: 2px; background: white; color: var(--ink); text-align: left; }
+.toolkitStarters button:hover, .toolkitStarters button.selected { border-color: var(--blue); background: var(--blue-pale); }
+.toolkitStarters button span { color: var(--blue-dark); font-size: 10px; font-weight: 800; }
+.toolkitStarters button small { color: var(--muted); font-size: 8px; line-height: 1.35; }
 .briefFields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 18px; }
+.briefOutput { margin-top: 16px; padding: 16px 18px 0; border-top: 1px solid var(--line); background: #fbfcfc; }
+.briefOutput > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.briefOutput > div span { color: var(--blue); font-size: 8px; font-weight: 850; letter-spacing: .1em; }
+.briefOutput > div small { color: var(--muted); font-size: 8px; }
+.briefOutput pre { margin: 10px 0 12px; }
+.briefOutput > .primaryAction { margin-left: 0; }
+.verificationPanel > p { margin: 16px 18px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 label { color: #4c5962; font-size: 9px; font-weight: 720; }
 input, textarea, select { width: 100%; margin-top: 6px; padding: 10px; border: 1px solid #a8c5e0; border-radius: 2px; background: white; color: var(--ink); font-size: 10px; }
 textarea { min-height: 78px; resize: vertical; }
