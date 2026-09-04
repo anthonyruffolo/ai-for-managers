@@ -2,154 +2,54 @@
 
 **🚀 Live Dashboard:** [Open the AI for Managers Dashboard](https://ai-for-managers-dashboard.vercel.app/)
 
-This repository contains the course dashboard and the implementation scaffolding for the **AI for Managers** undergraduate course.
+## Project
 
-The dashboard is being built as a practical, student-friendly management environment. Students learn AI concepts and responsible management judgment while progressively developing their own AI Management Dashboard.
+This repository contains the **AI for Managers** undergraduate course dashboard and the materials used to build it.
 
-> **Important:** This repository includes preparation scaffolding so teammates can build and hand off content consistently. It does not pre-write another builder's lessons, examples, rubrics, or assessments. Approved instructional content is added after team review.
+Students learn AI for management and progressively build an AI Management Dashboard. The course is designed for business students; advanced programming is not required.
 
-## Course architecture
+## Course build
 
-The class dashboard provides stable destinations for:
+- 15 weekly modules
+- Student AI Management Dashboard developed throughout the course
+- Weekly lessons, builds, examples, submissions, rubrics, and assessments
+- Three tests, four quizzes, and seven discussions
+- Responsible AI, verification, disclosure, human judgment, and GitHub collaboration
 
-- Course Home
-- Course Overview
-- Weeks 1–15
-- Assignments
-- Quizzes & Tests
-- Discussions
-- My Progress
-- Resources / Key Terms
-- GitHub Help
-- Final Dashboard / Project
+The source course-development document is stored in `docs/`:
 
-Each weekly experience follows the same implementation structure:
+`docs/BUSI.610 Course Overview and Guide Fall I 2026 - AI COURSE DEVELOPMENT.docx`
 
-1. Week Overview
-2. Learning Objectives
-3. Lesson / Required Materials
-4. Key Terms
-5. AI Activity
-6. Your Dashboard Build
-7. Student Directions
-8. Example / Model
-9. Submission Requirements
-10. Rubric / Grading
-11. Quiz / Test / Discussion when applicable
-12. Resources
-13. Week Progress
+## Team workflow
 
-## Visible course build workspace
+**Builder → second-builder review → project lead review → dashboard implementation → student-view testing → merge to main**
 
-The prep structure is now also implemented as a visible route inside the dashboard app:
+Use branches for work in progress. Keep `main` stable.
 
-`/course-structure`
+## Builder handoff
 
-The workspace provides:
+Each weekly package should include:
 
-- A 15-week roadmap showing the connected dashboard progression
-- A selectable builder workspace for every week
-- The standard weekly page template with all required content slots
-- A builder handoff checklist showing what teammates provide
-- A quality gate for review and student-view testing
-- Local preparation tracking so the team can mark template sections as prepared
-
-This page is intentionally a **structure and handoff workspace**, not a replacement for the approved weekly instructional content.
-
-## Student dashboard progression
-
-The student's dashboard is designed to grow across the semester. The current architecture provides checkpoints for:
-
-1. Home, purpose, target user, management problem, and navigation
-2. AI Tools comparison
-3. Prompt Library
-4. AI Productivity
-5. Manager Decision Assistant
-6. AI Ethics Checker / Risk Assessment
-7. Responsible AI Policy
-8. Manager AI Assistant
-9. AI Verification
-10. AI Use / Disclosure Log
-11. Values-Based AI Decision Framework
-12. Workforce Impact
-13. AI Implementation Plan
-14. Testing, peer feedback, and revision
-15. Final integrated dashboard and reflection
-
-See `docs/DASHBOARD_BUILD_TRACKER.md` for the implementation tracker.
-
-## Team implementation workflow
-
-**Builder → second-builder review → Daniel approval → Anthony implementation → student-view testing → merge to main**
-
-`main` is the stable version. Focused work should use feature branches when practical.
-
-See:
-
-- `docs/COURSE_DASHBOARD_ARCHITECTURE.md` — technical/content scaffolding
-- `docs/WEEKLY_PAGE_TEMPLATE.md` — standard structure for Weeks 1–15
-- `docs/BUILDER_HANDOFF_TEMPLATE.md` — exactly what a builder should hand to Anthony
-- `docs/COURSE_BUILDER_MAP.md` — ownership and implementation boundaries
-- `docs/GITHUB_COLLABORATION_WORKFLOW.md` — branch/commit/pull-request guidance
-- `docs/STUDENT_GITHUB_HELP.md` — student-facing GitHub basics
-- `docs/DASHBOARD_BUILD_TRACKER.md` — semester dashboard milestones
-
-## What builders hand to Anthony
-
-Every approved weekly package should include:
-
-- Course content / lesson
-- 5–8 key terms with definitions
-- Exact student dashboard build
+- Lesson / course content
+- 5–8 key terms
+- Student dashboard build
 - Student directions
 - Example / model
 - Submission requirements
-- Rubric or answer key
+- Rubric / answer key
 - Assessment materials when assigned
 - Dashboard needs
 
-The builder handoff checklist is in `docs/BUILDER_HANDOFF_TEMPLATE.md`.
+## Dashboard
 
-## What Anthony implements
+The main app is in `ai-for-managers-dashboard/`.
 
-- Course navigation and weekly page structure
-- Assignment and submission areas
-- Quiz/test and discussion areas
-- Due-date and progress infrastructure
-- Dashboard build tracking
-- Approved examples, directions, rubrics, and resources
-- GitHub workflow support
-- Student-view testing and technical fixes
+Key routes:
 
-## GitHub basics
+- `/` — student course dashboard
+- `/course-structure` — course build and weekly implementation workspace
 
-Students and teammates are not expected to be advanced programmers. Basic collaboration concepts include repository, branch, commit, push, pull, pull request, merge, and version control.
-
-The intended AI-assisted workflow is:
-
-**Explain the goal → provide context → ask AI questions → develop an approach → build → test → identify problems → iterate.**
-
-AI can help with unfamiliar work, but people remain responsible for reviewing the result and making the final decision.
-
-## Current application
-
-The main dashboard application lives in:
-
-`ai-for-managers-dashboard/`
-
-Common files:
-
-- `ai-for-managers-dashboard/app/page.tsx` — main dashboard experience and course UI
-- `ai-for-managers-dashboard/app/globals.css` — styling and responsive layout
-- `ai-for-managers-dashboard/app/layout.tsx` — global metadata/layout
-- `ai-for-managers-dashboard/app/course-structure/page.tsx` — visible course build workspace
-- `ai-for-managers-dashboard/app/course-structure/structure.module.css` — scoped workspace styling
-
-The existing app remains the main student dashboard. The new course-structure route adds the missing visible prep layer without replacing the existing dashboard experience.
-
-## Run locally
-
-From the repository root:
+## Local development
 
 ```bash
 cd ai-for-managers-dashboard
@@ -157,37 +57,21 @@ pnpm install
 pnpm dev
 ```
 
-Then open the local URL shown by the development server, normally `http://localhost:3000`.
-
-The visible prep workspace is available at:
-
-`http://localhost:3000/course-structure`
-
-Before considering a substantial change ready, run:
+For a production build:
 
 ```bash
 pnpm build
 ```
 
-## Before merging a weekly update
+## Deployment
 
-- [ ] Approved content is being implemented
-- [ ] Weekly structure matches the template
-- [ ] Student directions are clear
-- [ ] Submission requirements match the assignment
-- [ ] Links work
-- [ ] New dashboard functionality works
-- [ ] Earlier functionality still works
-- [ ] Student view has been tested
-- [ ] No secrets or private student information were added
-- [ ] Commit message clearly describes the change
+The Vercel configuration explicitly installs and builds from `ai-for-managers-dashboard/` so the nested application is deployed from the repository root correctly.
 
-## Project principles
+## Project standards
 
-- Build for undergraduate business students, not developers.
-- Keep the dashboard practical, organized, and easy to navigate.
-- Treat AI as a support tool rather than a final authority.
+- Build for undergraduate business students.
+- Keep weekly work connected across the full course.
+- Verify important AI-generated information.
 - Preserve human judgment and accountability.
-- Verify important AI-generated claims and outputs.
-- Keep weekly builds connected so students evolve one product instead of starting over.
-- Do not add technical complexity simply for its own sake.
+- Protect confidential, private, credential, and API-key information.
+- Test student-facing changes before merging.
