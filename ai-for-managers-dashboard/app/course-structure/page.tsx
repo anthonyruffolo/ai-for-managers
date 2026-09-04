@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import './structure.css';
 
 const weeks = [
   ['Week 1', 'Orient & prototype', 'Define the problem, target user, dashboard purpose, and initial prototype.'],
