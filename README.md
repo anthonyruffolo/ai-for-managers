@@ -37,6 +37,23 @@ Each weekly experience follows the same implementation structure:
 12. Resources
 13. Week Progress
 
+## Visible course build workspace
+
+The prep structure is now also implemented as a visible route inside the dashboard app:
+
+`/course-structure`
+
+The workspace provides:
+
+- A 15-week roadmap showing the connected dashboard progression
+- A selectable builder workspace for every week
+- The standard weekly page template with all required content slots
+- A builder handoff checklist showing what teammates provide
+- A quality gate for review and student-view testing
+- Local preparation tracking so the team can mark template sections as prepared
+
+This page is intentionally a **structure and handoff workspace**, not a replacement for the approved weekly instructional content.
+
 ## Student dashboard progression
 
 The student's dashboard is designed to grow across the semester. The current architecture provides checkpoints for:
@@ -123,8 +140,10 @@ Common files:
 - `ai-for-managers-dashboard/app/page.tsx` — main dashboard experience and course UI
 - `ai-for-managers-dashboard/app/globals.css` — styling and responsive layout
 - `ai-for-managers-dashboard/app/layout.tsx` — global metadata/layout
+- `ai-for-managers-dashboard/app/course-structure/page.tsx` — visible course build workspace
+- `ai-for-managers-dashboard/app/course-structure/structure.module.css` — scoped workspace styling
 
-The existing app is a working prototype. The new `docs/` files establish the team-facing implementation system without requiring a rewrite of the existing UI.
+The existing app remains the main student dashboard. The new course-structure route adds the missing visible prep layer without replacing the existing dashboard experience.
 
 ## Run locally
 
@@ -137,6 +156,10 @@ pnpm dev
 ```
 
 Then open the local URL shown by the development server, normally `http://localhost:3000`.
+
+The visible prep workspace is available at:
+
+`http://localhost:3000/course-structure`
 
 Before considering a substantial change ready, run:
 
