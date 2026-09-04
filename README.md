@@ -1,195 +1,134 @@
 # AI for Managers
 
-This project is a basic version of a course dashboard for a 7-week undergraduate business course called AI for Managers.
+This repository contains the course dashboard and the implementation scaffolding for the **AI for Managers** undergraduate course.
+
+The dashboard is being built as a practical, student-friendly management environment. Students learn AI concepts and responsible management judgment while progressively developing their own AI Management Dashboard.
+
+> **Important:** This repository includes preparation scaffolding so teammates can build and hand off content consistently. It does not pre-write another builder's lessons, examples, rubrics, or assessments. Approved instructional content is added after team review.
+
+## Course architecture
+
+The class dashboard provides stable destinations for:
+
+- Course Home
+- Course Overview
+- Weeks 1–15
+- Assignments
+- Quizzes & Tests
+- Discussions
+- My Progress
+- Resources / Key Terms
+- GitHub Help
+- Final Dashboard / Project
 
-The goal is simple: help students with no coding experience understand how AI can be used responsibly in management, business decisions, teamwork, and everyday workplace problems.
+Each weekly experience follows the same implementation structure:
 
-This app is meant to feel like a Blackboard-style student portal: organized, practical, clear, and easy to navigate.
+1. Week Overview
+2. Learning Objectives
+3. Lesson / Required Materials
+4. Key Terms
+5. AI Activity
+6. Your Dashboard Build
+7. Student Directions
+8. Example / Model
+9. Submission Requirements
+10. Rubric / Grading
+11. Quiz / Test / Discussion when applicable
+12. Resources
+13. Week Progress
 
-Live website:
-https://ai-for-managers-dashboard.vercel.app
+## Student dashboard progression
 
-## What this project is trying to do
+The student's dashboard is designed to grow across the semester. The current architecture provides checkpoints for:
 
-This course experience is designed for business students who are not software developers.
+1. Home, purpose, target user, management problem, and navigation
+2. AI Tools comparison
+3. Prompt Library
+4. AI Productivity
+5. Manager Decision Assistant
+6. AI Ethics Checker / Risk Assessment
+7. Responsible AI Policy
+8. Manager AI Assistant
+9. AI Verification
+10. AI Use / Disclosure Log
+11. Values-Based AI Decision Framework
+12. Workforce Impact
+13. AI Implementation Plan
+14. Testing, peer feedback, and revision
+15. Final integrated dashboard and reflection
 
-The dashboard should help students:
+See `docs/DASHBOARD_BUILD_TRACKER.md` for the implementation tracker.
 
-- understand weekly learning goals
-- see assignments and deadlines
-- track workload and progress
-- review important business concepts
-- work with AI in a responsible way
-- practice using AI as a support tool, not as a replacement for judgment
-- navigate the course like they would in an LMS or student portal
+## Team implementation workflow
 
-This project is about teaching management, business judgment, and responsible AI use—not about writing complex code.
+**Builder → second-builder review → Daniel approval → Anthony implementation → student-view testing → merge to main**
 
-## The big idea
+`main` is the stable version. Focused work should use feature branches when practical.
 
-The app is built to feel familiar to students:
+See:
 
-- a left navigation
-- weekly course modules
-- assignment lists
-- progress tracking
-- discussion prompts
-- help and coaching sections
-- AI-use guidance
+- `docs/COURSE_DASHBOARD_ARCHITECTURE.md` — technical/content scaffolding
+- `docs/WEEKLY_PAGE_TEMPLATE.md` — standard structure for Weeks 1–15
+- `docs/BUILDER_HANDOFF_TEMPLATE.md` — exactly what a builder should hand to Anthony
+- `docs/COURSE_BUILDER_MAP.md` — ownership and implementation boundaries
+- `docs/GITHUB_COLLABORATION_WORKFLOW.md` — branch/commit/pull-request guidance
+- `docs/STUDENT_GITHUB_HELP.md` — student-facing GitHub basics
+- `docs/DASHBOARD_BUILD_TRACKER.md` — semester dashboard milestones
 
-The aim is to make business students feel comfortable using AI tools without being overwhelmed by technical details.
+## What builders hand to Anthony
 
-## What the app currently includes
+Every approved weekly package should include:
 
-The current version already has:
+- Course content / lesson
+- 5–8 key terms with definitions
+- Exact student dashboard build
+- Student directions
+- Example / model
+- Submission requirements
+- Rubric or answer key
+- Assessment materials when assigned
+- Dashboard needs
 
-- a course homepage
-- weekly unit information
-- assignment and task tracking
-- checklist and progress tools
-- discussion draft areas
-- grades/progress sections
-- AI briefing and help templates
-- a student-friendly dashboard layout
+The builder handoff checklist is in `docs/BUILDER_HANDOFF_TEMPLATE.md`.
 
-This is a starting point, not the final version. It should stay easy to improve and easy to teach from.
+## What Anthony implements
 
-## The most important rule for the team
+- Course navigation and weekly page structure
+- Assignment and submission areas
+- Quiz/test and discussion areas
+- Due-date and progress infrastructure
+- Dashboard build tracking
+- Approved examples, directions, rubrics, and resources
+- GitHub workflow support
+- Student-view testing and technical fixes
 
-Do not panic if you do not know code.
+## GitHub basics
 
-This project is mainly about course design, content, and user experience.
+Students and teammates are not expected to be advanced programmers. Basic collaboration concepts include repository, branch, commit, push, pull, pull request, merge, and version control.
 
-Most changes will be simple edits to text and layout, not deep programming work.
+The intended AI-assisted workflow is:
 
-## Where to edit things
+**Explain the goal → provide context → ask AI questions → develop an approach → build → test → identify problems → iterate.**
 
-The most common places to make changes are:
+AI can help with unfamiliar work, but people remain responsible for reviewing the result and making the final decision.
 
-- app/page.tsx — main course content, assignments, weekly modules, tasks, and text
-- app/globals.css — colors, spacing, design, and layout styling
-- app/layout.tsx — page title and global metadata
+## Current application
 
-You do not need to edit everything. Start with the page content and CSS.
+The main dashboard application lives in:
 
-## How to run the project locally
+`ai-for-managers-dashboard/`
 
-Open a terminal and go into the app folder:
+Common files:
 
-```bash
-cd ai-for-managers-dashboard
-```
+- `ai-for-managers-dashboard/app/page.tsx` — main dashboard experience and course UI
+- `ai-for-managers-dashboard/app/globals.css` — styling and responsive layout
+- `ai-for-managers-dashboard/app/layout.tsx` — global metadata/layout
 
-Then install packages:
+The existing app is a working prototype. The new `docs/` files establish the team-facing implementation system without requiring a rewrite of the existing UI.
 
-```bash
-pnpm install
-```
+## Run locally
 
-Then run the site:
-
-```bash
-pnpm dev
-```
-
-Open the local link shown in the terminal, usually:
-
-```text
-http://localhost:3000
-```
-
-## How to make a small change
-
-For most teammates, the process is simple:
-
-1. Open the file you want to change.
-2. Find the text or section you want to update.
-3. Edit it.
-4. Save the file.
-5. Refresh the browser.
-
-Examples of easy edits:
-
-- change a week title
-- edit assignment wording
-- update due dates
-- fix a typo
-- change a color
-- make a section easier to read
-
-## What to do if you are not sure what to change
-
-Use the GitHub AI helper.
-
-This is important: GitHub Copilot/AI is meant to help you, not replace your thinking.
-
-You can ask it things like:
-
-- “Rewrite this assignment in simpler language for business students.”
-- “Make this dashboard feel more student-friendly.”
-- “Help me clean up this FAQ.”
-- “Suggest a better title for this week.”
-- “What would a business student need in this section?”
-
-Use AI to speed up writing, editing, and brainstorming. But always check the result.
-
-This course is about responsible AI use, so the team should model that mindset.
-
-## Best practices for students and teammates
-
-- Keep the content clear and easy to understand
-- Write for students, not for developers
-- Make the dashboard friendly, organized, and usable
-- Avoid technical jargon unless it is necessary
-- Focus on business value, not coding complexity
-- Use AI as a helper, not as a final authority
-- Always review the output before publishing it
-
-## Deployment and GitHub
-
-This project is built to be easy to develop and deploy.
-
-GitHub is the source of truth.
-
-The website is deployed on Vercel and is meant to stay easy for teammates to access from a simple link.
-
-When changes are pushed to the main branch, Vercel updates the live site.
-
-That means teammates can usually just open the website and see the latest version without installing anything.
-
-## Basic team workflow
-
-A simple workflow for the team is:
-
-1. open the project in VS Code
-2. update text or design
-3. preview locally with pnpm dev
-4. make sure it looks good
-5. commit the change
-6. push to main
-7. let Vercel publish the update
-
-## Helpful commands
-
-From the project folder:
-
-```bash
-pnpm install
-pnpm dev
-pnpm build
-```
-
-### What these do
-
-- pnpm install — gets everything ready
-- pnpm dev — runs the app for local editing
-- pnpm build — checks whether the app can be published successfully
-
-## If something breaks
-
-Do not panic. Usually the fix is simple.
-
-Try this order:
+From the repository root:
 
 ```bash
 cd ai-for-managers-dashboard
@@ -197,29 +136,33 @@ pnpm install
 pnpm dev
 ```
 
-If the site still fails, run:
+Then open the local URL shown by the development server, normally `http://localhost:3000`.
+
+Before considering a substantial change ready, run:
 
 ```bash
 pnpm build
 ```
 
-This usually shows the exact issue in plain language.
+## Before merging a weekly update
 
-## Final reminder
+- [ ] Approved content is being implemented
+- [ ] Weekly structure matches the template
+- [ ] Student directions are clear
+- [ ] Submission requirements match the assignment
+- [ ] Links work
+- [ ] New dashboard functionality works
+- [ ] Earlier functionality still works
+- [ ] Student view has been tested
+- [ ] No secrets or private student information were added
+- [ ] Commit message clearly describes the change
 
-This is a course design project, not a computer science project.
+## Project principles
 
-The audience is business students, not programmers.
-
-The website should feel:
-
-- clean
-- familiar
-- professional
-- easy to navigate
-- supportive of student learning
-- realistic for management and business education
-
-If you want to help, start with the content and design. That is where the real value is.
-
-Use GitHub AI tools to help write, revise, summarize, and improve your work. Just remember: the final decision should still be made by a human being.
+- Build for undergraduate business students, not developers.
+- Keep the dashboard practical, organized, and easy to navigate.
+- Treat AI as a support tool rather than a final authority.
+- Preserve human judgment and accountability.
+- Verify important AI-generated claims and outputs.
+- Keep weekly builds connected so students evolve one product instead of starting over.
+- Do not add technical complexity simply for its own sake.
