@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import './structure.css';
+import styles from './structure.module.css';
 
 const weeks = [
   ['Week 1', 'Orient & prototype', 'Define the problem, target user, dashboard purpose, and initial prototype.'],
@@ -56,8 +56,8 @@ export default function CourseStructurePage() {
   }
 
   return (
-    <main className="structurePage">
-      <header className="structureHeader">
+    <main className={styles.structurePage}>
+      <header className={styles.structureHeader}>
         <div>
           <span>BUSI 610 · FALL I 2026</span>
           <h1>AI for Managers</h1>
@@ -66,47 +66,47 @@ export default function CourseStructurePage() {
         <a href="/">← Back to dashboard</a>
       </header>
 
-      <section className="structureIntro">
+      <section className={styles.structureIntro}>
         <div>
-          <span className="eyebrow">IMPLEMENTATION READY</span>
+          <span className={styles.eyebrow}>IMPLEMENTATION READY</span>
           <h2>The course shell is ready for builder content.</h2>
           <p>This page turns the prep work into a visible workspace. Teammates should provide the instructional package for their assigned weeks; the dashboard implementation follows this common structure.</p>
         </div>
-        <div className="progressBox"><strong>{percent}%</strong><span>Prep checklist progress</span><div><i style={{ width: `${percent}%` }} /></div><small>{completedCount} of {totalItems} checklist items marked complete</small></div>
+        <div className={styles.progressBox}><strong>{percent}%</strong><span>Prep checklist progress</span><div><i style={{ width: `${percent}%` }} /></div><small>{completedCount} of {totalItems} checklist items marked complete</small></div>
       </section>
 
-      <section className="roadmapSection">
-        <div className="sectionHeading"><div><span className="eyebrow">15-WEEK ROADMAP</span><h2>Semester dashboard progression</h2></div><p>Each week adds one connected capability. Do not treat the weeks as isolated assignments.</p></div>
-        <div className="weekGrid">
+      <section className={styles.roadmapSection}>
+        <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>15-WEEK ROADMAP</span><h2>Semester dashboard progression</h2></div><p>Each week adds one connected capability. Do not treat the weeks as isolated assignments.</p></div>
+        <div className={styles.weekGrid}>
           {weeks.map(([week, title, build], index) => (
-            <button key={week} className={index === selectedWeek ? 'weekCard selected' : 'weekCard'} onClick={() => setSelectedWeek(index)}>
+            <button key={week} className={`${styles.weekCard} ${index === selectedWeek ? styles.selected : ''}`} onClick={() => setSelectedWeek(index)}>
               <span>{week}</span><strong>{title}</strong><small>{build}</small>
             </button>
           ))}
         </div>
       </section>
 
-      <section className="builderWorkspace">
-        <aside className="weekPicker">
-          <div className="sectionHeading compact"><div><span className="eyebrow">SELECT A WEEK</span><h2>Builder workspace</h2></div></div>
-          {weeks.map(([week, title], index) => <button key={week} className={index === selectedWeek ? 'pickerItem selected' : 'pickerItem'} onClick={() => setSelectedWeek(index)}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{title}</strong><small>{week}</small></div><b>{index < selectedWeek ? '✓' : '›'}</b></button>)}
+      <section className={styles.builderWorkspace}>
+        <aside className={styles.weekPicker}>
+          <div className={`${styles.sectionHeading} ${styles.compact}`}><div><span className={styles.eyebrow}>SELECT A WEEK</span><h2>Builder workspace</h2></div></div>
+          {weeks.map(([week, title], index) => <button key={week} className={`${styles.pickerItem} ${index === selectedWeek ? styles.selected : ''}`} onClick={() => setSelectedWeek(index)}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{title}</strong><small>{week}</small></div><b>{index < selectedWeek ? '✓' : '›'}</b></button>)}
         </aside>
 
-        <section className="templateArea">
-          <div className="templateHero"><span>{active[0]} · {active[1]}</span><h2>{active[1]}</h2><p>{active[2]}</p><div><span>Standard page structure</span><span>{status}</span></div></div>
-          <div className="templateGrid">
+        <section className={styles.templateArea}>
+          <div className={styles.templateHero}><span>{active[0]} · {active[1]}</span><h2>{active[1]}</h2><p>{active[2]}</p><div><span>Standard page structure</span><span>{status}</span></div></div>
+          <div className={styles.templateGrid}>
             {template.map(([number, label, description], index) => {
               const key = `${selectedWeek}-${index}`;
               const done = Boolean(completed[key]);
-              return <article className={done ? 'templateCard complete' : 'templateCard'} key={label}><div className="cardTop"><span>{number}</span><button onClick={() => toggle(key)} aria-pressed={done}>{done ? 'Prepared' : 'Mark prepared'}</button></div><h3>{label}</h3><p>{description}</p></article>;
+              return <article className={`${styles.templateCard} ${done ? styles.complete : ''}`} key={label}><div className={styles.cardTop}><span>{number}</span><button onClick={() => toggle(key)} aria-pressed={done}>{done ? 'Prepared' : 'Mark prepared'}</button></div><h3>{label}</h3><p>{description}</p></article>;
             })}
           </div>
         </section>
       </section>
 
-      <section className="handoffSection">
-        <div className="sectionHeading"><div><span className="eyebrow">BUILDER HANDOFF</span><h2>What a teammate gives Anthony</h2></div><p>The builder owns the instructional package. Technical implementation happens after review and approval.</p></div>
-        <div className="handoffGrid">
+      <section className={styles.handoffSection}>
+        <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>BUILDER HANDOFF</span><h2>What a teammate gives Anthony</h2></div><p>The builder owns the instructional package. Technical implementation happens after review and approval.</p></div>
+        <div className={styles.handoffGrid}>
           <article><b>01</b><h3>Instructional package</h3><p>Lesson, 5–8 key terms, student activity, exact dashboard build, directions, example, resources, and assessment.</p></article>
           <article><b>02</b><h3>Assessment alignment</h3><p>Submission requirements, rubric or answer key, and any quiz, test, or discussion tied to the learning objectives.</p></article>
           <article><b>03</b><h3>Coordination check</h3><p>Review the adjacent weeks so terminology, dashboard progression, workload, and expectations remain consistent.</p></article>
@@ -114,7 +114,7 @@ export default function CourseStructurePage() {
         </div>
       </section>
 
-      <section className="qualityGate"><div><span className="eyebrow">QUALITY GATE</span><h2>Before content reaches students</h2></div><ul><li>Instructions are complete enough for a student to act without guessing.</li><li>The dashboard build is clearly connected to the week’s learning.</li><li>Examples demonstrate the expected level without completing the student’s work.</li><li>Assessment criteria match the stated objectives and submission requirements.</li><li>Privacy, responsible AI use, verification, and human accountability are addressed where relevant.</li><li>The implemented page is tested from a student perspective before merge.</li></ul></section>
+      <section className={styles.qualityGate}><div><span className={styles.eyebrow}>QUALITY GATE</span><h2>Before content reaches students</h2></div><ul><li>Instructions are complete enough for a student to act without guessing.</li><li>The dashboard build is clearly connected to the week’s learning.</li><li>Examples demonstrate the expected level without completing the student’s work.</li><li>Assessment criteria match the stated objectives and submission requirements.</li><li>Privacy, responsible AI use, verification, and human accountability are addressed where relevant.</li><li>The implemented page is tested from a student perspective before merge.</li></ul></section>
 
       <footer>AI for Managers · Build carefully. Verify evidence. Keep humans accountable.</footer>
     </main>
