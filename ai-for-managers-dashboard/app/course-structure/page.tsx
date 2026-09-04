@@ -4,21 +4,21 @@ import { useMemo, useState } from 'react';
 import styles from './structure.module.css';
 
 const weeks = [
-  ['Week 1', 'Orient & prototype', 'Define the problem, target user, dashboard purpose, and initial prototype.'],
-  ['Week 2', 'Deploy & use', 'Deploy a usable dashboard and establish the core student workflow.'],
-  ['Week 3', 'Research & know', 'Add research, source-quality, citation, and knowledge-management capabilities.'],
-  ['Week 4', 'Analyze & decide', 'Add data analysis and decision-support with human decision rights.'],
-  ['Week 5', 'Automate & coordinate', 'Add a bounded automation or workflow with owners and recovery steps.'],
-  ['Week 6', 'Test & govern', 'Add testing, failure logging, privacy, security, bias, and governance controls.'],
-  ['Week 7', 'Communicate & persuade', 'Add an executive briefing and responsible AI-assisted communication workflow.'],
-  ['Week 8', 'Understand customers', 'Add customer-insight and journey-mapping capabilities using responsible inputs.'],
-  ['Week 9', 'Support people & teams', 'Add a people-support workflow with fairness and human-review boundaries.'],
-  ['Week 10', 'Forecast & plan', 'Add scenario planning with assumptions, uncertainty, and contingency triggers.'],
-  ['Week 11', 'Explore strategy', 'Add a strategy canvas for options, tradeoffs, assumptions, and second-order effects.'],
-  ['Week 12', 'Innovate & experiment', 'Prototype a bounded AI-enabled improvement and define experiment criteria.'],
-  ['Week 13', 'Measure value', 'Add a value scorecard connecting features to outcomes, costs, and risks.'],
-  ['Week 14', 'Lead adoption', 'Add stakeholder, training, communication, rollout, and feedback planning.'],
-  ['Week 15', 'Integrate & defend', 'Integrate the control center, complete acceptance testing, and prepare the final defense.'],
+  ['Week 1', 'What AI Is', 'Create the first AI Management Dashboard: name, purpose, target user, management problem, homepage, navigation, and placeholders for future sections.'],
+  ['Week 2', 'AI Tools for Managers', 'Add an AI Tools page comparing at least three tools by purpose, use, strengths, limitations, risks, and management use cases.'],
+  ['Week 3', 'Prompt Engineering', 'Add a Prompt Library with management prompts and selected before/after prompt and response examples.'],
+  ['Week 4', 'AI for Productivity', 'Add an AI Productivity section comparing a normal management task with an AI-assisted process, including time, quality, risk, and human review.'],
+  ['Week 5', 'AI-Assisted Managerial Decisions', 'Add a Manager Decision Assistant that records the problem, AI analysis, recommendation, alternatives, missing information, risks, and final human decision.'],
+  ['Week 6', 'AI Ethics', 'Add an AI Ethics Checker / Risk Assessment covering sensitive information, bias, harm, human review, explainability, verification, accountability, and risk level.'],
+  ['Week 7', 'Responsible AI and Governance', 'Add a Responsible AI Policy covering approved uses, prohibited uses, confidentiality, verification, human review, disclosure, and accountability.'],
+  ['Week 8', 'AI and Management', 'Add a Manager AI Assistant that supports management problems while clearly separating AI recommendations from the manager’s final decision.'],
+  ['Week 9', 'Accuracy, Hallucinations, and Verification', 'Add an AI Verification section and verify at least three AI-generated claims, sources, accuracy, reliability, and corrections.'],
+  ['Week 10', 'AI and Plagiarism', 'Add an AI Use / Disclosure Log recording major AI use, prompts, AI contribution, student changes, verification, and disclosure.'],
+  ['Week 11', 'Christian Perspective on AI', 'Add a Values-Based AI Decision Framework addressing truthfulness, human dignity, fairness, responsibility, stewardship, harm, and accountability.'],
+  ['Week 12', 'AI and the Workforce', 'Add a Workforce Impact section covering a profession’s current tasks, automation opportunities, human-retained work, skills, training, risks, and management recommendations.'],
+  ['Week 13', 'Implementing AI in an Organization', 'Add an AI Implementation Plan connecting the business problem, solution, benefits, risks, oversight, training, timeline, KPIs, and applicable policy.'],
+  ['Week 14', 'Future of AI and Dashboard Testing', 'Stop adding major features. Test the full dashboard, test another student’s dashboard, document feedback, and revise.'],
+  ['Week 15', 'Final AI Management Dashboard', 'Complete and present the integrated AI Management Dashboard, explain its development and safeguards, and complete the final reflection.'],
 ];
 
 const template = [
@@ -70,13 +70,13 @@ export default function CourseStructurePage() {
         <div>
           <span className={styles.eyebrow}>IMPLEMENTATION READY</span>
           <h2>The course shell is ready for builder content.</h2>
-          <p>This page turns the prep work into a visible workspace. Teammates should provide the instructional package for their assigned weeks; the dashboard implementation follows this common structure.</p>
+          <p>This workspace turns the team plan into a visible implementation structure. Each weekly package should be reviewed before it is added to the student-facing dashboard.</p>
         </div>
         <div className={styles.progressBox}><strong>{percent}%</strong><span>Prep checklist progress</span><div><i style={{ width: `${percent}%` }} /></div><small>{completedCount} of {totalItems} checklist items marked complete</small></div>
       </section>
 
       <section className={styles.roadmapSection}>
-        <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>15-WEEK ROADMAP</span><h2>Semester dashboard progression</h2></div><p>Each week adds one connected capability. Do not treat the weeks as isolated assignments.</p></div>
+        <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>15-WEEK ROADMAP</span><h2>Student dashboard progression</h2></div><p>Each week extends the same student-built AI Management Dashboard rather than starting a separate project.</p></div>
         <div className={styles.weekGrid}>
           {weeks.map(([week, title, build], index) => (
             <button key={week} className={`${styles.weekCard} ${index === selectedWeek ? styles.selected : ''}`} onClick={() => setSelectedWeek(index)}>
@@ -105,12 +105,12 @@ export default function CourseStructurePage() {
       </section>
 
       <section className={styles.handoffSection}>
-        <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>BUILDER HANDOFF</span><h2>What a teammate gives Anthony</h2></div><p>The builder owns the instructional package. Technical implementation happens after review and approval.</p></div>
+        <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>BUILDER HANDOFF</span><h2>Weekly package requirements</h2></div><p>Builders provide the instructional package. Implementation follows review and approval.</p></div>
         <div className={styles.handoffGrid}>
           <article><b>01</b><h3>Instructional package</h3><p>Lesson, 5–8 key terms, student activity, exact dashboard build, directions, example, resources, and assessment.</p></article>
           <article><b>02</b><h3>Assessment alignment</h3><p>Submission requirements, rubric or answer key, and any quiz, test, or discussion tied to the learning objectives.</p></article>
-          <article><b>03</b><h3>Coordination check</h3><p>Review the adjacent weeks so terminology, dashboard progression, workload, and expectations remain consistent.</p></article>
-          <article><b>04</b><h3>Implementation handoff</h3><p>Second-builder review → Daniel review → dashboard implementation → student-view testing → merge to main.</p></article>
+          <article><b>03</b><h3>Coordination check</h3><p>Review adjacent weeks so terminology, dashboard progression, workload, and expectations remain consistent.</p></article>
+          <article><b>04</b><h3>Implementation handoff</h3><p>Builder review → project lead review → dashboard implementation → student-view testing → merge to main.</p></article>
         </div>
       </section>
 
