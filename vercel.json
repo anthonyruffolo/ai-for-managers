@@ -1,6 +1,1 @@
-{
-  "version": 2,
-  "framework": "nextjs",
-  "installCommand": "cd ai-for-managers-dashboard && corepack pnpm install --frozen-lockfile",
-  "buildCommand": "cd ai-for-managers-dashboard && corepack pnpm build"
-}
+{"version":2,"framework":"nextjs"}
