@@ -1,5 +1,7 @@
 # AI for Managers
 
+**🚀 Live Dashboard:** [Open the AI for Managers Dashboard](https://ai-for-managers-dashboard.vercel.app/)
+
 This repository contains the course dashboard and the implementation scaffolding for the **AI for Managers** undergraduate course.
 
 The dashboard is being built as a practical, student-friendly management environment. Students learn AI concepts and responsible management judgment while progressively developing their own AI Management Dashboard.
