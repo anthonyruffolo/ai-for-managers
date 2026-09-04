@@ -16,11 +16,11 @@ type Task = {
 };
 
 const initialTasks: Task[] = [
-  { id: 1, title: 'Define the dashboard problem', category: 'Course build', due: '2026-08-26', priority: 'High', complete: false, verified: true },
-  { id: 2, title: 'Read: AI capabilities and limits', category: 'Learning', due: '2026-08-27', priority: 'Medium', complete: false, verified: false },
-  { id: 3, title: 'Test one AI claim with a source', category: 'Verification', due: '2026-08-28', priority: 'High', complete: false, verified: false },
-  { id: 4, title: 'Draft team roles and contribution log', category: 'Team management', due: '2026-08-29', priority: 'Medium', complete: false, verified: true },
-  { id: 5, title: 'Sketch the Week 1 prototype', category: 'Course build', due: '2026-08-30', priority: 'Low', complete: true, verified: true },
+  { id: 1, title: 'Complete the AI foundations lesson', category: 'Learning', due: '2026-08-26', priority: 'High', complete: false, verified: false },
+  { id: 2, title: 'Choose a dashboard problem and target user', category: 'Course build', due: '2026-08-27', priority: 'High', complete: false, verified: false },
+  { id: 3, title: 'Create the dashboard homepage and navigation', category: 'Course build', due: '2026-08-28', priority: 'High', complete: false, verified: false },
+  { id: 4, title: 'Run the Week 1 knowledge check', category: 'Learning', due: '2026-08-29', priority: 'Medium', complete: false, verified: false },
+  { id: 5, title: 'Submit the dashboard starter version', category: 'Course build', due: '2026-08-30', priority: 'High', complete: false, verified: false },
 ];
 
 const weeklyPlan = [
@@ -341,6 +341,30 @@ export default function Home() {
                   const isComplete = Boolean(moduleSteps[`${selectedWeek}-${label}`]);
                   return <article className={isComplete ? 'stepComplete' : ''} key={label}><span>{isComplete ? '✓' : number}</span><div><strong>{label}</strong><p>{copy}</p></div><button type="button" aria-pressed={isComplete} onClick={() => toggleModuleStep(label)}>{isComplete ? 'Completed' : 'Mark complete'}</button></article>;
                 })}</section>
+                {selectedWeek === 1 && <div className="weekOneContent">
+                  <section className="lmsPanel lessonPanel">
+                    <div className="panelBar"><h3>Lesson: What AI Is</h3><span>Read · 20 min</span></div>
+                    <div className="lessonIntro"><p>Artificial intelligence is a broad field of systems that perform tasks associated with human intelligence, such as recognizing patterns, making predictions, or generating language. In this course, treat AI as a capable assistant inside a management process, not as an independent decision-maker.</p><p><strong>The manager’s job:</strong> frame the problem, choose an appropriate tool, inspect the output, verify important claims, and remain accountable for the decision.</p></div>
+                    <div className="conceptGrid">
+                      <article><span>01 · FIELD</span><h4>Artificial intelligence</h4><p>The broad category of computer systems that sense, predict, recommend, generate, or act to accomplish a task.</p></article>
+                      <article><span>02 · METHOD</span><h4>Machine learning</h4><p>A way to build systems that learn patterns from examples instead of following only hand-written rules.</p></article>
+                      <article><span>03 · OUTPUT</span><h4>Generative AI</h4><p>AI that creates new text, images, audio, code, or other content in response to an instruction.</p></article>
+                      <article><span>04 · MODEL</span><h4>Large language model</h4><p>A model trained on very large text datasets to predict and generate language. It produces likely sequences, not guaranteed truth.</p></article>
+                    </div>
+                    <div className="lessonColumns"><div><h4>How to think about a model</h4><p>A <strong>model</strong> is the trained pattern-making engine. An <strong>AI tool</strong> or application wraps a model with an interface, instructions, connected data, and permissions. The same model can behave differently in different tools because context and controls change.</p><p><strong>Training data</strong> is the collection of examples used to adjust a model’s patterns. It may be incomplete, outdated, biased, or not a source that the model can cite. Ask where an important answer came from.</p></div><div><h4>Strengths and limits</h4><ul><li><strong>Strengths:</strong> summarize, brainstorm, classify, translate, draft, compare, and find patterns quickly.</li><li><strong>Limits:</strong> weak source awareness, uncertain reasoning, outdated knowledge, bias, and difficulty knowing when it is wrong.</li><li><strong>Hallucination:</strong> a confident-sounding output that is false, unsupported, or invented. Fluency is not evidence.</li></ul></div></div>
+                    <div className="lessonCallout"><strong>Manager’s rule</strong><span>Use AI for speed and breadth. Use people, evidence, and explicit checks for truth, judgment, and accountability.</span></div>
+                  </section>
+
+                  <section className="lmsPanel objectivesPanel"><div className="panelBar"><h3>Learning Objectives</h3><span>By Friday</span></div><ol><li>Explain the relationship between AI, machine learning, generative AI, models, and LLMs.</li><li>Describe how training data shapes what a model can and cannot do.</li><li>Identify at least two useful AI strengths and two important limits, including hallucinations.</li><li>Choose a bounded management problem where an AI-enabled dashboard could help, while naming the human responsibility that remains.</li></ol></section>
+
+                  <section className="lmsPanel knowledgePanel"><div className="panelBar"><h3>Quick Knowledge Check</h3><span>Answer before building</span></div><div className="knowledgeQuestion"><strong>Which statement is most accurate?</strong><p>A. An LLM retrieves facts from a perfect database.</p><p>B. A hallucination is an answer that sounds plausible but is unsupported or false.</p><p>C. Generative AI and machine learning are unrelated.</p><p>D. If an AI tool is confident, a manager can skip verification.</p><div className="answerKey"><strong>Answer: B.</strong> An LLM generates likely language from learned patterns. Confidence and correctness are different, so important outputs need verification.</div></div></section>
+
+                  <section className="lmsPanel projectPanel"><div className="panelBar"><h3>Semester Project: Your AI Management Dashboard</h3><span>Build from here</span></div><div className="projectIntro"><div><p>You will progressively build a small control center that helps a real target user manage an AI-enabled workflow. Each week adds one capability, one test, and one management decision.</p><dl><div><dt>Week 1</dt><dd>Define the problem and prototype the structure.</dd></div><div><dt>Final week</dt><dd>Integrate, test, govern, and defend the system.</dd></div></dl></div><div className="dashboardExample"><span>EXAMPLE · COMPLETED DASHBOARD</span><h4>LaunchPad AI</h4><p>Helps student venture teams move from idea to evidence-backed launch decisions.</p><div className="exampleNav"><b>Home</b><span>AI Tools</span><span>Prompt Library</span><span>Decision Support</span></div><div className="exampleTiles"><span>Evidence queue <b>12</b></span><span>Open decisions <b>4</b></span><span>Next review <b>Fri</b></span></div></div></div></section>
+
+                  <section className="lmsPanel starterPanel"><div className="panelBar"><h3>Starter Guide: Set Up Your Dashboard</h3><span>60–90 min</span></div><div className="starterSteps"><article><b>1</b><div><strong>Open or create your repository</strong><p>Use the class template or create a new GitHub repository. A repository is the project’s shared home for files, history, and collaboration.</p></div></article><article><b>2</b><div><strong>Work from the main branch</strong><p>The main branch is the current shared version. Read the README before editing, and make small, clearly named changes.</p></div></article><article><b>3</b><div><strong>Write your project brief</strong><p>Add the dashboard name, purpose, target user, management problem, and a one-sentence definition of success to the README.</p></div></article><article><b>4</b><div><strong>Create the first navigation</strong><p>Build a basic homepage with links or visible placeholders for AI Tools, Prompt Library, Decision Support, Ethics, AI Policy, Verification, Workforce, and Implementation.</p></div></article><article><b>5</b><div><strong>Preview, test, and share</strong><p>Open the homepage as a user, check every navigation item, confirm no private data is present, and submit the repository link with a screenshot.</p></div></article></div><div className="starterNote"><strong>GitHub vocabulary</strong><span><b>Repository</b> = project home · <b>Branch</b> = version line · <b>File</b> = one piece of project content · <b>README</b> = orientation and setup notes</span></div></section>
+
+                  <section className="lmsPanel submissionPanel"><div className="panelBar"><h3>Week 1 Submission</h3><span>Due Saturday · 11:59 PM</span></div><div className="submissionGrid"><div><h4>Checklist</h4><ul><li>Dashboard name, purpose, target user, and management problem are clear.</li><li>Homepage and navigation are usable.</li><li>All eight future sections appear as labeled placeholders.</li><li>README explains the project and includes the repository link.</li><li>Knowledge check is complete and the AI use is disclosed.</li><li>Screenshot shows the first version running.</li></ul></div><div><h4>Rubric · 20 points</h4><div className="rubricRows"><p><b>5</b><span>AI foundations: accurate key terms and limits.</span></p><p><b>5</b><span>Problem framing: specific user, need, and success.</span></p><p><b>5</b><span>Dashboard structure: clear homepage and complete navigation.</span></p><p><b>3</b><span>GitHub practice: readable README and repository hygiene.</span></p><p><b>2</b><span>Management judgment: accountability and verification boundary.</span></p></div></div></div></section>
+                </div>}
               </section>
             </div>
           )}
@@ -435,7 +459,7 @@ export default function Home() {
                         </div>
                       ))}
                     </div>
-                    <p><strong>Team fairness promise:</strong> You are not graded only on the team's final polish or by one forced ranking. Weekly contribution records, demonstrations, and individual judgment checks show patterns over time. Your individual work and judgment are recognized throughout the semester.</p>
+                    <p><strong>Team fairness promise:</strong> You are not graded only on the team&apos;s final polish or by one forced ranking. Weekly contribution records, demonstrations, and individual judgment checks show patterns over time. Your individual work and judgment are recognized throughout the semester.</p>
                   </article>
 
                   <article>
@@ -461,7 +485,7 @@ export default function Home() {
                     </ul>
 
                     <h4>Academic Integrity</h4>
-                    <p>Academic dishonesty violates the university's code of conduct and this course's standards. Specifically:</p>
+                    <p>Academic dishonesty violates the university&apos;s code of conduct and this course&apos;s standards. Specifically:</p>
                     <ul>
                       <li>Do not submit work created entirely by AI without your own judgment, revision, and verification</li>
                       <li>Do not plagiarize from classmates, sources, or AI outputs</li>
@@ -527,7 +551,7 @@ export default function Home() {
                     </ul>
 
                     <h4>Accessibility</h4>
-                    <p>If you need accommodations for a disability or documented access need, contact the university's disability services office. I am committed to ensuring this course is accessible to all students. Please reach out early in the semester to discuss your needs.</p>
+                    <p>If you need accommodations for a disability or documented access need, contact the university&apos;s disability services office. I am committed to ensuring this course is accessible to all students. Please reach out early in the semester to discuss your needs.</p>
 
                     <h4>Diversity and Inclusion</h4>
                     <p>This course welcomes students of all backgrounds and experiences. Diverse perspectives strengthen our work. If you experience any barriers to participation or inclusion, please contact me or university support services.</p>
