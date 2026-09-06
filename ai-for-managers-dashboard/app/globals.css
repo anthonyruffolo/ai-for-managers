@@ -182,6 +182,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .learningSequence article.stepComplete > button { border-color: #a7cdb9; background: #e5f3eb; color: var(--green); }
 
 .weekOneContent { display: grid; gap: 18px; }
+.weekTenContent { display: grid; gap: 18px; }
+.folderContent { display: grid; gap: 15px; padding: 19px 20px 21px; }
+.folderContent > p { margin: 0; color: #536069; font-size: 11px; line-height: 1.6; }
+.folderContent h4 { margin: 0; color: var(--blue-dark); font-size: 13px; }
+.folderContent ul { margin: 0; padding-left: 20px; color: #536069; font-size: 11px; line-height: 1.65; }
+.folderContent li { margin-bottom: 6px; }
 .lessonPanel { overflow: hidden; }
 .lessonIntro { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; padding: 20px 22px; background: #f5fbfd; }
 .lessonIntro p, .lessonColumns p { margin: 0; color: #536069; font-size: 11px; line-height: 1.65; }
