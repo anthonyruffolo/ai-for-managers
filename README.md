@@ -26,6 +26,8 @@ The source course-development document is stored in `docs/`:
 
 Use branches for work in progress. Keep `main` stable.
 
+Before opening a pull request, run `pnpm build` from `ai-for-managers-dashboard`, test the changed flow as a student, and commit only focused changes. Push the branch, request review for requirements, accessibility, privacy, and the student flow, resolve comments, rerun the build, and merge only after approval. Do not commit generated files such as `tsconfig.tsbuildinfo` or any passwords, API keys, student records, or confidential data.
+
 ## Builder handoff
 
 Each weekly package should include:
