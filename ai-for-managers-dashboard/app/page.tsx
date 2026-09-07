@@ -15,12 +15,88 @@ type Task = {
   verified: boolean;
 };
 
+type EthicsAssessment = {
+  useCase: string;
+  personalData: string;
+  disadvantage: string;
+  harm: string;
+  humanReview: string;
+  explainability: string;
+  challenge: string;
+  dataFit: string;
+  accountable: string;
+  risk: string;
+  recommendation: string;
+  rationale: string;
+  complete: boolean;
+};
+
+type PolicyDraft = {
+  organization: string;
+  purpose: string;
+  approved: string;
+  prohibited: string;
+  confidentiality: string;
+  humanReview: string;
+  verification: string;
+  disclosure: string;
+  accountability: string;
+  incidents: string;
+  reviewSchedule: string;
+  complete: boolean;
+};
+
+const initialEthicsAssessment: EthicsAssessment = {
+  useCase: '', personalData: '', disadvantage: '', harm: '', humanReview: '', explainability: '', challenge: '', dataFit: '', accountable: '', risk: '', recommendation: '', rationale: '', complete: false,
+};
+
+const initialPolicyDraft: PolicyDraft = {
+  organization: '', purpose: '', approved: '', prohibited: '', confidentiality: '', humanReview: '', verification: '', disclosure: '', accountability: '', incidents: '', reviewSchedule: '', complete: false,
+};
+
+const ethicsTerms = [
+  ['AI Ethics', 'The practice of deciding whether AI use is fair, appropriate, transparent, and accountable.'],
+  ['Algorithmic Bias', 'Systematic unfair outcomes caused by data, design, assumptions, or implementation.'],
+  ['Fairness', 'Treating people equitably and checking whether outcomes disadvantage a group.'],
+  ['Privacy', 'Protecting people’s information and using only data the organization is authorized to use.'],
+  ['Transparency', 'Making it understandable when and, where appropriate, how AI is being used.'],
+  ['Explainability', 'Providing understandable reasons for an AI output when appropriate.'],
+  ['Accountability', 'Keeping people and organizations responsible for decisions made with AI.'],
+  ['Human Oversight', 'Meaningful human review, judgment, and authority to correct or stop an AI process.'],
+];
+
+const governanceTerms = [
+  ['Responsible AI', 'Using AI in ways that respect people, reduce harm, and preserve human accountability.'],
+  ['AI Governance', 'Policies, processes, responsibilities, and controls for managing AI use.'],
+  ['AI Policy', 'An organization’s written rules for approved, prohibited, and controlled AI uses.'],
+  ['Human Oversight', 'Qualified people review consequential AI outputs and can intervene.'],
+  ['Data Governance', 'Rules for data quality, access, protection, retention, and appropriate use.'],
+  ['Risk Management', 'A continuous process of identifying, evaluating, and responding to possible harm.'],
+  ['Accountability', 'A named person or group owns decisions, controls, and follow-up.'],
+  ['Audit Trail', 'A record of inputs, outputs, reviews, changes, and decisions that supports learning.'],
+];
+
+const assessmentQuestions = [
+  ['Which statement best describes algorithmic bias?', 'B. AI systems can produce systematic unfair outcomes based on data, design, or use.'],
+  ['Why is human oversight important in high-stakes AI applications?', 'B. Humans remain accountable for consequential decisions.'],
+  ['Which situation represents the greatest ethical risk?', 'C. AI automatically rejects job applicants.'],
+  ['What should a manager do when an AI system’s potential harm is unknown?', 'C. Investigate the risk and establish appropriate safeguards.'],
+  ['What is AI governance?', 'B. A system of policies, processes, responsibilities, and controls for managing AI.'],
+  ['Which policy requirement is most appropriate for high-stakes AI decisions?', 'B. Human review and accountability.'],
+  ['Why avoid entering confidential information into unauthorized AI systems?', 'B. It may expose sensitive organizational or personal information.'],
+  ['What is the primary purpose of a Git branch?', 'B. Create a separate development path for changes.'],
+];
+
 const initialTasks: Task[] = [
   { id: 1, title: 'Complete the AI foundations lesson', category: 'Learning', due: '2026-08-26', priority: 'High', complete: false, verified: false },
   { id: 2, title: 'Choose a dashboard problem and target user', category: 'Course build', due: '2026-08-27', priority: 'High', complete: false, verified: false },
   { id: 3, title: 'Create the dashboard homepage and navigation', category: 'Course build', due: '2026-08-28', priority: 'High', complete: false, verified: false },
   { id: 4, title: 'Run the Week 1 knowledge check', category: 'Learning', due: '2026-08-29', priority: 'Medium', complete: false, verified: false },
   { id: 5, title: 'Submit the dashboard starter version', category: 'Course build', due: '2026-08-30', priority: 'High', complete: false, verified: false },
+  { id: 6, title: 'Week 6 AI Ethics Checker', category: 'Course build', due: '2026-10-04', priority: 'High', complete: false, verified: false },
+  { id: 7, title: 'Discussion 3: When Does Using AI Become Unethical?', category: 'Discussion', due: '2026-10-04', priority: 'High', complete: false, verified: false },
+  { id: 8, title: 'Week 7 Responsible AI Policy', category: 'Course build', due: '2026-10-11', priority: 'High', complete: false, verified: false },
+  { id: 9, title: 'Test 1: Weeks 1–7', category: 'Assessment', due: '2026-10-11', priority: 'Medium', complete: false, verified: false },
 ];
 
 const weeklyPlan = [
@@ -29,8 +105,8 @@ const weeklyPlan = [
   { week: 3, dates: 'Sep 7–13', title: 'Research & know', learn: 'AI-assisted research, source quality, citation verification, and knowledge management.', build: 'Add a resource library and a research-briefing workflow.', test: 'Check fabricated citations, source relevance, and unsupported claims.', manage: 'Set evidence standards and decide who approves sources.', present: 'Defend a short, verified research brief and the workflow behind it.', output: 'Research system + verified brief', studentQuestion: 'How do I know the AI did not make this up?', studentWin: 'Produce a useful research brief and trace every important claim to evidence.', career: 'Research a market, competitor, policy, or customer responsibly.', workload: '7–9 hours' },
   { week: 4, dates: 'Sep 14–20', title: 'Analyze & decide', learn: 'Managerial data analysis, framing, bias, uncertainty, and decision support.', build: 'Add a small data-analysis or decision-support tool.', test: 'Recalculate numbers and test blanks, outliers, and misleading framing.', manage: 'Define decision rights: what AI recommends and what humans decide.', present: 'Show the analysis, recommendation, limitations, and rejected alternatives.', output: 'Decision tool + management recommendation', studentQuestion: 'What if I am not a “numbers person”?', studentWin: 'Use AI to explore data while independently checking the math and recommendation.', career: 'Turn analysis into an accountable management decision.', workload: '7–9 hours' },
   { week: 5, dates: 'Sep 21–27', title: 'Automate & coordinate', learn: 'Workflows, bots, agents, tool use, and human checkpoints.', build: 'Add one useful automation, bot, or multi-step workflow.', test: 'Probe permissions, loops, bad inputs, failed handoffs, and recovery.', manage: 'Assign owners and escalation rules for every automated step.', present: 'Demonstrate time saved, failure handling, and residual risk.', output: 'Working workflow + process map', studentQuestion: 'Can AI save time without taking control away from me?', studentWin: 'Automate a repeatable process with clear owners, checkpoints, and recovery steps.', career: 'Improve a process without hiding risk or accountability.', workload: '8–10 hours' },
-  { week: 6, dates: 'Sep 28–Oct 4', title: 'Test & govern', learn: 'Privacy, security, bias, failure modes, evaluation, and organizational risk.', build: 'Add a failure log, quality checks, and governance controls.', test: 'Run adversarial cases and regression-test everything already built.', manage: 'Conduct managerial peer review and revise from feedback.', present: 'Make an evidence-based approve, revise, or reject decision.', output: 'Test report + feedback-driven revision', studentQuestion: 'What could go wrong—and will I notice?', studentWin: 'Find failures, respond to peer feedback, and decide whether a product is safe enough to use.', career: 'Review AI-enabled work before organizational approval.', workload: '7–9 hours' },
-  { week: 7, dates: 'Oct 5–11', title: 'Communicate & persuade', learn: 'Audience analysis, responsible AI-assisted writing, tone, visuals, and disclosure.', build: 'Add an executive briefing and presentation workflow to the dashboard.', test: 'Check accuracy, audience fit, accessibility, and whether evidence supports the story.', manage: 'Assign review ownership and approval rules for external communication.', present: 'Deliver a concise management briefing with clear AI-use disclosure.', output: 'Executive brief + presentation workflow', studentQuestion: 'How do I use AI without sounding generic or losing my voice?', studentWin: 'Create a persuasive briefing while keeping the evidence, judgment, and final voice my own.', career: 'Communicate recommendations to leaders, clients, and stakeholders.', workload: '6–8 hours' },
+  { week: 6, dates: 'Sep 28–Oct 4', title: 'AI Ethics: When Does Using AI Become Unethical?', learn: 'AI ethics, bias, fairness, privacy, transparency, explainability, accountability, and human oversight.', build: 'Add an AI Ethics Checker and evaluate the BrightPath hiring case.', test: 'Test risk answers, recommendations, safeguards, and correction paths.', manage: 'Make a defensible management recommendation while keeping humans accountable.', present: 'Defend the risk rating, recommendation, and written rationale.', output: 'AI Ethics Checker + BrightPath assessment', studentQuestion: 'Should we use AI for this?', studentWin: 'Identify ethical risks and make a defensible management recommendation.', career: 'Review AI-enabled work before organizational approval.', workload: '7–9 hours' },
+  { week: 7, dates: 'Oct 5–11', title: 'Responsible AI & Governance', learn: 'Responsible AI, organizational governance, confidentiality, verification, accountability, and incident reporting.', build: 'Add a Responsible AI Policy Builder to the dashboard.', test: 'Review policy clarity, coverage, human checkpoints, and incident paths.', manage: 'Assign policy responsibilities and apply NIST Govern, Map, Measure, Manage.', present: 'Defend an organizational AI policy and branch documentation.', output: 'Responsible AI Policy + branch activity', studentQuestion: 'If we use AI, how should we govern it?', studentWin: 'Create organizational safeguards for responsible AI use.', career: 'Create practical controls for AI-enabled work.', workload: '6–8 hours' },
   { week: 8, dates: 'Oct 12–18', title: 'Understand customers', learn: 'Customer research, journey mapping, segmentation, privacy, and synthetic-data limits.', build: 'Add a customer-insight board using de-identified or synthetic inputs.', test: 'Look for invented needs, weak segments, missing voices, and privacy risks.', manage: 'Define which customer conclusions require human research before action.', present: 'Share one evidence-based customer insight and one unresolved question.', output: 'Customer insight board + journey map', studentQuestion: 'Can AI help me understand customers without making them up?', studentWin: 'Use AI to organize customer evidence without treating synthetic patterns as facts.', career: 'Support marketing, service design, and customer-experience decisions.', workload: '7–9 hours' },
   { week: 9, dates: 'Oct 19–25', title: 'Support people & teams', learn: 'AI in hiring, coaching, performance, collaboration, and employee decision-making.', build: 'Add a team-support workflow with explicit human review and fairness checks.', test: 'Probe bias, inappropriate inference, privacy, and high-stakes decision boundaries.', manage: 'Separate administrative assistance from decisions about people.', present: 'Defend where AI may assist and where it must not decide.', output: 'People-management workflow + boundary memo', studentQuestion: 'Where is AI useful—and dangerous—in managing people?', studentWin: 'Design a people workflow that improves support without automating human judgment.', career: 'Manage teams and HR-related processes more responsibly.', workload: '7–9 hours' },
   { week: 10, dates: 'Oct 26–Nov 1', title: 'AI and Plagiarism', learn: 'Academic integrity, acceptable AI assistance, attribution, disclosure, and the difference between support and substitution.', build: 'Add an AI Use / Disclosure Log recording major AI use, prompts, AI contribution, student changes, verification, and disclosure.', test: 'Review the log for accurate attribution, unsupported claims, copied language, and missing verification.', manage: 'Set clear boundaries for AI use and keep the student accountable for the submitted work.', present: 'Explain how AI assisted the work, what you changed, and how you verified the final result.', output: 'AI Use / Disclosure Log + integrity reflection', studentQuestion: 'How can I use AI helpfully without submitting work that is not my own?', studentWin: 'Use AI transparently, verify the result, and show where my own judgment shaped the final work.', career: 'Build trustworthy documentation and attribution habits for AI-assisted work.', workload: '6–8 hours' },
@@ -121,6 +197,9 @@ export default function Home() {
   const [faqOpen, setFaqOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [hydrated, setHydrated] = useState(false);
+  const [ethicsAssessment, setEthicsAssessment] = useState<EthicsAssessment>(initialEthicsAssessment);
+  const [policyDraft, setPolicyDraft] = useState<PolicyDraft>(initialPolicyDraft);
+  const [saveNotice, setSaveNotice] = useState('');
 
   useEffect(() => {
     const animationFrame = window.requestAnimationFrame(() => {
@@ -128,6 +207,8 @@ export default function Home() {
       const savedChecks = window.localStorage.getItem('aim-dashboard-checks-v1');
       const savedSteps = window.localStorage.getItem('aim-module-steps-v1');
       const savedDiscussion = window.localStorage.getItem('aim-discussion-draft-v1');
+      const savedEthics = window.localStorage.getItem('aiManagers_week6_ethicsChecker');
+      const savedPolicy = window.localStorage.getItem('aiManagers_week7_responsiblePolicy');
       if (savedTasks) {
         try { setTasks(JSON.parse(savedTasks)); } catch { /* use course defaults */ }
       }
@@ -138,6 +219,8 @@ export default function Home() {
         try { setModuleSteps(JSON.parse(savedSteps)); } catch { /* keep module steps open */ }
       }
       if (savedDiscussion) setDiscussionDraft(savedDiscussion);
+      if (savedEthics) { try { setEthicsAssessment({ ...initialEthicsAssessment, ...JSON.parse(savedEthics) }); } catch { /* use blank assessment */ } }
+      if (savedPolicy) { try { setPolicyDraft({ ...initialPolicyDraft, ...JSON.parse(savedPolicy) }); } catch { /* use blank policy */ } }
       setHydrated(true);
     });
 
@@ -150,6 +233,12 @@ export default function Home() {
     window.localStorage.setItem('aim-dashboard-checks-v1', JSON.stringify(checks));
     window.localStorage.setItem('aim-module-steps-v1', JSON.stringify(moduleSteps));
   }, [tasks, checks, moduleSteps, hydrated]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    window.localStorage.setItem('aiManagers_week6_ethicsChecker', JSON.stringify(ethicsAssessment));
+    window.localStorage.setItem('aiManagers_week7_responsiblePolicy', JSON.stringify(policyDraft));
+  }, [ethicsAssessment, policyDraft, hydrated]);
 
   useEffect(() => {
     if (!faqOpen) return;
@@ -179,6 +268,38 @@ export default function Home() {
   const completedModuleSteps = ['Learn', 'Create', 'Test', 'Manage', 'Present'].filter((label) => moduleSteps[`${selectedWeek}-${label}`]).length;
   const aiBrief = `Goal: ${goal || '[state the outcome]'}\n\nContext: ${context || '[add audience, situation, inputs, and background]'}\n\nConstraints: ${constraints || '[add limits, privacy rules, time, and format]'}\n\nSuccess looks like: ${success || '[define an observable standard]'}\n\nAsk focused questions before proposing a solution. Help me work in small steps, test the result, identify risks, and improve it. Distinguish facts, assumptions, and recommendations. I remain responsible for the final decision.`;
 
+  const selectOptions: Record<string, string[]> = {
+    personalData: ['No', 'Possibly', 'Yes'], disadvantage: ['Low possibility', 'Moderate possibility', 'High possibility', 'Unknown'], harm: ['Low', 'Moderate', 'High'], humanReview: ['Yes', 'No', 'Not currently'], explainability: ['Yes', 'Partially', 'No', 'Unknown'], challenge: ['Yes', 'No', 'Unknown'], dataFit: ['Yes', 'No', 'Uncertain'], accountable: ['Yes', 'No'], risk: ['LOW', 'MODERATE', 'HIGH'], recommendation: ['Approve', 'Approve with safeguards', 'Escalate for human review', 'Reject'],
+  };
+
+  const ethicsField = (field: Exclude<keyof EthicsAssessment, 'complete'>, label: string) => field === 'useCase' || field === 'rationale' ? <label key={field}>{label}{field === 'useCase' ? <input value={ethicsAssessment[field]} onChange={(event) => updateEthics(field, event.target.value)} placeholder="Describe the business use case" /> : <textarea value={ethicsAssessment[field]} onChange={(event) => updateEthics(field, event.target.value)} placeholder="Explain your decision and safeguards" />}</label> : <label key={field}>{label}<select value={ethicsAssessment[field]} onChange={(event) => updateEthics(field, event.target.value)}><option value="">Select one</option>{selectOptions[field].map((option) => <option key={option}>{option}</option>)}</select></label>;
+
+  const renderEthicsModule = () => <>
+    <section className="lmsPanel moduleLesson"><div className="panelBar"><h3>Overview</h3><span>Should we use AI for this?</span></div><p>AI can make business processes faster, but efficiency does not automatically make an application ethical. Managers must evaluate fairness, privacy, transparency, explainability, security, and meaningful human oversight.</p><p><strong>Why this matters:</strong> Ethical evaluation helps managers make defensible decisions before an AI system affects people.</p></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Learning Objectives</h3></div><ol>{['Define ethics, bias, fairness, privacy, transparency, explainability, and accountability.', 'Identify ethical risks and explain how data or design can create unfair outcomes.', 'Evaluate privacy, transparency, and human-oversight concerns.', 'Assign a simple risk rating and defend a management recommendation.'].map((item) => <li key={item}>{item}</li>)}</ol></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Key Terms</h3></div><div className="termGrid">{ethicsTerms.map(([term, definition]) => <article key={term}><strong>{term}</strong><p>{definition}</p></article>)}</div></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Lesson / Required Materials</h3></div><div className="lessonColumns"><div><h4>Can AI be efficient but unethical?</h4><p>“Can AI do this?” is different from “Should AI do this?” An AI tool may screen applicants quickly, but automatic rejection can create unfair outcomes without review.</p><h4>Bias and Fairness</h4><p>AI can reflect problems in data, system design, assumptions, or implementation. Automation does not automatically remove human bias.</p><h4>Privacy</h4><p>Ask what data is collected, whether it is necessary and sensitive, who can access it, where it is stored, and whether the organization is authorized to use it.</p></div><div><h4>Transparency and Explainability</h4><p>Transparency means people understand when and, where appropriate, how AI is used. Explainability means the organization can provide understandable reasons for outputs.</p><h4>Accountability and Human Oversight</h4><p>AI is not responsible for a business decision. Human managers and organizations remain accountable. Review is especially important for employment, financial, health, safety, sensitive-data, and high-harm decisions.</p></div></div></section>
+    <section className="lmsPanel caseStudy"><div className="panelBar"><h3>The AI Hiring Shortcut</h3><span>Interactive case</span></div><p>BrightPath Manufacturing receives 4,000 applications annually and buys HireSmart, which scores résumés from 1–100. The vendor claims speed, consistency, and reduced bias, but the system uses unrepresentative historical data, cannot explain every score, would automatically reject scores below 60, processes personal information externally, and is being rushed for projected savings.</p><fieldset><legend>Should BrightPath implement HireSmart?</legend>{['Approve', 'Approve with safeguards', 'Delay implementation pending further testing', 'Reject the system'].map((choice) => <label className="choiceLabel" key={choice}><input type="radio" name="brightpath" />{choice}</label>)}</fieldset><p className="smallNote">There is no automatically correct answer. Quality of ethical reasoning matters.</p></section>
+    <section className="lmsPanel buildPanel"><div className="panelBar"><h3>AI Ethics Checker</h3><span>{ethicsAssessment.complete ? 'Complete' : 'In progress'}</span></div><p>Use this educational decision-support tool, not a legal classification system. Save your assessment before leaving the module.</p><div className="assessmentFields">{ethicsField('useCase', '1. What is the AI being used for?')}{ethicsField('personalData', '2. Personal or sensitive information?')}{ethicsField('disadvantage', '3. Could it disadvantage a person or group?')}{ethicsField('harm', '4. Could an incorrect decision cause significant harm?')}{ethicsField('humanReview', '5. Can a human review the recommendation?')}{ethicsField('explainability', '6. Can the organization explain the result?')}{ethicsField('challenge', '7. Can the decision be challenged or overturned?')}{ethicsField('dataFit', '8. Is the data appropriate for the purpose?')}{ethicsField('accountable', '9. Does the organization know who is accountable?')}{ethicsField('risk', '10. Overall risk rating')}{ethicsField('recommendation', '11. Management recommendation')}{ethicsField('rationale', '12. Explain your decision.')}</div><div className="formActions"><button type="button" onClick={() => saveBuild('ethics')}>{saveNotice || 'Save as draft'}</button><button type="button" onClick={resetEthics}>Reset</button><button className="primaryAction" type="button" onClick={() => markBuildComplete('ethics')}>Submit / mark complete</button></div></section>
+    <section className="lmsPanel riskGuide"><div className="panelBar"><h3>Risk guide</h3></div><div className="riskGrid"><div><strong>LOW</strong><p>Limited data, low harm, easy review and correction. Example: marketing slogan ideas.</p></div><div><strong>MODERATE</strong><p>Meaningful decisions or employee/customer data requiring human review. Example: retention-offer recommendations.</p></div><div><strong>HIGH</strong><p>Employment, termination, major financial, health/safety, sensitive-data, or poorly supervised decisions.</p></div></div></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Your Dashboard Build</h3></div><ol><li>Add an AI Ethics Checker with the ten risk questions, risk rating, recommendations, and rationale.</li><li>Test it with BrightPath, review the result, and save the completed component.</li><li>Verify it remains available when you return to the dashboard.</li></ol><h4>Model example</h4><p><strong>High risk, approve with safeguards:</strong> Hiring affects employment opportunities; historical data may contain bias; automatic rejection removes meaningful review; personal data creates privacy concerns; explainability is limited. Testing and human oversight should precede deployment. Other recommendations are defensible when well reasoned.</p></section>
+    <section className="lmsPanel discussionGuide"><div className="panelBar"><h3>Discussion 3: When Does Using AI Become Unethical?</h3><span>20 points</span></div><p>Choose hiring, employee monitoring, customer analysis, performance evaluation, marketing, or financial decision-making. Explain the use, one benefit, two ethical risks, whether you would allow it, and one required safeguard. Use your Ethics Checker.</p><ul><li>AI application identified: 3</li><li>Ethical risks: 5</li><li>Ethical reasoning: 5</li><li>Use of Ethics Checker: 3</li><li>Defensible recommendation: 2</li><li>Professional writing: 2</li></ul></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Test 1 · Week 6–7 Study Guide and Answer Key</h3><span>8 questions added</span></div><p>Review AI ethics, algorithmic bias, fairness, privacy, transparency, explainability, human oversight, responsible AI, governance, confidentiality, verification, accountability, incident reporting, NIST Govern/Map/Measure/Manage, branches, testing, review, and merge.</p><ol>{assessmentQuestions.map(([question, answer], index) => <li key={question}><strong>{index + 1}. {question}</strong><span className="answerKey">Answer: {answer}</span></li>)}</ol></section>
+  </>;
+
+  const policyField = (field: Exclude<keyof PolicyDraft, 'complete'>, label: string, placeholder: string) => <label key={field}>{label}{field === 'organization' || field === 'reviewSchedule' ? <input value={policyDraft[field]} onChange={(event) => updatePolicy(field, event.target.value)} placeholder={placeholder} /> : <textarea value={policyDraft[field]} onChange={(event) => updatePolicy(field, event.target.value)} placeholder={placeholder} />}</label>;
+
+  const renderGovernanceModule = () => <>
+    <section className="lmsPanel moduleLesson"><div className="panelBar"><h3>Overview</h3><span>How should AI be governed?</span></div><p>Week 6 identified ethical risks. Week 7 turns those principles into policies, responsibilities, safeguards, and governance practices. Students create a basic organizational AI policy for their dashboard.</p></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Learning Objectives</h3></div><ol>{['Define responsible AI and AI governance.', 'Identify approved and prohibited uses and rules for sensitive information.', 'Establish human review, verification, accountability, and incident reporting.', 'Apply the NIST Govern, Map, Measure, Manage functions as instructional guidance.'].map((item) => <li key={item}>{item}</li>)}</ol></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Key Terms</h3></div><div className="termGrid">{governanceTerms.map(([term, definition]) => <article key={term}><strong>{term}</strong><p>{definition}</p></article>)}</div></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Lesson / Required Materials</h3></div><div className="lessonColumns"><div><h4>What is responsible AI?</h4><p>AI that respects people, reduces harm, and preserves human accountability. Organizations need governance so useful experimentation does not become uncontrolled risk.</p><h4>Approved vs. prohibited uses</h4><p>Policies can approve brainstorming and non-confidential drafting while prohibiting unauthorized sensitive-data entry and high-stakes decisions without oversight.</p><h4>Confidential information and privacy</h4><p>Do not enter confidential, proprietary, personally identifiable, or restricted information unless the organization has specifically approved the tool and use.</p></div><div><h4>Human oversight, verification, accountability</h4><p>Qualified employees review consequential outputs. Employees verify facts, calculations, recommendations, citations, and compliance claims. AI output never transfers responsibility.</p><h4>Incident reporting and continuous improvement</h4><p>Report significant errors, privacy or security incidents, discriminatory outcomes, and other serious concerns. Review the policy on a schedule and after incidents.</p></div></div></section>
+    <section className="nistPanel"><p>NIST AI RISK MANAGEMENT</p><div><article><strong>GOVERN</strong><span>Who is responsible?</span></article><i>↓</i><article><strong>MAP</strong><span>What could go wrong?</span></article><i>↓</i><article><strong>MEASURE</strong><span>How serious is the risk?</span></article><i>↓</i><article><strong>MANAGE</strong><span>What safeguards should be used?</span></article></div><small>This is an instructional simplification of the NIST AI RMF Core, not an official checklist. NIST describes GOVERN as cross-cutting, with risk management continuing throughout the AI lifecycle.</small></section>
+    <section className="lmsPanel buildPanel"><div className="panelBar"><h3>Responsible AI Policy Builder</h3><span>{policyDraft.complete ? 'Complete' : 'In progress'}</span></div><p>Create and save an organizational policy without writing code.</p><div className="assessmentFields policyFields">{policyField('organization', '1. Organization name', 'Example: BrightPath Manufacturing')}{policyField('purpose', '2. Policy purpose', 'Productive, secure, ethical, responsible use')}{policyField('approved', '3. Approved AI uses', 'Brainstorming; non-confidential drafting; approved analysis')}{policyField('prohibited', '4. Prohibited AI uses', 'Unauthorized sensitive data; final high-stakes decisions')}{policyField('confidentiality', '5. Confidential information rules', 'What may be entered, into which approved tools, and why')}{policyField('humanReview', '6. Human review requirements', 'Who reviews consequential outputs before use')}{policyField('verification', '7. Verification requirements', 'Facts, calculations, recommendations, citations, claims')}{policyField('disclosure', '8. Disclosure requirements', 'When AI involvement should be disclosed')}{policyField('accountability', '9. Accountability statement', 'Who remains responsible for decisions')}{policyField('incidents', '10. Incident-reporting procedure', 'What to report, to whom, and when')}{policyField('reviewSchedule', '11. Policy review schedule', 'Example: quarterly and after a serious incident')}</div><div className="formActions"><button type="button" onClick={() => saveBuild('policy')}>{saveNotice || 'Save draft'}</button><button type="button" onClick={resetPolicy}>Reset</button><button className="primaryAction" type="button" onClick={() => markBuildComplete('policy')}>Mark complete</button></div></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Company AI Use Policy: model</h3></div><p><strong>Purpose:</strong> Use AI productively, securely, ethically, and responsibly.</p><p><strong>Approved:</strong> Brainstorming, non-confidential drafts, summaries, ideas, approved analysis, and productivity support.</p><p><strong>Prohibited:</strong> Unauthorized confidential-data entry, deceptive content, final employment decisions without review, and high-stakes decisions without oversight.</p><p><strong>Human review and verification:</strong> A qualified employee reviews consequential output and checks facts, calculations, recommendations, citations, and compliance claims.</p><p><strong>Accountability and reporting:</strong> Employees remain responsible and report serious errors, privacy incidents, security problems, or discriminatory outcomes to the designated governance owner.</p></section>
+    <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>GitHub collaboration and build directions</h3></div><p><strong>Main branch:</strong> the official working version. A <strong>branch</strong> is a separate development path.</p><p>Workflow: <strong>MAIN → CREATE BRANCH → MAKE CHANGES → TEST → REVIEW → MERGE APPROVED CHANGES</strong></p><p>Branches prevent accidental damage, support independent work and peer review, make testing safer, and reduce conflicts. Document branch name <strong>week7-responsible-ai</strong>, the change, why it was made, whether it was tested, and whether it is ready to merge. Follow the existing GitHub Help instructions; do not assume a repository structure.</p><p><strong>Policy rubric, 30 points:</strong> approved uses 3, prohibited uses 3, privacy 5, human oversight 5, verification 4, accountability 3, incident reporting 3, professional format 2, governance reasoning 2.</p></section>
+  </>;
+
   function switchView(view: View) {
     setActiveView(view);
     setMenuOpen(false);
@@ -194,6 +315,38 @@ export default function Home() {
   function toggleModuleStep(label: string) {
     const key = `${selectedWeek}-${label}`;
     setModuleSteps((current) => ({ ...current, [key]: !current[key] }));
+  }
+
+  function updateEthics(field: keyof EthicsAssessment, value: string) {
+    setEthicsAssessment((current) => ({ ...current, [field]: value }));
+  }
+
+  function updatePolicy(field: keyof PolicyDraft, value: string) {
+    setPolicyDraft((current) => ({ ...current, [field]: value }));
+  }
+
+  function saveBuild(kind: 'ethics' | 'policy') {
+    setSaveNotice(`${kind === 'ethics' ? 'AI Ethics Checker' : 'Responsible AI Policy'} saved on this device.`);
+    window.setTimeout(() => setSaveNotice(''), 2200);
+  }
+
+  function resetEthics() {
+    setEthicsAssessment(initialEthicsAssessment);
+  }
+
+  function resetPolicy() {
+    setPolicyDraft(initialPolicyDraft);
+  }
+
+  function markBuildComplete(kind: 'ethics' | 'policy') {
+    if (kind === 'ethics') {
+      setEthicsAssessment((current) => ({ ...current, complete: true }));
+      setModuleSteps((current) => ({ ...current, '6-Learn': true, '6-Create': true, '6-Test': true, '6-Manage': true, '6-Present': true }));
+    } else {
+      setPolicyDraft((current) => ({ ...current, complete: true }));
+      setModuleSteps((current) => ({ ...current, '7-Learn': true, '7-Create': true, '7-Test': true, '7-Manage': true, '7-Present': true }));
+    }
+    saveBuild(kind);
   }
 
   function saveDiscussionDraft() {
@@ -330,7 +483,7 @@ export default function Home() {
               <aside className="moduleList" aria-label="Course modules"><div className="moduleListTitle">15 WEEK MODULES</div>{weeklyPlan.map((week) => <button className={selectedWeek === week.week ? 'selected' : ''} type="button" onClick={() => setSelectedWeek(week.week)} key={week.week}><span>{week.week}</span><div><strong>{week.title}</strong><small>{week.dates}</small></div><i>{week.week < selectedWeek ? '✓' : '›'}</i></button>)}</aside>
               <section className="moduleDetail">
                 <div className="moduleHero"><span>MODULE {activeWeek.week} · {activeWeek.dates}</span><h3>{activeWeek.title}</h3><p>{activeWeek.studentQuestion}</p><div><span>Expected effort: {activeWeek.workload}</span><span>Deliverable: {activeWeek.output}</span></div></div>
-                <section className="lmsPanel moduleOutcome"><div className="panelBar"><h3>By the end of this week</h3></div><p className="outcomeStatement">I can {activeWeek.studentWin.charAt(0).toLowerCase() + activeWeek.studentWin.slice(1)}</p><p><strong>Career connection:</strong> {activeWeek.career}</p></section>
+                {selectedWeek === 6 ? renderEthicsModule() : selectedWeek === 7 ? renderGovernanceModule() : <><section className="lmsPanel moduleOutcome"><div className="panelBar"><h3>By the end of this week</h3></div><p className="outcomeStatement">I can {activeWeek.studentWin.charAt(0).toLowerCase() + activeWeek.studentWin.slice(1)}</p><p><strong>Career connection:</strong> {activeWeek.career}</p></section>
                 <section className="lmsPanel learningSequence"><div className="panelBar"><h3>Learning Sequence</h3><span>{completedModuleSteps} of 5 complete</span></div>{[
                   ['1', 'Learn', activeWeek.learn],
                   ['2', 'Create', activeWeek.build],
@@ -380,7 +533,7 @@ export default function Home() {
                     <div className="panelBar"><h3>Due This Week</h3><span>Submit by Friday · 11:59 PM</span></div>
                     <div className="folderContent"><div className="starterSteps"><article><b>1</b><div><strong>Complete the reading and study check</strong><p>Identify one permitted use, one prohibited use, and one verification step for AI-assisted coursework.</p></div></article><article><b>2</b><div><strong>Build the AI Use / Disclosure Log</strong><p>Record the tool, purpose, prompt or task, AI contribution, your changes, verification performed, and disclosure statement.</p></div></article><article><b>3</b><div><strong>Submit your integrity reflection</strong><p>Explain how your log shows what the AI did, what you did, and why the final submission remains accountable to you.</p></div></article></div><div className="starterNote"><strong>Submission</strong><span>AI Use / Disclosure Log · integrity reflection · dashboard evidence showing the completed log</span></div></div>
                   </section>
-                </div>}
+                </div>}</>}
               </section>
             </div>
           )}
@@ -399,7 +552,7 @@ export default function Home() {
 
           {activeView === 'discussions' && (
             <div className="discussionView">
-              <section className="lmsPanel"><div className="panelBar"><h3>Discussion Board</h3><span>Week {selectedWeek}</span></div><article className="discussionPrompt"><span>REQUIRED DISCUSSION</span><h3>Where should a manager refuse AI assistance?</h3><p>Describe one situation in which using AI would create more risk than value. Use one course concept, identify who remains accountable, and reply constructively to one classmate.</p><dl><div><dt>Your post</dt><dd>250–350 words</dd></div><div><dt>Reply</dt><dd>100–150 words</dd></div><div><dt>Due</dt><dd>Friday, 11:59 PM</dd></div></dl><button type="button" onClick={() => setDraftOpen((open) => !open)}>{draftOpen ? 'Close private draft' : discussionDraft ? 'Continue private draft' : 'Start private draft'}</button></article>{draftOpen && <div className="discussionEditor"><div><strong>Private working draft</strong><span>Saved only on this device—not submitted to the class.</span></div><textarea value={discussionDraft} onChange={(event) => setDiscussionDraft(event.target.value)} placeholder="Start with a specific situation. What decision is at stake? What could go wrong? Who remains accountable?" /><div><span>{discussionDraft.trim() ? discussionDraft.trim().split(/\s+/).length : 0} words</span><button type="button" onClick={saveDiscussionDraft}>{draftSaved ? 'Saved' : 'Save draft'}</button></div></div>}</section>
+              <section className="lmsPanel"><div className="panelBar"><h3>Discussion Board</h3><span>Week {selectedWeek}</span></div><article className="discussionPrompt"><span>REQUIRED DISCUSSION</span><h3>{selectedWeek === 6 ? 'Discussion 3: When Does Using AI Become Unethical?' : 'Where should a manager refuse AI assistance?'}</h3><p>{selectedWeek === 6 ? 'Choose one business application of AI. Explain the benefit, at least two ethical risks, whether you would allow it, and one safeguard. Use your AI Ethics Checker.' : 'Describe one situation in which using AI would create more risk than value. Use one course concept, identify who remains accountable, and reply constructively to one classmate.'}</p><dl><div><dt>Your post</dt><dd>250–350 words</dd></div><div><dt>Reply</dt><dd>100–150 words</dd></div><div><dt>Due</dt><dd>Friday, 11:59 PM</dd></div></dl><button type="button" onClick={() => setDraftOpen((open) => !open)}>{draftOpen ? 'Close private draft' : discussionDraft ? 'Continue private draft' : 'Start private draft'}</button></article>{draftOpen && <div className="discussionEditor"><div><strong>Private working draft</strong><span>Saved only on this device—not submitted to the class.</span></div><textarea value={discussionDraft} onChange={(event) => setDiscussionDraft(event.target.value)} placeholder="Start with a specific situation. What decision is at stake? What could go wrong? Who remains accountable?" /><div><span>{discussionDraft.trim() ? discussionDraft.trim().split(/\s+/).length : 0} words</span><button type="button" onClick={saveDiscussionDraft}>{draftSaved ? 'Saved' : 'Save draft'}</button></div></div>}</section>
               <aside className="lmsPanel discussionGuide"><div className="panelBar"><h3>A strong post</h3></div><ol><li>Names a specific managerial situation.</li><li>Uses evidence or a course concept.</li><li>Explains risk, tradeoffs, and accountability.</li><li>Adds something useful to a classmate’s thinking.</li></ol><p>AI may help you brainstorm or revise. Your judgment, evidence, and final writing must be your own.</p></aside>
             </div>
           )}
