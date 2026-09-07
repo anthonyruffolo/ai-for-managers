@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Link from 'next/link';
 import styles from './structure.module.css';
 
 const weeks = [
@@ -63,7 +64,7 @@ export default function CourseStructurePage() {
           <h1>AI for Managers</h1>
           <p>Course build workspace · shared implementation structure</p>
         </div>
-        <a href="/">← Back to dashboard</a>
+        <Link href="/">← Back to dashboard</Link>
       </header>
 
       <section className={styles.structureIntro}>

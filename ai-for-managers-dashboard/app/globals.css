@@ -339,6 +339,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .fourQuestions article { display: grid; gap: 6px; padding: 13px; border-top: 4px solid var(--blue); background: #f8fbfd; }
 .fourQuestions strong { color: var(--blue-dark); font-size: 9px; letter-spacing: .06em; }
 .fourQuestions span { color: #536069; font-size: 10px; line-height: 1.45; }
+.comparisonTable, .biasGrid, .oversightGrid, .verificationGrid, .decisionGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 16px 18px 0; }
+.comparisonTable article, .biasGrid article, .oversightGrid article, .verificationGrid article, .decisionGrid article { display: grid; gap: 5px; padding: 13px; border: 1px solid var(--soft-line); background: #f8fbfd; }
+.comparisonTable strong, .biasGrid strong, .oversightGrid strong, .verificationGrid strong, .decisionGrid strong { color: var(--blue-dark); font-size: 10px; }
+.comparisonTable span, .biasGrid span, .oversightGrid span, .decisionGrid span { color: var(--red); font-size: 9px; font-weight: 800; }
+.comparisonTable p, .biasGrid p, .oversightGrid p, .verificationGrid p, .decisionGrid p { margin: 0; color: #536069; font-size: 9px; line-height: 1.5; }
+.biasGrid small, .oversightGrid small { color: var(--muted); font-size: 8px; line-height: 1.4; }
+.verificationGrid { grid-template-columns: 1fr; }
+.decisionGrid { grid-template-columns: repeat(3, 1fr); }
 .lessonDeck { display: grid; gap: 18px; }
 .lessonCard { padding-bottom: 16px; }
 .lessonCard > p { margin: 15px 18px 0; color: #536069; font-size: 11px; line-height: 1.6; }
@@ -479,6 +487,7 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
   .fourQuestions { grid-template-columns: repeat(2, 1fr); }
   .policyMeta { grid-template-columns: repeat(2, 1fr); }
   .riskAssessmentGrid { grid-template-columns: repeat(2, 1fr); }
+  .decisionGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 820px) {
@@ -546,7 +555,7 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
   .gradebook b { grid-column: 2; grid-row: 1; }
   .fairnessCallout, .helpChoice { grid-template-columns: 1fr; gap: 10px; }
   .briefFields, .formRow { grid-template-columns: 1fr; }
-  .lessonColumns, .assessmentFields, .termGrid, .riskGrid { grid-template-columns: 1fr; }
+  .lessonColumns, .assessmentFields, .termGrid, .riskGrid, .comparisonTable, .biasGrid, .oversightGrid, .decisionGrid { grid-template-columns: 1fr; }
   .bridgeFlow, .caseTabs, .privacyGrid, .governanceGrid, .policyMeta, .riskAssessmentGrid, .checklistGrid { grid-template-columns: 1fr; }
   .workloadGrid { grid-template-columns: 1fr; }
   .bridgeFlow i { text-align: center; transform: rotate(90deg); }
