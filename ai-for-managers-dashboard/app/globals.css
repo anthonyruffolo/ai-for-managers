@@ -328,6 +328,46 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .toolkitStarters button:hover, .toolkitStarters button.selected { border-color: var(--blue); background: var(--blue-pale); }
 .toolkitStarters button span { color: var(--blue-dark); font-size: 10px; font-weight: 800; }
 .toolkitStarters button small { color: var(--muted); font-size: 8px; line-height: 1.35; }
+.moduleDetail > .lmsPanel { overflow: hidden; }
+.moduleLesson, .lessonGrid, .caseStudy, .buildPanel, .riskGuide, .discussionGuide, .resourcesPanel { padding-bottom: 18px; }
+.moduleLesson > p, .lessonGrid > p, .caseStudy > p, .buildPanel > p, .discussionGuide > p { margin: 14px 18px 0; color: #536069; font-size: 11px; line-height: 1.6; }
+.lessonGrid > ol, .discussionGuide > ul { margin: 14px 18px 0 38px; padding: 0; color: #536069; font-size: 11px; line-height: 1.65; }
+.lessonColumns { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding: 16px 18px 0; }
+.lessonColumns h4, .lessonGrid h4 { margin: 0 0 6px; color: var(--blue-dark); font-size: 12px; }
+.lessonColumns p, .lessonGrid article p, .caseStudy li, .policyExample p { margin: 0 0 14px; color: #536069; font-size: 10px; line-height: 1.55; }
+.termGrid, .riskGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 16px 18px 0; }
+.termGrid article, .riskGrid > div { padding: 12px; border: 1px solid var(--soft-line); background: #f8fbfd; }
+.termGrid strong, .riskGrid strong { color: var(--blue-dark); font-size: 10px; }
+.termGrid p, .riskGrid p { margin: 5px 0 0; color: #536069; font-size: 9px; line-height: 1.5; }
+.caseStudy ul { margin: 12px 18px 0 35px; padding: 0; color: #536069; font-size: 10px; line-height: 1.55; }
+.caseStudy fieldset { margin: 16px 18px 0; padding: 12px; border: 1px solid var(--line); }
+.caseStudy legend { padding: 0 5px; color: var(--ink); font-size: 11px; font-weight: 750; }
+.choiceLabel { display: block; padding: 7px 0; font-weight: 600; }
+.choiceLabel input { width: auto; margin: 0 8px 0 0; }
+.smallNote { font-size: 9px !important; font-style: italic; }
+.assessmentFields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px 18px 0; }
+.assessmentFields label { min-width: 0; }
+.assessmentFields .fullField { grid-column: 1 / -1; }
+.formActions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px; margin: 16px 18px 0; }
+.formActions button { min-height: 34px; padding: 8px 12px; border: 1px solid #9ba5ab; border-radius: 2px; background: white; color: #46535c; font-size: 9px; font-weight: 740; }
+.formActions .primaryAction { border-color: var(--blue-dark); color: white; }
+.riskGrid { grid-template-columns: repeat(3, 1fr); }
+.riskGrid > div:first-child strong { color: #27836d; }
+.riskGrid > div:nth-child(2) strong { color: #946b17; }
+.riskGrid > div:last-child strong { color: #a74444; }
+.answerKey { display: block; margin-top: 3px; color: var(--blue-dark); font-size: 10px; }
+.lessonGrid li { margin-bottom: 7px; }
+.resourcesPanel a { display: block; margin: 12px 18px 0; color: var(--blue-dark); font-size: 10px; font-weight: 700; }
+.nistPanel { padding: 18px; background: #213e52; color: white; }
+.nistPanel > p { margin: 0 0 14px; color: #9ed0ee; font-size: 10px; font-weight: 850; letter-spacing: .12em; }
+.nistPanel > div { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.nistPanel article { flex: 1; min-width: 0; padding: 14px 10px; border: 1px solid rgb(255 255 255 / 25%); text-align: center; }
+.nistPanel article strong, .nistPanel article span { display: block; }
+.nistPanel article strong { color: #fff; font-size: 11px; }
+.nistPanel article span { margin-top: 5px; color: #d5e6ef; font-size: 9px; }
+.nistPanel i { color: #9ed0ee; font-style: normal; }
+.nistPanel small { display: block; margin-top: 14px; color: #d5e6ef; font-size: 9px; line-height: 1.5; }
+.briefBuilder > p, .verificationPanel > p { margin: 16px 18px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .briefFields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 18px; }
 .briefOutput { margin-top: 16px; padding: 16px 18px 0; border-top: 1px solid var(--line); background: #fbfcfc; }
 .briefOutput > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
@@ -459,6 +499,12 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
   .gradebook b { grid-column: 2; grid-row: 1; }
   .fairnessCallout, .helpChoice { grid-template-columns: 1fr; gap: 10px; }
   .briefFields, .formRow { grid-template-columns: 1fr; }
+  .lessonColumns, .assessmentFields, .termGrid, .riskGrid { grid-template-columns: 1fr; }
+  .assessmentFields .fullField { grid-column: auto; }
+  .nistPanel > div { align-items: stretch; flex-direction: column; }
+  .nistPanel i { display: block; text-align: center; }
+  .formActions { justify-content: stretch; }
+  .formActions button { flex: 1 1 120px; }
   .learningSequence article { grid-template-columns: 30px minmax(0, 1fr); }
   .learningSequence article > button { grid-column: 2; width: fit-content; }
   .courseFooter { flex-direction: column; }
