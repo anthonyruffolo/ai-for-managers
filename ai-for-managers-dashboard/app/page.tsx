@@ -168,6 +168,53 @@ const governanceLessons = [
   ['Lesson 10 · Incident Response', 'Organizations need a route to report significant errors, privacy or security incidents, discriminatory outcomes, and other serious concerns, followed by containment, documentation, review, and corrective action.'],
   ['Lesson 11 · Continuous Monitoring', 'AI risk changes as data, users, vendors, goals, and contexts change. Monitor outcomes, complaints, overrides, drift, incidents, and whether controls still work.'],
 ];
+
+type ModuleItem = { id: string; title: string; description: string; type: 'lesson' | 'practice' | 'case' | 'build' | 'assessment' | 'submit' | 'reflect' | 'resource' | 'connect'; time?: string };
+
+const structuredModules: Record<number, { overview: string; objectives: string[]; artifact: string; buildDescription: string; items: ModuleItem[] }> = {
+  6: {
+    overview: 'This week you will learn to evaluate AI use before it affects people, data, decisions, or organizational trust. Managers need ethical judgment because efficiency and accuracy alone do not answer who bears the risk or who remains accountable.',
+    objectives: ['Explain AI ethics in management contexts.', 'Distinguish ethics, law, compliance, and risk.', 'Identify bias, privacy, transparency, accountability, and human-oversight risks.', 'Evaluate unreliable AI output and stakeholder impact.', 'Perform an AI ethics and risk assessment.'],
+    artifact: 'AI Ethics Risk Assessment',
+    buildDescription: 'Build a structured assessment that evaluates an AI use case for ethical and management risks.',
+    items: [
+      ...['What Is AI Ethics?', 'Bias & Fairness', 'Privacy & Data Ethics', 'Transparency & Explainability', 'Accountability', 'Human Oversight', 'AI Reliability & Hallucinations', 'Stakeholder Impact'].map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: 'Know the vocabulary, understand the management consequence, and apply the concept to an AI-enabled decision.', type: 'lesson' as const, time: '20–30 min' })),
+      { id: 'practice-ethics', title: 'Ethics Decision Lab', description: 'Compare benefits, stakeholders, harms, data, oversight, and safeguards across realistic use cases.', type: 'practice', time: '20 min' },
+      { id: 'practice-bias', title: 'Bias Practice', description: 'Diagnose whether bias enters through historical data, representation, measurement, design, or deployment.', type: 'practice', time: '15 min' },
+      { id: 'practice-privacy', title: 'Privacy Decision Lab', description: 'Classify common business inputs according to authorization, sensitivity, and organizational policy.', type: 'practice', time: '15 min' },
+      { id: 'practice-verify', title: 'AI Verification Exercise', description: 'Check sources, calculations, causal claims, and uncertainty before trusting fluent output.', type: 'practice', time: '15 min' },
+      { id: 'case-brightpath', title: 'BrightPath Manufacturing Case', description: 'Analyze an AI hiring shortcut and defend a recommendation for the stakeholders involved.', type: 'case', time: '45–60 min' },
+      { id: 'build-ethics', title: 'AI Ethics Checker', description: 'Complete the week’s dashboard build and save your risk rating, recommendation, and rationale.', type: 'build', time: '2–3 hrs' },
+      { id: 'assessment-knowledge', title: 'Week 6 Knowledge Check', description: 'Check your understanding of ethics, bias, privacy, oversight, verification, and accountability.', type: 'assessment', time: '20 min' },
+      { id: 'assessment-discussion', title: 'Discussion 3', description: 'Explain when a manager should allow, limit, or refuse an AI use case.', type: 'assessment', time: '45 min' },
+      { id: 'submit-ethics', title: 'AI Ethics Risk Assessment', description: 'Submit the completed checker, BrightPath analysis, risk rating, recommendation, and rationale.', type: 'submit' },
+      { id: 'reflect-ethics', title: 'Week 6 Reflection', description: 'Connect your ethical reasoning to risk, stakeholders, oversight, and accountability.', type: 'reflect', time: '30 min' },
+      { id: 'resources-ethics', title: 'Week 6 Resources', description: 'Review NIST, OECD, and UNESCO guidance for further study.', type: 'resource' },
+    ],
+  },
+  7: {
+    overview: 'This week turns ethical principles into repeatable organizational practice. You will establish owners, policies, controls, evidence, incident paths, and review routines that make responsible AI possible after deployment.',
+    objectives: ['Define responsible AI and AI governance.', 'Apply NIST GOVERN, MAP, MEASURE, and MANAGE as instructional guidance.', 'Establish policy rules for data, review, verification, disclosure, vendors, and incidents.', 'Assign accountability and continuous monitoring responsibilities.', 'Connect Week 6 risks to Week 7 governance controls.'],
+    artifact: 'Responsible AI Policy',
+    buildDescription: 'Create an organizational policy that establishes responsible AI use, oversight, verification, accountability, and incident management.',
+    items: [
+      ...['What Is Responsible AI?', 'What Is AI Governance?', 'Ethics vs Governance vs Compliance vs Risk', 'NIST GOVERN', 'NIST MAP', 'NIST MEASURE', 'NIST MANAGE', 'AI Policies', 'Data Governance', 'Human Oversight', 'Incident Response', 'Continuous Monitoring'].map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: 'Know the governance term, understand its organizational purpose, and apply it to a responsible AI control.', type: 'lesson' as const, time: '20–30 min' })),
+      { id: 'practice-roles', title: 'Governance Role Activity', description: 'Assign decision, monitoring, escalation, and stop authority to the people involved.', type: 'practice', time: '20 min' },
+      { id: 'practice-map', title: 'AI Use Case Map', description: 'Map the problem, affected people, data, context, assumptions, and possible harms.', type: 'practice', time: '20 min' },
+      { id: 'practice-deploy', title: 'Before You Deploy', description: 'Evaluate evidence, readiness, limitations, safeguards, and stop conditions.', type: 'practice', time: '20 min' },
+      { id: 'practice-treatment', title: 'Risk Treatment Activity', description: 'Choose whether to accept, reduce, transfer, avoid, or escalate a risk and explain why.', type: 'practice', time: '15 min' },
+      { id: 'practice-data', title: 'Data Classification', description: 'Connect data quality, access, provenance, retention, and protection to policy controls.', type: 'practice', time: '15 min' },
+      { id: 'case-governance', title: 'The AI Pilot That Got Out of Control', description: 'Diagnose failures under GOVERN, MAP, MEASURE, and MANAGE and propose controls.', type: 'case', time: '45–60 min' },
+      { id: 'build-policy', title: 'Responsible AI Policy Builder', description: 'Draft and save an organization-specific policy with readiness evidence.', type: 'build', time: '2–3 hrs' },
+      { id: 'connect-builds', title: 'Connect Your Week 6 & Week 7 Builds', description: 'Turn an identified Week 6 risk into at least three Week 7 governance safeguards.', type: 'connect', time: '30 min' },
+      { id: 'assessment-test', title: 'Test 1', description: 'Apply the course concepts to ethics, governance, risk, and management scenarios.', type: 'assessment' },
+      { id: 'assessment-guide', title: 'Test 1 Study Guide', description: 'Review the concepts and scenario prompts before the assessment.', type: 'assessment' },
+      { id: 'submit-policy', title: 'Responsible AI Policy', description: 'Submit the completed policy, readiness evidence, and governance documentation.', type: 'submit' },
+      { id: 'reflect-policy', title: 'Week 7 Reflection', description: 'Identify the governance risk you would address first and justify the priority.', type: 'reflect', time: '30 min' },
+      { id: 'resources-policy', title: 'Week 7 Resources', description: 'Review NIST AI RMF, the Playbook, OECD principles, and UNESCO guidance.', type: 'resource' },
+    ],
+  },
+};
 const policySections = [
   ['purpose', '1. Purpose'], ['scope', '2. Scope'], ['definitions', '3. Definitions'], ['approved', '4. Approved AI uses'], ['prohibited', '5. Prohibited AI uses'], ['highRisk', '6. High-risk uses'], ['confidentiality', '7. Data and confidentiality'], ['humanReview', '8. Human oversight'], ['verification', '9. Verification'], ['disclosure', '10. Transparency and disclosure'], ['accountability', '11. Accountability'], ['security', '12. Security'], ['vendors', '13. Vendor management'], ['incidents', '14. Incident reporting'], ['recordkeeping', '15. Recordkeeping'], ['training', '16. Training'], ['monitoring', '17. Monitoring'], ['reviewSchedule', '18. Policy review'],
 ];
@@ -290,6 +337,8 @@ export default function Home() {
   const [activeView, setActiveView] = useState<View>('home');
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [selectedWeek, setSelectedWeek] = useState(1);
+  const [moduleItem, setModuleItem] = useState<string | null>(null);
+  const [moduleCompletions, setModuleCompletions] = useState<Record<string, boolean>>({});
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Course build');
@@ -347,6 +396,8 @@ export default function Home() {
       if (savedPolicy) { try { setPolicyDraft({ ...initialPolicyDraft, ...JSON.parse(savedPolicy) }); } catch { /* use blank policy */ } }
       if (savedEthicsActivities) { try { const saved = JSON.parse(savedEthicsActivities); setEthicsCase(saved.ethicsCase || ''); setPrivacyChoices(saved.privacyChoices || {}); setKnowledgeAnswers(saved.knowledgeAnswers || {}); } catch { /* use blank activities */ } }
       if (savedGovernanceActivities) { try { setGovernanceAnswers(JSON.parse(savedGovernanceActivities)); } catch { /* use blank activities */ } }
+      const savedModuleCompletions = window.localStorage.getItem('aim-structured-module-completions-v1');
+      if (savedModuleCompletions) { try { setModuleCompletions(JSON.parse(savedModuleCompletions)); } catch { /* use blank completion state */ } }
       setHydrated(true);
     });
 
@@ -366,7 +417,8 @@ export default function Home() {
     window.localStorage.setItem('aiManagers_week7_responsiblePolicy', JSON.stringify(policyDraft));
     window.localStorage.setItem('aiManagers_week6_activities', JSON.stringify({ ethicsCase, privacyChoices, knowledgeAnswers }));
     window.localStorage.setItem('aiManagers_week7_activities', JSON.stringify(governanceAnswers));
-  }, [ethicsAssessment, policyDraft, ethicsCase, privacyChoices, knowledgeAnswers, governanceAnswers, hydrated]);
+    window.localStorage.setItem('aim-structured-module-completions-v1', JSON.stringify(moduleCompletions));
+  }, [ethicsAssessment, policyDraft, ethicsCase, privacyChoices, knowledgeAnswers, governanceAnswers, moduleCompletions, hydrated]);
 
   useEffect(() => {
     if (!faqOpen) return;
@@ -456,6 +508,41 @@ export default function Home() {
     <section className="lmsPanel resourcesPanel"><div className="panelBar"><h3>Resources</h3><span>Frameworks are guidance, not law</span></div><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noreferrer">NIST AI Risk Management Framework 1.0</a><a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" target="_blank" rel="noreferrer">NIST AI RMF Core</a><a href="https://airc.nist.gov/airmf-resources/playbook/" target="_blank" rel="noreferrer">NIST AI RMF Playbook</a><a href="https://www.oecd.org/en/topics/ai-principles.html" target="_blank" rel="noreferrer">OECD AI Principles</a><a href="https://www.unesco.org/en/articles/ai-competency-framework-students" target="_blank" rel="noreferrer">UNESCO AI Competency Framework for Students</a></section>
   </>;
 
+  function completeModuleItem(itemId: string) {
+    setModuleCompletions((current) => ({ ...current, [`${selectedWeek}-${itemId}`]: true }));
+  }
+
+  function renderStructuredWeek() {
+    const structuredModule = structuredModules[selectedWeek];
+    if (!structuredModule) return null;
+    const completed = structuredModule.items.filter((item) => moduleCompletions[`${selectedWeek}-${item.id}`]).length;
+    const selectedItem = structuredModule.items.find((item) => item.id === moduleItem);
+    const typeLabel: Record<ModuleItem['type'], string> = { lesson: 'LEARN', practice: 'PRACTICE', case: 'APPLY', build: 'BUILD', assessment: 'ASSESS', submit: 'SUBMIT', reflect: 'REFLECT', resource: 'RESOURCES', connect: 'CONNECT' };
+    const lessonIndex = selectedItem?.id.startsWith('lesson-') ? Number(selectedItem.id.replace('lesson-', '')) - 1 : -1;
+    const lessonData = selectedWeek === 6 ? ethicsLessons[lessonIndex] : governanceLessons[lessonIndex];
+
+    if (selectedItem) return <>
+      <div className="moduleTrail"><button type="button" onClick={() => setModuleItem(null)}>Week {selectedWeek} home</button><span>→</span><strong>{selectedItem.title}</strong></div>
+      <section className="lmsPanel structuredLessonHeader"><div><span>{typeLabel[selectedItem.type]} · {selectedItem.time || 'Complete this item'}</span><h3>{selectedItem.title}</h3><p>{selectedItem.description}</p></div><div><strong>{structuredModule.items.findIndex((item) => item.id === selectedItem.id) + 1}</strong><small>of {structuredModule.items.length} module items</small></div></section>
+      {selectedItem.type === 'lesson' && <>
+        <section className="lmsPanel structuredLesson"><div className="panelBar"><h3>Know · Understand · Apply</h3><span>Lesson {lessonIndex + 1}</span></div><div className="knowGrid"><article><strong>KNOW</strong><p>Key vocabulary: {selectedItem.title.replace(/^Lesson \d+ · /, '')} and its relationship to responsible management.</p></article><article><strong>UNDERSTAND</strong><p>{lessonData?.[1] || selectedItem.description}</p></article><article><strong>APPLY</strong><p>{lessonData?.[2] || 'Name the owner, affected stakeholders, evidence, and safeguard for a realistic management use case.'}</p></article></div></section>
+        <section className="lmsPanel structuredLesson"><div className="panelBar"><h3>Manager takeaway</h3><span>Checkpoint</span></div><p>Do not treat a confident or efficient AI output as a complete management decision. Identify the people affected, verify important claims, and keep a person accountable for the outcome.</p><div className="lessonPrompt"><strong>Think about it</strong><span>What evidence or human authority would you require before using this idea in a real organization?</span></div></section>
+      </>}
+      {selectedItem.type === 'build' && (selectedWeek === 6 ? renderEthicsModule() : renderGovernanceModule())}
+      {selectedItem.type !== 'lesson' && selectedItem.type !== 'build' && <section className="lmsPanel structuredLesson"><div className="panelBar"><h3>{typeLabel[selectedItem.type]} workspace</h3><span>Work here, then mark complete</span></div><p>{selectedItem.description}</p><div className="moduleWorkPrompt"><strong>What to record</strong><span>Your decision, evidence, affected stakeholders, responsible owner, safeguards, and what would change your recommendation.</span><textarea placeholder="Record your reasoning or submission notes here." /></div></section>}
+      <div className="lessonNav"><button type="button" onClick={() => setModuleItem(structuredModule.items[Math.max(0, structuredModule.items.findIndex((item) => item.id === selectedItem.id) - 1)].id)}>← Previous</button><button className="primaryAction" type="button" onClick={() => completeModuleItem(selectedItem.id)}>{moduleCompletions[`${selectedWeek}-${selectedItem.id}`] ? 'Complete' : 'Mark complete'}</button><button type="button" onClick={() => setModuleItem(structuredModule.items[Math.min(structuredModule.items.length - 1, structuredModule.items.findIndex((item) => item.id === selectedItem.id) + 1)].id)}>Next →</button></div>
+    </>;
+
+    const groups = ['lesson', 'practice', 'case', 'build', 'connect', 'assessment', 'submit', 'reflect', 'resource'] as ModuleItem['type'][];
+    return <>
+      <section className="structuredHomeHero"><div><span>WEEK {selectedWeek} MODULE HOME</span><h3>{activeWeek.title}</h3><p>{structuredModule.overview}</p></div><div><strong>{completed} / {structuredModule.items.length}</strong><small>items complete</small><div className="structuredProgress"><i style={{ width: `${completed / structuredModule.items.length * 100}%` }} /></div><span>{completed ? `Next: ${structuredModule.items.find((item) => !moduleCompletions[`${selectedWeek}-${item.id}`])?.title || 'Module complete'}` : 'Start with Lesson 1'}</span></div></section>
+      <section className="structuredOverview"><article className="lmsPanel"><div className="panelBar"><h3>Week {selectedWeek} overview</h3><span>6–8 hours</span></div><p>{structuredModule.overview}</p><h4>Learning objectives</h4><ul>{structuredModule.objectives.map((objective) => <li key={objective}>{objective}</li>)}</ul></article><article className="buildCard"><span>THIS WEEK&apos;S BUILD</span><h3>🛠️ {structuredModule.artifact}</h3><p>{structuredModule.buildDescription}</p><strong>Deliverable</strong><span>{structuredModule.artifact}</span></article></section>
+      <section className="lmsPanel glancePanel"><div className="panelBar"><h3>Week at a glance</h3><span>Teach → practice → apply → assess</span></div><div className="glanceGrid">{[['Learn', '2 hrs'], ['Practice', '1 hr'], ['Apply', '1 hr'], ['Build', '2–3 hrs'], ['Assess', '45 min'], ['Reflect', '30 min']].map(([label, time]) => <div key={label}><strong>{label}</strong><span>{time}</span></div>)}</div></section>
+      <section className="structuredMap">{groups.map((group) => { const items = structuredModule.items.filter((item) => item.type === group); if (!items.length) return null; return <div className="moduleGroup" key={group}><div className="moduleGroupHeading"><span>{typeLabel[group]}</span><strong>{items.filter((item) => moduleCompletions[`${selectedWeek}-${item.id}`]).length} / {items.length}</strong></div><div className="moduleCardGrid">{items.map((item) => { const complete = Boolean(moduleCompletions[`${selectedWeek}-${item.id}`]); return <button className={`moduleCard ${complete ? 'complete' : ''}`} type="button" onClick={() => setModuleItem(item.id)} key={item.id}><span>{complete ? '✓' : group === 'lesson' ? '○' : '◐'}</span><div><strong>{item.title}</strong><small>{item.description}</small>{item.time && <em>{item.time}</em>}</div><i>→</i></button>; })}</div></div>; })}</section>
+      <section className="moduleConnection"><strong>YOUR WEEK {selectedWeek} WORK CONTINUES</strong><span>{selectedWeek === 6 ? 'AI Use Case → Ethical Risk Assessment → Identified Risks → Week 7 Governance Controls → Responsible AI Policy' : 'Week 6 Ethical Risks → Governance Controls → Responsible AI Policy → Continuous Monitoring'}</span></section>
+    </>;
+  }
+
   function switchView(view: View) {
     setActiveView(view);
     setMenuOpen(false);
@@ -464,7 +551,7 @@ export default function Home() {
   }
 
   function openSearchResult(result: { view: View; week?: number }) {
-    if (result.week) setSelectedWeek(result.week);
+    if (result.week) { setSelectedWeek(result.week); setModuleItem(null); }
     switchView(result.view);
   }
 
@@ -653,10 +740,10 @@ export default function Home() {
 
           {activeView === 'content' && (
             <div className="contentView">
-              <aside className="moduleList" aria-label="Course modules"><div className="moduleListTitle">15 WEEK MODULES</div>{weeklyPlan.map((week) => <button className={selectedWeek === week.week ? 'selected' : ''} type="button" onClick={() => setSelectedWeek(week.week)} key={week.week}><span>{week.week}</span><div><strong>{week.title}</strong><small>{week.dates}</small></div><i>{week.week < selectedWeek ? '✓' : '›'}</i></button>)}</aside>
+              <aside className="moduleList" aria-label="Course modules"><div className="moduleListTitle">15 WEEK MODULES</div>{weeklyPlan.map((week) => <button className={selectedWeek === week.week ? 'selected' : ''} type="button" onClick={() => { setSelectedWeek(week.week); setModuleItem(null); }} key={week.week}><span>{week.week}</span><div><strong>{week.title}</strong><small>{week.dates}</small></div><i>{week.week < selectedWeek ? '✓' : '›'}</i></button>)}</aside>
               <section className="moduleDetail">
                 <div className="moduleHero"><span>MODULE {activeWeek.week} · {activeWeek.dates}</span><h3>{activeWeek.title}</h3><p>{activeWeek.studentQuestion}</p><div><span>Expected effort: {activeWeek.workload}</span><span>Deliverable: {activeWeek.output}</span></div></div>
-                {selectedWeek === 6 ? renderEthicsModule() : selectedWeek === 7 ? renderGovernanceModule() : <><section className="lmsPanel moduleOutcome"><div className="panelBar"><h3>By the end of this week</h3></div><p className="outcomeStatement">I can {activeWeek.studentWin.charAt(0).toLowerCase() + activeWeek.studentWin.slice(1)}</p><p><strong>Career connection:</strong> {activeWeek.career}</p></section>
+                {selectedWeek === 6 || selectedWeek === 7 ? renderStructuredWeek() : <><section className="lmsPanel moduleOutcome"><div className="panelBar"><h3>By the end of this week</h3></div><p className="outcomeStatement">I can {activeWeek.studentWin.charAt(0).toLowerCase() + activeWeek.studentWin.slice(1)}</p><p><strong>Career connection:</strong> {activeWeek.career}</p></section>
                 <section className="lmsPanel learningSequence"><div className="panelBar"><h3>Learning Sequence</h3><span>{completedModuleSteps} of 5 complete</span></div>{[
                   ['1', 'Learn', activeWeek.learn],
                   ['2', 'Create', activeWeek.build],
@@ -919,8 +1006,8 @@ export default function Home() {
                       <li><strong>Week 3:</strong> Research & know</li>
                       <li><strong>Week 4:</strong> Analyze & decide</li>
                       <li><strong>Week 5:</strong> Automate & coordinate</li>
-                      <li><strong>Week 6:</strong> Test & govern</li>
-                      <li><strong>Week 7:</strong> Communicate & persuade</li>
+                      <li><strong>Week 6:</strong> AI Ethics / AI Ethics Checker</li>
+                      <li><strong>Week 7:</strong> Responsible AI & Governance / Responsible AI Policy</li>
                       <li><strong>Week 8:</strong> Understand customers</li>
                       <li><strong>Week 9:</strong> Support people & teams</li>
                       <li><strong>Week 10:</strong> AI and Plaigarism</li>
