@@ -214,6 +214,33 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .moduleWorkPrompt textarea { grid-column: 1 / -1; min-height: 110px; }
 .lessonNav { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 18px; }
 .lessonNav > button:not(.primaryAction) { padding: 9px 0; border: 0; background: transparent; color: var(--blue); font-size: 10px; font-weight: 750; }
+.choiceStack { display: grid; gap: 8px; padding: 18px; }
+.choiceStack button { padding: 12px 14px; border: 1px solid var(--soft-line); background: white; color: var(--ink); text-align: left; font-size: 10px; line-height: 1.4; }
+.choiceStack button:hover, .choiceStack button.selected { border-color: var(--blue); background: var(--blue-pale); color: var(--blue-dark); }
+.decisionFeedback { margin: 0 18px 18px; padding: 14px 16px; border-left: 4px solid var(--green); background: #effaf5; color: #385c53; font-size: 10px; line-height: 1.55; }
+.decisionFeedback .panelBar { margin: -14px -16px 13px; }
+.decisionFeedback p { margin: 7px 0 0; }
+.decisionFeedback ul, .decisionFeedback ol { margin: 9px 0 0; padding-left: 19px; }
+.perspectiveGrid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--soft-line); }
+.perspectiveGrid article { display: grid; gap: 8px; min-height: 100px; padding: 16px; border-right: 1px solid var(--soft-line); }
+.perspectiveGrid article:last-child { border-right: 0; background: #f5fbfd; }
+.perspectiveGrid strong { color: var(--blue); font-size: 8px; letter-spacing: .1em; }
+.perspectiveGrid span { color: #536069; font-size: 10px; line-height: 1.45; }
+.decisionTree, .connectionGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; padding: 18px; }
+.decisionTree label:last-child { grid-column: 1 / -1; }
+.scenarioQuote { margin: 18px !important; padding: 15px 17px !important; border-left: 4px solid var(--red); background: #fff4f1; color: #684d47 !important; font-size: 13px !important; font-style: italic; }
+.caseReveal { margin: 0 18px 12px; padding: 15px; border: 1px solid var(--soft-line); background: #f8fbfd; }
+.caseReveal strong { color: var(--blue-dark); font-size: 9px; letter-spacing: .08em; }
+.caseReveal p { margin: 8px 0 0; color: #536069; font-size: 10px; line-height: 1.55; }
+.caseReveal textarea { min-height: 95px; }
+.caseReveal + .primaryAction { margin: 2px 18px 18px; }
+.simulationSteps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 18px; }
+.simulationSteps article { padding: 15px; border: 1px solid var(--soft-line); background: #f8fbfd; }
+.simulationSteps article > strong { color: var(--blue-dark); font-size: 10px; letter-spacing: .08em; }
+.simulationSteps article > p { margin: 8px 0; color: #536069; font-size: 10px; line-height: 1.5; }
+.simulationSteps article .decisionFeedback { margin: 10px 0 0; }
+.simulationSteps article .decisionFeedback span { display: block; }
+.smallNote { color: var(--muted); font-size: 9px; line-height: 1.5; }
 .moduleList { border: 1px solid var(--line); background: white; }
 .moduleListTitle { padding: 13px 14px; border-bottom: 1px solid var(--line); background: #f0f4f8; color: #536069; font-size: 9px; font-weight: 850; letter-spacing: .11em; }
 .moduleList button { width: 100%; display: grid; grid-template-columns: 29px minmax(0, 1fr) 14px; align-items: center; gap: 10px; padding: 13px 12px; border: 0; border-bottom: 1px solid var(--soft-line); background: white; text-align: left; }
@@ -644,6 +671,10 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
   .moduleWorkPrompt { grid-template-columns: 1fr; }
   .moduleWorkPrompt textarea { grid-column: auto; }
   .lessonNav { position: sticky; bottom: 0; padding: 10px 0; background: var(--canvas); }
+  .perspectiveGrid, .simulationSteps, .decisionTree, .connectionGrid { grid-template-columns: 1fr; }
+  .perspectiveGrid article { min-height: 0; border-right: 0; border-bottom: 1px solid var(--soft-line); }
+  .perspectiveGrid article:last-child { border-bottom: 0; }
+  .decisionTree label:last-child { grid-column: auto; }
   .governanceGrid .fullField { grid-column: auto; }
   .assessmentFields .fullField { grid-column: auto; }
   .nistPanel > div { align-items: stretch; flex-direction: column; }
