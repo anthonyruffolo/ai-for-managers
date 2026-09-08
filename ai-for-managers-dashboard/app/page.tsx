@@ -570,11 +570,6 @@ export default function Home() {
     const typeLabel: Record<ModuleItem['type'], string> = { lesson: 'LEARN', practice: 'PRACTICE', case: 'APPLY', build: 'BUILD', assessment: 'ASSESS', submit: 'SUBMIT', reflect: 'REFLECT', resource: 'RESOURCES', connect: 'CONNECT' };
     const lessonIndex = selectedItem?.id.startsWith('lesson-') ? Number(selectedItem.id.replace('lesson-', '')) - 1 : -1;
     const lessonData = selectedWeek === 6 ? ethicsLessons[lessonIndex] : governanceLessons[lessonIndex];
-    const renderStandardBuild = () => <>
-      <section className="lmsPanel buildPanel"><div className="panelBar"><h3>{structuredModule.artifact}</h3><span>Build and test</span></div><p>{structuredModule.buildDescription}</p><div className="moduleWorkPrompt"><strong>Build checklist</strong><span>Connect the feature to the management problem, label AI assistance, preserve human decision authority, and include evidence that the result was tested.</span><textarea placeholder="Record the component, inputs, outputs, safeguards, test results, and remaining limitations." /></div></section>
-      <section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Definition of done</h3><span>Before submission</span></div><ol><li>The component solves the stated management problem and is usable by its target audience.</li><li>AI-generated claims, recommendations, and calculations are verified or clearly labeled as uncertain.</li><li>Privacy, fairness, disclosure, human review, and accountability requirements are addressed where relevant.</li><li>A test, limitation, revision, and next management decision are documented.</li></ol></section>
-    </>;
-
     if (selectedItem) return <>
       <div className="moduleTrail"><button type="button" onClick={() => setModuleItem(null)}>Week {selectedWeek} home</button><span>→</span><strong>{selectedItem.title}</strong></div>
       <section className="lmsPanel structuredLessonHeader"><div><span>{typeLabel[selectedItem.type]} · {selectedItem.time || 'Complete this item'}</span><h3>{selectedItem.title}</h3><p>{selectedItem.description}</p></div><div><strong>{structuredModule.items.findIndex((item) => item.id === selectedItem.id) + 1}</strong><small>of {structuredModule.items.length} module items</small></div></section>
