@@ -1065,8 +1065,8 @@ export default function Home() {
                       <li><strong>Week 1:</strong> Orient & prototype</li>
                       <li><strong>Week 2:</strong> Deploy & use</li>
                       <li><strong>Week 3:</strong> Research & know</li>
-                      <li><strong>Week 4:</strong> Analyze & decide</li>
-                      <li><strong>Week 5:</strong> Automate & coordinate</li>
+                      <li><strong>Week 4:</strong> AI for Productivity</li>
+                      <li><strong>Week 5:</strong> AI-Assisted Managerial Decisions</li>
                       <li><strong>Week 6:</strong> AI Ethics / AI Ethics Checker</li>
                       <li><strong>Week 7:</strong> Responsible AI & Governance / Responsible AI Policy</li>
                       <li><strong>Week 8:</strong> Understand customers</li>
