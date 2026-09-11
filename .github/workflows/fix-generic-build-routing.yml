@@ -1,0 +1,27 @@
+name: Fix generic build routing
+
+on:
+  push:
+    branches:
+      - fix/generic-build-routing
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/generic-build-routing
+          fetch-depth: 0
+      - run: python scripts/fix_generic_build_routing.py
+      - run: |
+          rm scripts/fix_generic_build_routing.py
+          rm .github/workflows/fix-generic-build-routing.yml
+          git config user.name "Anthony course integration"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Keep unfinished weekly builds in their own modules" -m "Prevent Weeks 8–15 build cards from opening the Week 7 governance builder. Weeks 6 and 7 retain their dedicated interactive tools; later weeks now show a clearly labeled build workspace until their named interactive artifacts are implemented."
+          git push origin HEAD:fix/generic-build-routing
