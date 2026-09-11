@@ -16,15 +16,17 @@ Students learn AI for management and progressively build an AI Management Dashbo
 - Three tests, four quizzes, and seven discussions
 - Responsible AI, verification, disclosure, human judgment, and GitHub collaboration
 
-The source course-development document is stored in `docs/`:
+The current team workflow source document is stored at the repository root:
 
-`docs/BUSI.610 Course Overview and Guide Fall I 2026 - AI COURSE DEVELOPMENT.docx`
+`MGMT 610 Team work flow.docx`
+
+Implementation guidance derived from the team workflow is maintained in `docs/GITHUB_COLLABORATION_WORKFLOW.md`, `docs/BUILDER_HANDOFF_CHECKLIST.md`, and `docs/WEEKLY_PAGE_TEMPLATE.md`.
 
 ## Team workflow
 
-**Builder → second-builder review → project lead review → dashboard implementation → student-view testing → merge to main**
+**Builder → second-builder review → Daniel/project lead approval → Anthony dashboard implementation → student-view testing → merge to main**
 
-Use branches for work in progress. Keep `main` stable.
+Builders own the approved instructional package. Anthony owns technical implementation and cross-week integration after approval. Use focused branches for work in progress and keep `main` stable.
 
 Before opening a pull request, run `pnpm build` from `ai-for-managers-dashboard`, test the changed flow as a student, and commit only focused changes. Push the branch, request review for requirements, accessibility, privacy, and the student flow, resolve comments, rerun the build, and merge only after approval. Do not commit generated files such as `tsconfig.tsbuildinfo` or any passwords, API keys, student records, or confidential data.
 
