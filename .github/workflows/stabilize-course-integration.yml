@@ -1,6 +1,9 @@
 name: Stabilize course integration
 
 on:
+  push:
+    branches:
+      - stabilize/course-integration
   workflow_dispatch:
 
 permissions:
