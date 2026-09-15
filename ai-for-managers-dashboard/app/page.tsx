@@ -219,6 +219,21 @@ const structuredModules: Record<number, { overview: string; objectives: string[]
       { id: 'resources-2', title: 'Week 2 Resources', description: 'Review the lesson content, tool examples, privacy guidance, and the example comparison before submitting.', type: 'resource' },
     ],
   },
+  3: {
+    overview: 'This week teaches students how to use AI as a research and knowledge tool. Students learn how to ask better research questions, provide appropriate context, evaluate AI-generated information, identify potential inaccuracies, and use AI to support—not replace—critical thinking and research.',
+    objectives: ['Use AI tools to research business and management topics.', 'Develop effective research questions and prompts.', 'Distinguish between AI-generated information and verified information.', 'Identify potential AI inaccuracies, bias, and unsupported claims.', 'Use AI to summarize and organize information.', 'Evaluate the quality and relevance of AI-generated research.', 'Apply AI research techniques to real-world management questions.'],
+    artifact: 'Research & Know',
+    buildDescription: 'Create a Research & Know section on the dashboard that demonstrates a business or management research topic, prompt improvement, information evaluation, verification, and a short reflection.',
+    items: [
+      ...['Using AI for Research', 'Asking AI Better Research Questions', 'Research ≠ Just Asking AI', 'Evaluating AI-Generated Information', 'Hallucinations & Verification', 'AI for Knowledge Building'].map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: 'Learn the concept, apply it to a management research example, and identify what still needs verification before using the result.', type: 'lesson' as const, time: `${index < 2 ? 10 : index < 4 ? 12 : index < 6 ? 15 : 18} min` })),
+      { id: 'practice-3', title: 'Research Practice Activity', description: 'Use a management scenario to ask a weak prompt, improve it, evaluate the answer, and verify the most important claim.', type: 'practice', time: '30–45 min' },
+      { id: 'build-3', title: 'Research & Know Page', description: 'Add the Research & Know section to the dashboard with a topic, question, prompts, AI responses, verification, sources, and reflection.', type: 'build', time: '2–3 hrs' },
+      { id: 'assessment-3', title: 'Week 3 Knowledge Check', description: 'Check your understanding of research prompts, source verification, hallucinations, and evaluating AI-supported research.', type: 'assessment', time: '20–30 min' },
+      { id: 'submit-3', title: 'Week 3 Submission', description: 'Submit the completed Research & Know page, verified sources, and reflection on what AI helped with and what you had to verify yourself.', type: 'submit' },
+      { id: 'reflect-3', title: 'Week 3 Reflection', description: 'Explain how AI helped you research faster and what you still had to do yourself to know something with confidence.', type: 'reflect', time: '15–20 min' },
+      { id: 'resources-3', title: 'Week 3 Resources', description: 'Review the lesson notes, the research activity, source-quality guidance, and the verification process before submitting.', type: 'resource' },
+    ],
+  },
   6: {
     overview: 'This week you will evaluate AI use before it affects people, data, decisions, or organizational trust. Managers need ethical judgment because efficiency and accuracy alone do not answer who bears the risk, who is affected, or who remains accountable.',
     objectives: ['Explain AI ethics in management contexts.', 'Distinguish ethics, law, compliance, and risk.', 'Identify bias, privacy, transparency, accountability, and human-oversight risks.', 'Evaluate unreliable AI output and stakeholder impact.', 'Perform an AI ethics and risk assessment.'],
