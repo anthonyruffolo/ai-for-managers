@@ -254,7 +254,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .smallNote { color: var(--muted); font-size: 9px; line-height: 1.5; }
 .moduleList { border: 1px solid var(--line); background: white; }
 .moduleListTitle { padding: 13px 14px; border-bottom: 1px solid var(--line); background: #f0f4f8; color: #536069; font-size: 9px; font-weight: 850; letter-spacing: .11em; }
+.moduleListItem { border-bottom: 1px solid var(--soft-line); }
 .moduleList button { width: 100%; display: grid; grid-template-columns: 29px minmax(0, 1fr) 14px; align-items: center; gap: 10px; padding: 13px 12px; border: 0; border-bottom: 1px solid var(--soft-line); background: white; text-align: left; }
+.moduleListItem:last-child button { border-bottom: 0; }
 .moduleList button:hover { background: #f5f8fa; }
 .moduleList button.selected { background: var(--blue-pale); box-shadow: inset 4px 0 var(--blue); }
 .moduleList button > span { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: #e1ecf0; color: #4a6a8a; font-size: 10px; font-weight: 800; }
@@ -263,6 +265,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .moduleList strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; text-transform: capitalize; }
 .moduleList small { display: block; margin-top: 3px; color: var(--muted); font-size: 8px; }
 .moduleList i { color: #5a7a99; font-style: normal; }
+.moduleListExpanded { display: grid; gap: 4px; padding: 10px 14px 12px 60px; background: #f7fafb; border-top: 1px solid var(--soft-line); }
+.moduleListExpanded strong { color: var(--ink); font-size: 11px; text-transform: none; white-space: normal; }
 .moduleDetail { display: grid; gap: 18px; }
 .moduleHero { padding: 28px 30px; background: #314d60; color: white; }
 .moduleHero > span { color: #d7e3ef; font-size: 9px; font-weight: 850; letter-spacing: .12em; }
