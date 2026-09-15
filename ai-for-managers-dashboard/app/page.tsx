@@ -668,6 +668,7 @@ export default function Home() {
   }), [tasks]);
 
   const activeWeek = weeklyPlan[selectedWeek - 1];
+  const nextDeadlineTask = focusTasks.find((task) => !task.complete) ?? focusTasks[0];
   const completedPercent = tasks.length ? Math.round(tasks.filter((task) => task.complete).length / tasks.length * 100) : 0;
   const checkPercent = Math.round(checks.filter(Boolean).length / checks.length * 100);
   const pageTitle = navItems.find((item) => item.id === activeView)?.label ?? 'Course Home';
@@ -979,6 +980,12 @@ export default function Home() {
               <section className="welcomeBanner">
                 <div><span className="weekLabel">START HERE</span><h3>You do not need to be a coder.</h3><p>Bring a real management problem, curiosity, and a willingness to build, test, explain, and improve. AI helps with the work; you remain responsible for the result.</p><button className="startHereButton" type="button" onClick={() => { setSelectedWeek(1); switchView('content'); }}><strong>▶ Start Week 1</strong><span>Orient &amp; Prototype · Aug. 24–30</span></button></div>
                 <div className="weekProgress"><strong>{Math.round(selectedWeek / weeklyPlan.length * 100)}%</strong><span>Course journey</span><div><i style={{ width: `${selectedWeek / weeklyPlan.length * 100}%` }} /></div><small>{activeWeek.dates}</small></div>
+              </section>
+
+              <section className="quickCards" aria-label="Course snapshot">
+                <article><span>THIS WEEK</span><strong>Week {selectedWeek}: {activeWeek.title}</strong><button type="button" onClick={() => switchView('content')}>Continue →</button></article>
+                <article><span>YOUR PROGRESS</span><strong>{tasks.filter((task) => task.complete).length} of {tasks.length} assignments</strong><button type="button" onClick={() => switchView('grades')}>View Progress →</button></article>
+                <article><span>NEXT DEADLINE</span><strong>AI Foundations · {nextDeadlineTask ? new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }).format(new Date(`${nextDeadlineTask.due}T00:00:00Z`)) : 'Complete'}</strong><button type="button" onClick={() => switchView('assignments')}>View Assignment →</button></article>
               </section>
 
               <div className="homeColumns">
