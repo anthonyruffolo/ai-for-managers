@@ -977,7 +977,7 @@ export default function Home() {
           {activeView === 'home' && (
             <div className="homeView">
               <section className="welcomeBanner">
-                <div><span className="weekLabel">WEEK {selectedWeek} OF {weeklyPlan.length}</span><h3>You do not need to be a coder.</h3><p>Bring a real management problem, curiosity, and a willingness to build, test, explain, and improve. AI helps with the work; you remain responsible for the result.</p><button type="button" onClick={() => switchView('content')}>Open Week {selectedWeek} module</button></div>
+                <div><span className="weekLabel">START HERE</span><h3>You do not need to be a coder.</h3><p>Bring a real management problem, curiosity, and a willingness to build, test, explain, and improve. AI helps with the work; you remain responsible for the result.</p><button className="startHereButton" type="button" onClick={() => { setSelectedWeek(1); switchView('content'); }}><strong>▶ Start Week 1</strong><span>Orient &amp; Prototype · Aug. 24–30</span></button></div>
                 <div className="weekProgress"><strong>{Math.round(selectedWeek / weeklyPlan.length * 100)}%</strong><span>Course journey</span><div><i style={{ width: `${selectedWeek / weeklyPlan.length * 100}%` }} /></div><small>{activeWeek.dates}</small></div>
               </section>
 
