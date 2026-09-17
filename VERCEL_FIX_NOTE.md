@@ -1,0 +1,1 @@
+Vercel deployment configuration is explicitly set to Next.js in vercel.json. The repository root also declares Next.js so Vercel can detect the framework before entering the nested dashboard directory.
