@@ -56,6 +56,44 @@ const focusedPractice: Record<number, { scenario: string; task: string; evidence
   }
 };
 
+const focusedAssignments: Record<8 | 9, { title: string; purpose: string; steps: string[]; submit: string }> = {
+  8: {
+    title: 'Customer evidence and journey map',
+    purpose: 'Find one service problem using real, permitted evidence rather than an invented customer persona.',
+    steps: [
+      'Choose de-identified feedback or consented interview notes and record where each source came from.',
+      'Add at least three insights to the board; label each as observed, inferred, or synthetic.',
+      'Map one customer journey and mark a friction point supported by the evidence.',
+      'Name one missing voice and one question to test with real customers before acting.'
+    ],
+    submit: 'Insight board with source notes, journey map, and a short validation plan.'
+  },
+  9: {
+    title: 'Team support with human review',
+    purpose: 'Design an AI-assisted team process that helps people without making decisions about them.',
+    steps: [
+      'Choose an administrative task such as meeting preparation or action-item follow-up.',
+      'Demonstrate the workflow using fictional or de-identified information.',
+      'Mark where a manager reviews the output and where a sensitive concern is escalated.',
+      'Test the wording for bias, unsupported claims, and private details.'
+    ],
+    submit: 'Workflow example, test notes, and a boundary memo naming allowed uses and human decision points.'
+  }
+};
+
+const focusedDiscussions: Record<number, { label: string; title: string; prompt: string }> = {
+  8: {
+    label: 'WEEK 8 DISCUSSION',
+    title: 'Which customer insight is supported by evidence?',
+    prompt: 'Share one insight from your journey map, identify the source behind it, and explain what you still need to ask real customers. Reply to a classmate with a constructive question about their evidence or an overlooked customer group.'
+  },
+  9: {
+    label: 'WEEK 9 DISCUSSION',
+    title: 'Where should a person review the AI output?',
+    prompt: 'Describe one team-support task AI could help with, the human review point, and a decision AI must not make. Reply to a classmate with a fairness or privacy check that would improve their workflow.'
+  }
+};
+
 const navItems: { id: View; label: string; icon: string }[] = [
   { id: 'home', label: 'Course Home', icon: '⌂' },
   { id: 'content', label: 'Course Content', icon: '▤' },
@@ -121,6 +159,7 @@ export default function Home() {
   const [moduleSteps, setModuleSteps] = useState<Record<string, boolean>>({});
   const [draftOpen, setDraftOpen] = useState(false);
   const [discussionDraft, setDiscussionDraft] = useState('');
+  const [focusedDrafts, setFocusedDrafts] = useState<Record<number, string>>({});
   const [draftSaved, setDraftSaved] = useState(false);
   const [helpMode, setHelpMode] = useState<HelpMode | null>(null);
   const [helpDraft, setHelpDraft] = useState('');
@@ -145,6 +184,7 @@ export default function Home() {
         try { setModuleSteps(JSON.parse(savedSteps)); } catch { /* keep module steps open */ }
       }
       if (savedDiscussion) setDiscussionDraft(savedDiscussion);
+      setFocusedDrafts(Object.fromEntries([8, 9].map((week) => [week, window.localStorage.getItem(`aim-discussion-draft-week-${week}`) ?? ''])));
       setHydrated(true);
     });
 
@@ -175,6 +215,8 @@ export default function Home() {
 
   const activeWeek = weeklyPlan[selectedWeek - 1];
   const activePractice = focusedPractice[selectedWeek];
+  const activeDiscussion = focusedDiscussions[selectedWeek];
+  const activeDiscussionDraft = activeDiscussion ? focusedDrafts[selectedWeek] ?? '' : discussionDraft;
   const completedPercent = tasks.length ? Math.round(tasks.filter((task) => task.complete).length / tasks.length * 100) : 0;
   const checkPercent = Math.round(checks.filter(Boolean).length / checks.length * 100);
   const pageTitle = navItems.find((item) => item.id === activeView)?.label ?? 'Course Home';
@@ -205,7 +247,11 @@ export default function Home() {
   }
 
   function saveDiscussionDraft() {
-    window.localStorage.setItem('aim-discussion-draft-v1', discussionDraft);
+    if (focusedDiscussions[selectedWeek]) {
+      window.localStorage.setItem(`aim-discussion-draft-week-${selectedWeek}`, focusedDrafts[selectedWeek] ?? '');
+    } else {
+      window.localStorage.setItem('aim-discussion-draft-v1', discussionDraft);
+    }
     setDraftSaved(true);
     window.setTimeout(() => setDraftSaved(false), 1800);
   }
@@ -359,6 +405,11 @@ export default function Home() {
               <div className="panelBar"><h3>Assignments and Deliverables</h3><span>{tasks.filter((task) => !task.complete).length} open</span></div>
               <div className="assignmentHeader"><span>Status</span><span>Assignment</span><span>Due</span><span>Evidence check</span><span>Priority</span></div>
               {focusTasks.map((task) => <article className={task.complete ? 'complete' : ''} key={task.id}><button className="roundCheck" type="button" onClick={() => toggleTask(task.id)} aria-label={`Mark ${task.title} ${task.complete ? 'incomplete' : 'complete'}`}>{task.complete ? '✓' : ''}</button><div><strong>{task.title}</strong><span>{task.category}</span></div><time>{formatDate(task.due)}</time><button className={`evidenceButton ${task.verified ? 'verified' : ''}`} type="button" onClick={() => toggleVerified(task.id)}>{task.verified ? '✓ Verified' : 'Verify first'}</button><span className={`priority ${task.priority.toLowerCase()}`}>{task.priority}</span></article>)}
+              <div className="roadmapHeading"><div><span>YOUR WEEKS</span><h3>Weeks 8 and 9 assignments</h3></div><p>Use the steps below to build and check your work before submitting it through your course process.</p></div>
+              {([8, 9] as const).map((week) => {
+                const assignment = focusedAssignments[week];
+                return <div className="discussionPrompt" key={week}><span>WEEK {week} ASSIGNMENT</span><h3>{assignment.title}</h3><p>{assignment.purpose}</p><ol>{assignment.steps.map((step) => <li key={step}>{step}</li>)}</ol><p><strong>Submit:</strong> {assignment.submit}</p><button type="button" onClick={() => { setSelectedWeek(week); switchView('discussions'); }}>Open Week {week} discussion</button></div>;
+              })}
               <div className="roadmapHeading"><div><span>15-WEEK ASSIGNMENT ROADMAP</span><h3>One meaningful deliverable every week</h3></div><p>Select any week to open its instructions, outcomes, workload, and five-step learning sequence.</p></div>
               <div className="semesterRoadmap">
                 {weeklyPlan.map((week) => <button className={selectedWeek === week.week ? 'selected' : ''} type="button" onClick={() => { setSelectedWeek(week.week); switchView('content'); }} key={week.week}><span>Week {week.week}</span><strong>{week.title}</strong><small>{week.output}</small><i>{week.dates} →</i></button>)}
@@ -368,7 +419,15 @@ export default function Home() {
 
           {activeView === 'discussions' && (
             <div className="discussionView">
-              <section className="lmsPanel"><div className="panelBar"><h3>Discussion Board</h3><span>Week {selectedWeek}</span></div><article className="discussionPrompt"><span>REQUIRED DISCUSSION</span><h3>Where should a manager refuse AI assistance?</h3><p>Describe one situation in which using AI would create more risk than value. Use one course concept, identify who remains accountable, and reply constructively to one classmate.</p><dl><div><dt>Your post</dt><dd>250–350 words</dd></div><div><dt>Reply</dt><dd>100–150 words</dd></div><div><dt>Due</dt><dd>Friday, 11:59 PM</dd></div></dl><button type="button" onClick={() => setDraftOpen((open) => !open)}>{draftOpen ? 'Close private draft' : discussionDraft ? 'Continue private draft' : 'Start private draft'}</button></article>{draftOpen && <div className="discussionEditor"><div><strong>Private working draft</strong><span>Saved only on this device—not submitted to the class.</span></div><textarea value={discussionDraft} onChange={(event) => setDiscussionDraft(event.target.value)} placeholder="Start with a specific situation. What decision is at stake? What could go wrong? Who remains accountable?" /><div><span>{discussionDraft.trim() ? discussionDraft.trim().split(/\s+/).length : 0} words</span><button type="button" onClick={saveDiscussionDraft}>{draftSaved ? 'Saved' : 'Save draft'}</button></div></div>}</section>
+              <section className="lmsPanel"><div className="panelBar"><h3>Discussion Board</h3><span>Week {selectedWeek}</span></div><article className="discussionPrompt"><span>{activeDiscussion?.label ?? 'REQUIRED DISCUSSION'}</span><h3>{activeDiscussion?.title ?? 'Where should a manager refuse AI assistance?'}</h3><p>{activeDiscussion?.prompt ?? 'Describe one situation in which using AI would create more risk than value. Use one course concept, identify who remains accountable, and reply constructively to one classmate.'}</p><dl><div><dt>Your post</dt><dd>250–350 words</dd></div><div><dt>Reply</dt><dd>100–150 words</dd></div><div><dt>Due</dt><dd>Friday, 11:59 PM</dd></div></dl><button type="button" onClick={() => setDraftOpen((open) => !open)}>{draftOpen ? 'Close private draft' : activeDiscussionDraft ? 'Continue private draft' : 'Start private draft'}</button></article>{draftOpen && <div className="discussionEditor"><div><strong>Private working draft</strong><span>Saved only on this device—not submitted to the class.</span></div><textarea value={activeDiscussionDraft} onChange={(event) => activeDiscussion ? setFocusedDrafts((drafts) => ({ ...drafts, [selectedWeek]: event.target.value })) : setDiscussionDraft(event.target.value)} placeholder="Start with a specific situation. What decision is at stake? What could go wrong? Who remains accountable?" /><div><span>{activeDiscussionDraft.trim() ? activeDiscussionDraft.trim().split(/\s+/).length : 0} words</span><button type="button" onClick={saveDiscussionDraft}>{draftSaved ? 'Saved' : 'Save draft'}</button></div></div>}{activeDiscussion && (
+                <article className="discussionPrompt" aria-label={`Week ${selectedWeek} questions for classmates`}>
+                  <span>QUESTIONS FOR CLASSMATES</span>
+                  <h3>Ask, answer, and build on ideas</h3>
+                  <p>Post a specific Week {selectedWeek} question, say what you have tried, and reply constructively to a classmate. The shared questions and replies are on this project’s public GitHub Issues page. Sign in to GitHub to participate; do not include private customer, employee, or student information.</p>
+                  <p><a href={`https://github.com/anthonyruffolo/ai-for-managers/issues?q=${encodeURIComponent(`is:issue in:title "[Week ${selectedWeek}]"`)}`} target="_blank" rel="noopener noreferrer">Read Week {selectedWeek} questions and replies</a></p>
+                  <p><a href={`https://github.com/anthonyruffolo/ai-for-managers/issues/new?title=${encodeURIComponent(`[Week ${selectedWeek}] Question: `)}`} target="_blank" rel="noopener noreferrer">Ask a Week {selectedWeek} question</a></p>
+                </article>
+              )}</section>
               <aside className="lmsPanel discussionGuide"><div className="panelBar"><h3>A strong post</h3></div><ol><li>Names a specific managerial situation.</li><li>Uses evidence or a course concept.</li><li>Explains risk, tradeoffs, and accountability.</li><li>Adds something useful to a classmate’s thinking.</li></ol><p>AI may help you brainstorm or revise. Your judgment, evidence, and final writing must be your own.</p></aside>
             </div>
           )}
