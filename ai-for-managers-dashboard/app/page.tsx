@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { CourseLanguage, useCourseLocale } from './useCourseLocale';
 
 type Priority = 'High' | 'Medium' | 'Low';
 type View = 'home' | 'content' | 'assignments' | 'discussions' | 'grades' | 'messages' | 'toolkit' | 'syllabus';
@@ -652,6 +653,15 @@ function formatDate(value: string) {
 
 export default function Home() {
   const [activeView, setActiveView] = useState<View>('home');
+  const [courseLanguage, setCourseLanguage] = useState<CourseLanguage>('en');
+  useCourseLocale(courseLanguage);
+  useEffect(() => {
+    const saved = window.localStorage.getItem('aim-course-language-v1');
+    if (saved === 'en' || saved === 'es' || saved === 'de' || saved === 'ko' || saved === 'zh-CN') setCourseLanguage(saved);
+  }, []);
+  useEffect(() => {
+    window.localStorage.setItem('aim-course-language-v1', courseLanguage);
+  }, [courseLanguage]);
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [moduleItem, setModuleItem] = useState<string | null>(null);
@@ -1131,7 +1141,7 @@ export default function Home() {
         <button className="mobileMenu" type="button" aria-label="Open course menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>☰</button>
         <a className="portalBrand" href="#" onClick={(event) => { event.preventDefault(); switchView('home'); }}><span>AI</span><strong>LEARNING PORTAL</strong></a>
         <label className="portalSearch"><span aria-hidden="true">⌕</span><input aria-label="Search course" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search modules, assignments, and tools" /></label>
-        <div className="globalActions"><button className="faqTrigger" type="button" aria-label="Open frequently asked questions" aria-expanded={faqOpen} title="Frequently asked questions" onClick={() => setFaqOpen(true)}>?</button><button type="button" aria-label="Notifications">●</button><span className="profileBadge">DW</span></div>
+        <div className="globalActions"><label className="courseLanguage"><span>{({ en: 'Language', es: 'Idioma', de: 'Sprache', ko: '언어', 'zh-CN': '语言' } as const)[courseLanguage]}</span><select aria-label="Course language" value={courseLanguage} onChange={(event) => setCourseLanguage(event.target.value as CourseLanguage)}><option value="en">English</option><option value="es">Español</option><option value="de">Deutsch</option><option value="ko">한국어</option><option value="zh-CN">简体中文</option></select></label><button className="faqTrigger" type="button" aria-label="Open frequently asked questions" aria-expanded={faqOpen} title="Frequently asked questions" onClick={() => setFaqOpen(true)}>?</button><button type="button" aria-label="Notifications">●</button><span className="profileBadge">DW</span></div>
       </header>
 
       <header className="courseMasthead">

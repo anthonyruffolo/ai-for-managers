@@ -630,7 +630,7 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
 }
 
 @media (max-width: 590px) {
-  .globalActions button:nth-child(2), .courseStatus { display: none; }
+  .globalActions button[aria-label="Notifications"], .courseStatus { display: none; }
   .pageHeading { align-items: start; flex-direction: column; }
   .pageHeading .primaryAction { width: 100%; }
   .welcomeBanner { grid-template-columns: 1fr; gap: 22px; padding: 24px; }
@@ -733,3 +733,8 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
 }
+
+.courseLanguage { display:flex; align-items:center; gap:8px; white-space:nowrap; color:#f4f4f4; font-size:12px; font-weight:700; }
+.courseLanguage select { max-width:140px; min-height:34px; padding:5px 9px; border:1px solid #cbd5e1; border-radius:8px; background:#fff; color:#17233a; font:inherit; cursor:pointer; }
+.courseLanguage select:focus-visible { outline:2px solid #2563eb; outline-offset:2px; }
+@media (max-width:760px) { .courseLanguage span { display:none; } .courseLanguage select { max-width:104px; } .portalSearch { flex:1; min-width:0; } }
