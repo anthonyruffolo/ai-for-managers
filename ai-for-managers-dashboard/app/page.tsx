@@ -1,10 +1,13 @@
 'use client';
 
 import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { CourseLanguage, courseText, useCourseLocale } from './useCourseLocale';
+import { buildAiBrief, buildHelpMessage } from './courseTemplates';
 
 type Priority = 'High' | 'Medium' | 'Low';
 type View = 'home' | 'content' | 'assignments' | 'discussions' | 'grades' | 'messages' | 'toolkit' | 'syllabus';
 type HelpMode = 'instructions' | 'technical' | 'team';
+type TranslationLanguage = 'es' | 'de' | 'ko' | 'zh-CN';
 type Task = {
   id: number;
   title: string;
@@ -133,13 +136,32 @@ const faqItems = [
   { question: 'What should I do when I am stuck?', answer: 'Name the smallest specific blocker, record what you already tried, and ask for help early. Messages & Help provides templates for instruction questions, technical blockers, and private team check-ins.' },
 ];
 
-function formatDate(value: string) {
+const translationLanguages: { code: TranslationLanguage; label: string; nativeLabel: string }[] = [
+  { code: 'es', label: 'Spanish', nativeLabel: 'Español' },
+  { code: 'de', label: 'German', nativeLabel: 'Deutsch' },
+  { code: 'ko', label: 'Korean', nativeLabel: '한국어' },
+  { code: 'zh-CN', label: 'Chinese (Simplified)', nativeLabel: '简体中文' },
+];
+
+const translationFallbacks: Record<string, Partial<Record<TranslationLanguage, string>>> = {
+  assignment: { es: 'tarea', de: 'Aufgabe', ko: '과제', 'zh-CN': '作业' },
+  manager: { es: 'gerente', de: 'Manager', ko: '관리자', 'zh-CN': '经理' },
+  student: { es: 'estudiante', de: 'Student', ko: '학생', 'zh-CN': '学生' },
+  team: { es: 'equipo', de: 'Team', ko: '팀', 'zh-CN': '团队' },
+  evidence: { es: 'evidencia', de: 'Beleg', ko: '증거', 'zh-CN': '证据' },
+  privacy: { es: 'privacidad', de: 'Datenschutz', ko: '개인정보 보호', 'zh-CN': '隐私' },
+  responsible: { es: 'responsable', de: 'verantwortungsvoll', ko: '책임 있는', 'zh-CN': '负责任的' },
+  'artificial intelligence': { es: 'inteligencia artificial', de: 'künstliche Intelligenz', ko: '인공지능', 'zh-CN': '人工智能' },
+};
+
+function formatDate(value: string, language: CourseLanguage = 'en') {
   if (!value) return 'No date';
-  return new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }).format(new Date(`${value}T00:00:00Z`));
+  return new Intl.DateTimeFormat({ en: 'en-US', es: 'es-ES', de: 'de-DE', ko: 'ko-KR', 'zh-CN': 'zh-CN' }[language], { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }).format(new Date(`${value}T00:00:00Z`));
 }
 
 export default function Home() {
   const [activeView, setActiveView] = useState<View>('home');
+  const [courseLanguage, setCourseLanguage] = useState<CourseLanguage>('en');
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [showTaskForm, setShowTaskForm] = useState(false);
@@ -166,10 +188,18 @@ export default function Home() {
   const [helpCopied, setHelpCopied] = useState(false);
   const [faqOpen, setFaqOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [translationText, setTranslationText] = useState('');
+  const [translationLanguage, setTranslationLanguage] = useState<TranslationLanguage>('es');
+  const [translationResult, setTranslationResult] = useState('');
+  const [translationStatus, setTranslationStatus] = useState<'idle' | 'loading' | 'success' | 'fallback' | 'error'>('idle');
   const [hydrated, setHydrated] = useState(false);
+
+  useCourseLocale(courseLanguage);
 
   useEffect(() => {
     const animationFrame = window.requestAnimationFrame(() => {
+      const savedLanguage = window.localStorage.getItem('aim-course-language-v1');
+      if (savedLanguage && ['en', 'es', 'de', 'ko', 'zh-CN'].includes(savedLanguage)) setCourseLanguage(savedLanguage as CourseLanguage);
       const savedTasks = window.localStorage.getItem('aim-dashboard-tasks-v1');
       const savedChecks = window.localStorage.getItem('aim-dashboard-checks-v1');
       const savedSteps = window.localStorage.getItem('aim-module-steps-v1');
@@ -199,6 +229,10 @@ export default function Home() {
   }, [tasks, checks, moduleSteps, hydrated]);
 
   useEffect(() => {
+    if (hydrated) window.localStorage.setItem('aim-course-language-v1', courseLanguage);
+  }, [courseLanguage, hydrated]);
+
+  useEffect(() => {
     if (!faqOpen) return;
     function handleEscape(event: KeyboardEvent) {
       if (event.key === 'Escape') setFaqOpen(false);
@@ -214,6 +248,31 @@ export default function Home() {
   }), [tasks]);
 
   const activeWeek = weeklyPlan[selectedWeek - 1];
+  const openModuleLabel = {
+    en: 'Open Week ' + selectedWeek + ' module',
+    es: 'Abrir el módulo de la semana ' + selectedWeek,
+    de: 'Modul für Woche ' + selectedWeek + ' öffnen',
+    ko: selectedWeek + '주차 모듈 열기',
+    'zh-CN': '打开第' + selectedWeek + '周模块',
+  }[courseLanguage];
+  function taskActionLabel(task: Task) {
+    const name = courseText(courseLanguage, task.title);
+    const done = task.complete;
+    return {
+      en: 'Mark ' + name + (done ? ' incomplete' : ' complete'),
+      es: 'Marcar ' + name + (done ? ' como incompleta' : ' como completa'),
+      de: name + (done ? ' als unerledigt markieren' : ' als erledigt markieren'),
+      ko: name + (done ? ' 미완료로 표시' : ' 완료로 표시'),
+      'zh-CN': '将' + name + (done ? '标记为未完成' : '标记为已完成'),
+    }[courseLanguage];
+  }
+  const checkInLabels = {
+    en: ['Clear', 'Stretched', 'Stuck'],
+    es: ['Lo tengo claro', 'Me cuesta', 'Estoy atascado'],
+    de: ['Klar', 'Angespannt', 'Festgefahren'],
+    ko: ['이해됨', '버거움', '막힘'],
+    'zh-CN': ['清楚', '有压力', '遇到困难'],
+  }[courseLanguage];
   const activePractice = focusedPractice[selectedWeek];
   const activeDiscussion = focusedDiscussions[selectedWeek];
   const activeDiscussionDraft = activeDiscussion ? focusedDrafts[selectedWeek] ?? '' : discussionDraft;
@@ -221,13 +280,16 @@ export default function Home() {
   const checkPercent = Math.round(checks.filter(Boolean).length / checks.length * 100);
   const pageTitle = navItems.find((item) => item.id === activeView)?.label ?? 'Course Home';
   const normalizedSearch = searchQuery.trim().toLowerCase();
+  const matchesSearch = (...values: string[]) => values.some((value) =>
+    (value + ' ' + courseText(courseLanguage, value)).toLowerCase().includes(normalizedSearch)
+  );
   const searchResults = normalizedSearch ? [
-    ...navItems.filter((item) => item.label.toLowerCase().includes(normalizedSearch)).map((item) => ({ id: `view-${item.id}`, label: item.label, detail: 'Course area', view: item.id as View })),
-    ...weeklyPlan.filter((week) => `${week.title} ${week.learn} ${week.output}`.toLowerCase().includes(normalizedSearch)).map((week) => ({ id: `week-${week.week}`, label: `Week ${week.week}: ${week.title}`, detail: week.output, view: 'content' as View, week: week.week })),
-    ...tasks.filter((task) => `${task.title} ${task.category}`.toLowerCase().includes(normalizedSearch)).map((task) => ({ id: `task-${task.id}`, label: task.title, detail: `${task.category} · Due ${formatDate(task.due)}`, view: 'assignments' as View })),
+    ...navItems.filter((item) => matchesSearch(item.label)).map((item) => ({ id: `view-${item.id}`, label: item.label, detail: 'Course area', view: item.id as View })),
+    ...weeklyPlan.filter((week) => matchesSearch(week.title, week.learn, week.output)).map((week) => ({ id: `week-${week.week}`, label: courseText(courseLanguage, 'Week') + ' ' + week.week + ': ' + courseText(courseLanguage, week.title), detail: courseText(courseLanguage, week.output), view: 'content' as View, week: week.week })),
+    ...tasks.filter((task) => matchesSearch(task.title, task.category)).map((task) => ({ id: `task-${task.id}`, label: task.title, detail: courseText(courseLanguage, task.category) + ' · ' + courseText(courseLanguage, 'Due') + ' ' + formatDate(task.due, courseLanguage), view: 'assignments' as View })),
   ].slice(0, 8) : [];
   const completedModuleSteps = ['Learn', 'Create', 'Test', 'Manage', 'Present'].filter((label) => moduleSteps[`${selectedWeek}-${label}`]).length;
-  const aiBrief = `Goal: ${goal || '[state the outcome]'}\n\nContext: ${context || '[add audience, situation, inputs, and background]'}\n\nConstraints: ${constraints || '[add limits, privacy rules, time, and format]'}\n\nSuccess looks like: ${success || '[define an observable standard]'}\n\nAsk focused questions before proposing a solution. Help me work in small steps, test the result, identify risks, and improve it. Distinguish facts, assumptions, and recommendations. I remain responsible for the final decision.`;
+  const aiBrief = buildAiBrief(courseLanguage, { goal, context, constraints, success });
 
   function switchView(view: View) {
     setActiveView(view);
@@ -257,13 +319,9 @@ export default function Home() {
   }
 
   function prepareHelpMessage(mode: HelpMode) {
-    const templates: Record<HelpMode, string> = {
-      instructions: `Subject: Question about Week ${selectedWeek} instructions\n\nModule or assignment: \nThe instruction I am unsure about: \nWhat I think it means: \nWhat I have already tried: \nMy specific question: `,
-      technical: `Subject: Technical blocker in Week ${selectedWeek}\n\nWhat I expected to happen: \nWhat happened instead: \nSteps I already tried: \nDevice/browser (no passwords or private data): \nWhen I need help by: `,
-      team: `Subject: Request for a private team check-in\n\nWeek: ${selectedWeek}\nContribution concern: \nEvidence from our contribution record: \nSteps the team has already taken: \nWhat support I am requesting: `,
-    };
+    const message = buildHelpMessage(courseLanguage, mode, selectedWeek);
     setHelpMode(mode);
-    setHelpDraft(templates[mode]);
+    setHelpDraft(message);
   }
 
   async function copyHelpMessage() {
@@ -295,12 +353,39 @@ export default function Home() {
     window.setTimeout(() => setCopied(false), 1800);
   }
 
+  async function translateText(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const query = translationText.trim();
+    if (!query) return;
+
+    const fallback = translationFallbacks[query.toLowerCase()]?.[translationLanguage];
+    setTranslationStatus('loading');
+    setTranslationResult('');
+
+    try {
+      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(query)}&langpair=en|${translationLanguage}`);
+      if (!response.ok) throw new Error('Translation request failed');
+      const data = await response.json() as { responseData?: { translatedText?: string } };
+      const result = data.responseData?.translatedText?.trim();
+      if (!result) throw new Error('No translation returned');
+      setTranslationResult(result);
+      setTranslationStatus('success');
+    } catch {
+      if (fallback) {
+        setTranslationResult(fallback);
+        setTranslationStatus('fallback');
+      } else {
+        setTranslationStatus('error');
+      }
+    }
+  }
+
   return (
     <main className="lmsShell">
       <header className="globalBar">
         <button className="mobileMenu" type="button" aria-label="Open course menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>☰</button>
         <a className="portalBrand" href="#" onClick={(event) => { event.preventDefault(); switchView('home'); }}><span>AI</span><strong>LEARNING PORTAL</strong></a>
-        <label className="portalSearch"><span aria-hidden="true">⌕</span><input aria-label="Search course" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search modules, assignments, and tools" /></label>
+        <label className="portalSearch"><span aria-hidden="true">⌕</span><input aria-label="Search course" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search modules, assignments, and tools" /></label><label className="courseLanguage" data-no-translate><span>{({ en: 'Language', es: 'Idioma', de: 'Sprache', ko: '언어', 'zh-CN': '语言' } as const)[courseLanguage]}</span><select aria-label="Course language" value={courseLanguage} onChange={(event) => setCourseLanguage(event.target.value as CourseLanguage)}><option value="en">English</option><option value="es">Español</option><option value="de">Deutsch</option><option value="ko">한국어</option><option value="zh-CN">简体中文</option></select></label>
         <div className="globalActions"><button className="faqTrigger" type="button" aria-label="Open frequently asked questions" aria-expanded={faqOpen} title="Frequently asked questions" onClick={() => setFaqOpen(true)}>?</button><button type="button" aria-label="Notifications">●</button><span className="profileBadge">DW</span></div>
       </header>
 
@@ -328,7 +413,7 @@ export default function Home() {
 
           {normalizedSearch && (
             <section className="searchResults" aria-live="polite">
-              <div><span>SEARCH RESULTS</span><strong>{searchResults.length} match{searchResults.length === 1 ? '' : 'es'} for “{searchQuery.trim()}”</strong><button type="button" onClick={() => setSearchQuery('')}>Clear</button></div>
+              <div><span>SEARCH RESULTS</span><strong>{courseLanguage === 'en' ? (String(searchResults.length) + ' match' + (searchResults.length === 1 ? '' : 'es') + ' for “' + searchQuery.trim() + '”') : courseLanguage === 'es' ? (String(searchResults.length) + ' resultado' + (searchResults.length === 1 ? '' : 's') + ' para «' + searchQuery.trim() + '»') : courseLanguage === 'de' ? (String(searchResults.length) + ' Treffer für „' + searchQuery.trim() + '“') : courseLanguage === 'ko' ? ('‘' + searchQuery.trim() + '’에 대한 검색 결과 ' + searchResults.length + '개') : ('“' + searchQuery.trim() + '”的搜索结果：' + searchResults.length + '条')}</strong><button type="button" onClick={() => setSearchQuery('')}>Clear</button></div>
               {searchResults.length ? searchResults.map((result) => <button type="button" onClick={() => openSearchResult(result)} key={result.id}><span>↗</span><div><strong>{result.label}</strong><small>{result.detail}</small></div></button>) : <p>No matching course content. Try a week number, assignment name, “grades,” “help,” or “AI toolkit.”</p>}
             </section>
           )}
@@ -336,7 +421,7 @@ export default function Home() {
           {activeView === 'home' && (
             <div className="homeView">
               <section className="welcomeBanner">
-                <div><span className="weekLabel">WEEK {selectedWeek} OF {weeklyPlan.length}</span><h3>You do not need to be a coder.</h3><p>Bring a real management problem, curiosity, and a willingness to build, test, explain, and improve. AI helps with the work; you remain responsible for the result.</p><button type="button" onClick={() => switchView('content')}>Open Week {selectedWeek} module</button></div>
+                <div><span className="weekLabel">WEEK {selectedWeek} OF {weeklyPlan.length}</span><h3>You do not need to be a coder.</h3><p>Bring a real management problem, curiosity, and a willingness to build, test, explain, and improve. AI helps with the work; you remain responsible for the result.</p><button type="button" onClick={() => switchView('content')}>{openModuleLabel}</button></div>
                 <div className="weekProgress"><strong>{Math.round(selectedWeek / weeklyPlan.length * 100)}%</strong><span>Course journey</span><div><i style={{ width: `${selectedWeek / weeklyPlan.length * 100}%` }} /></div><small>{activeWeek.dates}</small></div>
               </section>
 
@@ -353,8 +438,8 @@ export default function Home() {
                     <div className="dueList">
                       {focusTasks.slice(0, 4).map((task) => (
                         <article className={task.complete ? 'complete' : ''} key={task.id}>
-                          <button className="roundCheck" type="button" aria-label={`Mark ${task.title} ${task.complete ? 'incomplete' : 'complete'}`} onClick={() => toggleTask(task.id)}>{task.complete ? '✓' : ''}</button>
-                          <div><strong>{task.title}</strong><span>{task.category} · Due {formatDate(task.due)}</span></div>
+                          <button className="roundCheck" type="button" aria-label={taskActionLabel(task)} onClick={() => toggleTask(task.id)}>{task.complete ? '✓' : ''}</button>
+                          <div><strong>{task.title}</strong><span>{task.category} · Due {formatDate(task.due, courseLanguage)}</span></div>
                           <span className={`priority ${task.priority.toLowerCase()}`}>{task.priority}</span>
                         </article>
                       ))}
@@ -365,7 +450,7 @@ export default function Home() {
                 <aside className="rightColumn">
                   <section className="lmsPanel progressPanel"><div className="panelBar"><h3>My Progress</h3></div><div className="progressDonut" style={{ '--progress': `${completedPercent * 3.6}deg` } as React.CSSProperties}><span>{completedPercent}%</span></div><p>{tasks.filter((task) => task.complete).length} of {tasks.length} assignments completed</p><button type="button" onClick={() => switchView('grades')}>View my grades</button></section>
                   <section className="lmsPanel currentModule"><div className="panelBar"><h3>Current Module</h3></div><span>Week {selectedWeek} · {activeWeek.dates}</span><h4>{activeWeek.title}</h4><p><strong>By Friday, I can:</strong> {activeWeek.studentWin}</p><dl><div><dt>Estimated work</dt><dd>{activeWeek.workload}</dd></div><div><dt>Submit</dt><dd>{activeWeek.output}</dd></div></dl><button type="button" onClick={() => switchView('content')}>Continue module →</button></section>
-                  <section className="pulseCard" aria-live="polite"><span>WEEKLY CHECK-IN</span><h3>How does this week feel?</h3><div>{['Clear', 'Stretched', 'Stuck'].map((option) => <button className={studentPulse === option ? 'selected' : ''} type="button" aria-pressed={studentPulse === option} onClick={() => setStudentPulse(option)} key={option}>{option}</button>)}</div><p>{studentPulse ? studentPulse === 'Clear' ? 'Keep building and document what you learn.' : studentPulse === 'Stretched' ? 'Choose the smallest next step and ask for one focused check-in.' : 'Pause, name the blocker, and ask for help before adding complexity.' : 'Your response stays in this visit.'}</p></section>
+                  <section className="pulseCard" aria-live="polite"><span>WEEKLY CHECK-IN</span><h3>How does this week feel?</h3><div>{['Clear', 'Stretched', 'Stuck'].map((option) => <button className={studentPulse === option ? 'selected' : ''} type="button" aria-pressed={studentPulse === option} onClick={() => setStudentPulse(option)} key={option} data-no-translate>{checkInLabels[['Clear', 'Stretched', 'Stuck'].indexOf(option)]}</button>)}</div><p>{studentPulse ? studentPulse === 'Clear' ? 'Keep building and document what you learn.' : studentPulse === 'Stretched' ? 'Choose the smallest next step and ask for one focused check-in.' : 'Pause, name the blocker, and ask for help before adding complexity.' : 'Your response stays in this visit.'}</p></section>
                 </aside>
               </div>
             </div>
@@ -376,7 +461,7 @@ export default function Home() {
               <aside className="moduleList" aria-label="Course modules"><div className="moduleListTitle">15 WEEK MODULES</div>{weeklyPlan.map((week) => <button className={selectedWeek === week.week ? 'selected' : ''} type="button" onClick={() => setSelectedWeek(week.week)} key={week.week}><span>{week.week}</span><div><strong>{week.title}</strong><small>{week.dates}</small></div><i>{week.week < selectedWeek ? '✓' : '›'}</i></button>)}</aside>
               <section className="moduleDetail">
                 <div className="moduleHero"><span>MODULE {activeWeek.week} · {activeWeek.dates}</span><h3>{activeWeek.title}</h3><p>{activeWeek.studentQuestion}</p><div><span>Expected effort: {activeWeek.workload}</span><span>Deliverable: {activeWeek.output}</span></div></div>
-                <section className="lmsPanel moduleOutcome"><div className="panelBar"><h3>By the end of this week</h3></div><p className="outcomeStatement">I can {activeWeek.studentWin.charAt(0).toLowerCase() + activeWeek.studentWin.slice(1)}</p><p><strong>Career connection:</strong> {activeWeek.career}</p></section>
+                <section className="lmsPanel moduleOutcome"><div className="panelBar"><h3>By the end of this week</h3></div><p className="outcomeStatement">{courseLanguage === 'en' ? 'I can ' + activeWeek.studentWin.charAt(0).toLowerCase() + activeWeek.studentWin.slice(1) : activeWeek.studentWin}</p><p><strong>Career connection:</strong> {activeWeek.career}</p></section>
                 <section className="lmsPanel learningSequence"><div className="panelBar"><h3>Learning Sequence</h3><span>{completedModuleSteps} of 5 complete</span></div>{[
                   ['1', 'Learn', activeWeek.learn],
                   ['2', 'Create', activeWeek.build],
@@ -388,7 +473,7 @@ export default function Home() {
                   return <article className={isComplete ? 'stepComplete' : ''} key={label}><span>{isComplete ? '✓' : number}</span><div><strong>{label}</strong><p>{copy}</p></div><button type="button" aria-pressed={isComplete} onClick={() => toggleModuleStep(label)}>{isComplete ? 'Completed' : 'Mark complete'}</button></article>;
                 })}</section>
                 {activePractice && (
-                  <section className="lmsPanel moduleOutcome" aria-label={`Week ${selectedWeek} practice`}>
+                  <section className="lmsPanel moduleOutcome" aria-label={courseText(courseLanguage, 'Week') + ' ' + selectedWeek + ' ' + ({ en: 'practice', es: 'práctica', de: 'Übung', ko: '실습', 'zh-CN': '练习' } as const)[courseLanguage]}>
                     <div className="panelBar"><h3>Try it with a safe example</h3></div>
                     <p><strong>Scenario:</strong> {activePractice.scenario}</p>
                     <p><strong>Your task:</strong> {activePractice.task}</p>
@@ -404,7 +489,7 @@ export default function Home() {
             <section className="lmsPanel assignmentView">
               <div className="panelBar"><h3>Assignments and Deliverables</h3><span>{tasks.filter((task) => !task.complete).length} open</span></div>
               <div className="assignmentHeader"><span>Status</span><span>Assignment</span><span>Due</span><span>Evidence check</span><span>Priority</span></div>
-              {focusTasks.map((task) => <article className={task.complete ? 'complete' : ''} key={task.id}><button className="roundCheck" type="button" onClick={() => toggleTask(task.id)} aria-label={`Mark ${task.title} ${task.complete ? 'incomplete' : 'complete'}`}>{task.complete ? '✓' : ''}</button><div><strong>{task.title}</strong><span>{task.category}</span></div><time>{formatDate(task.due)}</time><button className={`evidenceButton ${task.verified ? 'verified' : ''}`} type="button" onClick={() => toggleVerified(task.id)}>{task.verified ? '✓ Verified' : 'Verify first'}</button><span className={`priority ${task.priority.toLowerCase()}`}>{task.priority}</span></article>)}
+              {focusTasks.map((task) => <article className={task.complete ? 'complete' : ''} key={task.id}><button className="roundCheck" type="button" onClick={() => toggleTask(task.id)} aria-label={taskActionLabel(task)}>{task.complete ? '✓' : ''}</button><div><strong>{task.title}</strong><span>{task.category}</span></div><time>{formatDate(task.due, courseLanguage)}</time><button className={`evidenceButton ${task.verified ? 'verified' : ''}`} type="button" onClick={() => toggleVerified(task.id)}>{task.verified ? '✓ Verified' : 'Verify first'}</button><span className={`priority ${task.priority.toLowerCase()}`}>{task.priority}</span></article>)}
               <div className="roadmapHeading"><div><span>YOUR WEEKS</span><h3>Weeks 8 and 9 assignments</h3></div><p>Use the steps below to build and check your work before submitting it through your course process.</p></div>
               {([8, 9] as const).map((week) => {
                 const assignment = focusedAssignments[week];
@@ -420,7 +505,7 @@ export default function Home() {
           {activeView === 'discussions' && (
             <div className="discussionView">
               <section className="lmsPanel"><div className="panelBar"><h3>Discussion Board</h3><span>Week {selectedWeek}</span></div><article className="discussionPrompt"><span>{activeDiscussion?.label ?? 'REQUIRED DISCUSSION'}</span><h3>{activeDiscussion?.title ?? 'Where should a manager refuse AI assistance?'}</h3><p>{activeDiscussion?.prompt ?? 'Describe one situation in which using AI would create more risk than value. Use one course concept, identify who remains accountable, and reply constructively to one classmate.'}</p><dl><div><dt>Your post</dt><dd>250–350 words</dd></div><div><dt>Reply</dt><dd>100–150 words</dd></div><div><dt>Due</dt><dd>Friday, 11:59 PM</dd></div></dl><button type="button" onClick={() => setDraftOpen((open) => !open)}>{draftOpen ? 'Close private draft' : activeDiscussionDraft ? 'Continue private draft' : 'Start private draft'}</button></article>{draftOpen && <div className="discussionEditor"><div><strong>Private working draft</strong><span>Saved only on this device—not submitted to the class.</span></div><textarea value={activeDiscussionDraft} onChange={(event) => activeDiscussion ? setFocusedDrafts((drafts) => ({ ...drafts, [selectedWeek]: event.target.value })) : setDiscussionDraft(event.target.value)} placeholder="Start with a specific situation. What decision is at stake? What could go wrong? Who remains accountable?" /><div><span>{activeDiscussionDraft.trim() ? activeDiscussionDraft.trim().split(/\s+/).length : 0} words</span><button type="button" onClick={saveDiscussionDraft}>{draftSaved ? 'Saved' : 'Save draft'}</button></div></div>}{activeDiscussion && (
-                <article className="discussionPrompt" aria-label={`Week ${selectedWeek} questions for classmates`}>
+                <article className="discussionPrompt" aria-label={courseText(courseLanguage, 'Week') + ' ' + selectedWeek + ' ' + ({ en: 'questions for classmates', es: 'preguntas para compañeros', de: 'Fragen an Mitstudierende', ko: '동료 학생에게 할 질문', 'zh-CN': '向同学提问' } as const)[courseLanguage]}>
                   <span>QUESTIONS FOR CLASSMATES</span>
                   <h3>Ask, answer, and build on ideas</h3>
                   <p>Post a specific Week {selectedWeek} question, say what you have tried, and reply constructively to a classmate. The shared questions and replies are on this project’s public GitHub Issues page. Sign in to GitHub to participate; do not include private customer, employee, or student information.</p>
@@ -449,7 +534,7 @@ export default function Home() {
 
           {activeView === 'toolkit' && (
             <div className="toolkitView">
-              <section className="lmsPanel briefBuilder"><div className="panelBar"><h3>AI Collaboration Brief</h3><span>Planning aid—not assessed work</span></div><p>Turn a fuzzy request into a clear, accountable starting brief for the AI tool your course permits.</p><div className="briefFields"><label>Goal<input value={goal} onChange={(event) => setGoal(event.target.value)} placeholder="What are you trying to accomplish?" /></label><label>Context<textarea value={context} onChange={(event) => setContext(event.target.value)} placeholder="Audience, situation, inputs, and background" /></label><label>Constraints<textarea value={constraints} onChange={(event) => setConstraints(event.target.value)} placeholder="Rules, privacy, time, format, and boundaries" /></label><label>Success standard<input value={success} onChange={(event) => setSuccess(event.target.value)} placeholder="How will you know it works?" /></label></div><pre>{aiBrief}</pre><button className="primaryAction" type="button" onClick={copyBrief}>{copied ? 'Copied to clipboard' : 'Copy AI brief'}</button></section>
+              <div className="toolkitMain"><section className="lmsPanel translatorPanel"><div className="panelBar"><h3>Word Translator</h3><span>For international students</span></div><p>Translate a word or short phrase from English into a language you are more comfortable reading.</p><form onSubmit={translateText}><div className="translatorFields"><label>English word or phrase<input value={translationText} onChange={(event) => { setTranslationText(event.target.value); setTranslationStatus('idle'); }} placeholder="Try: evidence or team meeting" /></label><label>Translate to<select value={translationLanguage} onChange={(event) => { setTranslationLanguage(event.target.value as TranslationLanguage); setTranslationStatus('idle'); }} aria-label="Translation language">{translationLanguages.map((language) => <option value={language.code} key={language.code}>{language.label} · {language.nativeLabel}</option>)}</select></label></div><button className="primaryAction" type="submit" disabled={translationStatus === 'loading'}>{translationStatus === 'loading' ? 'Translating...' : 'Translate word'}</button></form>{translationStatus !== 'idle' && translationStatus !== 'loading' && <div className={`translationResult ${translationStatus}`} aria-live="polite">{translationStatus === 'error' ? <><strong>Translation unavailable</strong><span>Try a shorter phrase or check your connection.</span></> : <><span>{translationLanguages.find((language) => language.code === translationLanguage)?.nativeLabel}</span><strong>{translationResult}</strong>{translationStatus === 'fallback' && <small>Showing an offline course vocabulary match.</small>}</>}</div>}</section><section className="lmsPanel briefBuilder"><div className="panelBar"><h3>AI Collaboration Brief</h3><span>Planning aid—not assessed work</span></div><p>Turn a fuzzy request into a clear, accountable starting brief for the AI tool your course permits.</p><div className="briefFields"><label>Goal<input value={goal} onChange={(event) => setGoal(event.target.value)} placeholder="What are you trying to accomplish?" /></label><label>Context<textarea value={context} onChange={(event) => setContext(event.target.value)} placeholder="Audience, situation, inputs, and background" /></label><label>Constraints<textarea value={constraints} onChange={(event) => setConstraints(event.target.value)} placeholder="Rules, privacy, time, format, and boundaries" /></label><label>Success standard<input value={success} onChange={(event) => setSuccess(event.target.value)} placeholder="How will you know it works?" /></label></div><pre>{aiBrief}</pre><button className="primaryAction" type="button" onClick={copyBrief}>{copied ? 'Copied to clipboard' : 'Copy AI brief'}</button></section></div>
               <aside className="lmsPanel verificationPanel"><div className="panelBar"><h3>Verify Before You Trust</h3><strong>{checkPercent}%</strong></div><p>Complete this before you submit, recommend, automate, or deploy an AI-assisted output.</p><div className="verificationProgress"><i style={{ width: `${checkPercent}%` }} /></div>{verificationItems.map((item, index) => <label className={checks[index] ? 'checked' : ''} key={item}><input type="checkbox" checked={checks[index]} onChange={() => setChecks((current) => current.map((value, checkIndex) => checkIndex === index ? !value : value))} /><span>{item}</span></label>)}<div className="dataWarning"><strong>Never enter</strong><span>FERPA-protected, confidential, proprietary, password, credential, or API-key data.</span></div></aside>
             </div>
           )}
