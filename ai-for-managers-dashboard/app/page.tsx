@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { CourseLanguage, useCourseLocale } from './useCourseLocale';
 
 type Priority = 'High' | 'Medium' | 'Low';
-type View = 'home' | 'content' | 'assignments' | 'discussions' | 'grades' | 'messages' | 'toolkit' | 'syllabus';
+type View = 'home' | 'content' | 'portfolio' | 'assignments' | 'discussions' | 'grades' | 'messages' | 'toolkit' | 'syllabus';
 type HelpMode = 'instructions' | 'technical' | 'team';
 type Task = {
   id: number;
@@ -1135,6 +1135,14 @@ export default function Home() {
     setSuccess(starter.success);
   }
 
+  const courseWeeks = Object.entries(structuredModules).map(([week, module]) => ({ week: Number(week), module }));
+  const totalCourseActivities = courseWeeks.reduce((total, entry) => total + entry.module.items.length, 0);
+  const completedCourseActivities = courseWeeks.reduce((total, entry) => total + entry.module.items.filter((item) => moduleCompletions[String(entry.week) + '-' + item.id]).length, 0);
+  const courseProgress = totalCourseActivities ? Math.round((completedCourseActivities / totalCourseActivities) * 100) : 0;
+  const completedWeeks = courseWeeks.filter((entry) => entry.module.items.every((item) => moduleCompletions[String(entry.week) + '-' + item.id])).length;
+  const continueWeek = courseWeeks.find((entry) => entry.module.items.some((item) => !moduleCompletions[String(entry.week) + '-' + item.id]))?.week ?? 15;
+  function openWeek(week: number) { setSelectedWeek(Math.min(15, Math.max(1, week))); setModuleItem(null); switchView('content'); }
+
   return (
     <main className="lmsShell">
       <header className="globalBar">
@@ -1177,9 +1185,10 @@ export default function Home() {
             <div className="homeView">
               <section className="welcomeBanner">
                 <div><span className="weekLabel">START HERE</span><h3>You do not need to be a coder.</h3><p>Bring a real management problem, curiosity, and a willingness to build, test, explain, and improve. AI helps with the work; you remain responsible for the result.</p><button className="startHereButton" type="button" onClick={() => { setSelectedWeek(1); switchView('content'); }}><strong>▶ Start Week 1</strong><span>Orient &amp; Prototype · Aug. 24–30</span></button></div>
-                <div className="weekProgress"><strong>{Math.round(selectedWeek / weeklyPlan.length * 100)}%</strong><span>Course journey</span><div><i style={{ width: `${selectedWeek / weeklyPlan.length * 100}%` }} /></div><small>{activeWeek.dates}</small></div>
+                <div className="weekProgress"><strong>{courseProgress}%</strong><span>Course progress</span><div><i style={{ width: `${courseProgress}%` }} /></div><small>{activeWeek.dates}</small></div>
               </section>
 
+              <section className="continueLearning"><div><span>CONTINUE LEARNING</span><h3>Week {continueWeek}: {weeklyPlan[continueWeek - 1].title}</h3><p>Your activity checkmarks are saved on this device. Pick up at the first unfinished week.</p></div><button type="button" onClick={() => openWeek(continueWeek)}>Continue Week {continueWeek} →</button></section>
               <section className="quickCards" aria-label="Course snapshot">
                 <article><span>THIS WEEK</span><strong>Week {selectedWeek}: {activeWeek.title}</strong><button type="button" onClick={() => switchView('content')}>Continue →</button></article>
                 <article><span>YOUR PROGRESS</span><strong>{tasks.filter((task) => task.complete).length} of {tasks.length} assignments</strong><button type="button" onClick={() => switchView('grades')}>View Progress →</button></article>
@@ -1221,7 +1230,7 @@ export default function Home() {
             <div className="contentView">
               <aside className="moduleList" aria-label="Course modules"><div className="moduleListTitle">15 WEEK MODULES</div>{weeklyPlan.map((week) => <div className="moduleListItem" key={week.week}><button className={selectedWeek === week.week ? 'selected' : ''} type="button" aria-expanded={selectedWeek === week.week} onClick={() => { setSelectedWeek(week.week); setModuleItem(null); }}><span>{week.week}</span><div><strong>Week {week.week} · {week.title}</strong><small>{week.dates}</small></div><i>{week.week < selectedWeek ? '✓' : selectedWeek === week.week ? '⌄' : '›'}</i></button>{selectedWeek === week.week && <div className="moduleListExpanded"><strong>{week.title}</strong></div>}</div>)}</aside>
               <section className="moduleDetail">
-                <div className="moduleHero"><span>MODULE {activeWeek.week} · {activeWeek.dates}</span><h3>{activeWeek.title}</h3><p>{activeWeek.studentQuestion}</p><div><span>Expected effort: {activeWeek.workload}</span><span>Deliverable: {activeWeek.output}</span></div></div>
+                <div className="moduleHero"><span>MODULE {activeWeek.week} · {activeWeek.dates}</span><h3>{activeWeek.title}</h3><p>{activeWeek.studentQuestion}</p><div><span>Expected effort: {activeWeek.workload}</span><span>Deliverable: {activeWeek.output}</span></div></div><div className="weekNavigator" aria-label="Week navigation"><button type="button" disabled={selectedWeek === 1} onClick={() => openWeek(selectedWeek - 1)}>← Previous week</button><span>Week {selectedWeek} of 15</span><button type="button" disabled={selectedWeek === 15} onClick={() => openWeek(selectedWeek + 1)}>Next week →</button></div>
                 {structuredModules[selectedWeek] ? renderStructuredWeek() : <><section className="lmsPanel moduleOutcome"><div className="panelBar"><h3>By the end of this week</h3></div><p className="outcomeStatement">I can {activeWeek.studentWin.charAt(0).toLowerCase() + activeWeek.studentWin.slice(1)}</p><p><strong>Career connection:</strong> {activeWeek.career}</p></section>
                 <section className="lmsPanel learningSequence"><div className="panelBar"><h3>Learning Sequence</h3><span>{completedModuleSteps} of 5 complete</span></div>{[
                   ['1', 'Learn', activeWeek.learn],
@@ -1250,6 +1259,13 @@ export default function Home() {
                   </section>
                 </div>}</>}
               </section>
+            </div>
+          )}
+
+          {activeView === 'portfolio' && (
+            <div className="portfolioView">
+              <section className="portfolioHero"><div><span>MY PORTFOLIO</span><h3>Your work across all 15 weeks</h3><p>Each course artifact becomes evidence of your growth as an AI-aware manager.</p></div><div className="portfolioScore"><strong>{courseProgress}%</strong><span>{completedWeeks} weeks complete</span></div><button type="button" onClick={() => window.print()}>Print portfolio</button></section>
+              <section className="portfolioGrid" aria-label="Course portfolio artifacts">{courseWeeks.map(({ week, module }) => { const done = module.items.filter((item) => moduleCompletions[String(week) + '-' + item.id]).length; const complete = done === module.items.length; return <article className={complete ? 'portfolioCard complete' : 'portfolioCard'} key={week}><div><span>WEEK {week}</span><strong>{complete ? 'Complete' : done + '/' + module.items.length + ' activities'}</strong></div><h3>{module.artifact}</h3><p>{weeklyPlan[week - 1].title}</p><button type="button" onClick={() => openWeek(week)}>{complete ? 'Review artifact' : 'Continue work'} →</button></article>; })}</section>
             </div>
           )}
 
