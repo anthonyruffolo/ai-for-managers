@@ -657,7 +657,18 @@
     "Workflow Example: Fictional Student Support Triage": "Ejemplo: triaje ficticio de apoyo estudiantil",
     "Human Review Checkpoint Practice": "Práctica del punto de revisión humana",
     "Week 9 Workflow Rubric: usefulness 30%, human oversight 30%, verification 25%, clarity 15%": "Rúbrica: utilidad 30 %, supervisión humana 30 %, verificación 25 %, claridad 15 %",
-    "Week 9 Human-Reviewed Workflow": "Flujo con revisión humana de la semana 9"
+    "Week 9 Human-Reviewed Workflow": "Flujo con revisión humana de la semana 9",
+    "My Portfolio": "Mi portafolio",
+    "Course progress": "Progreso del curso",
+    "CONTINUE LEARNING": "CONTINUAR APRENDIENDO",
+    "Previous week": "Semana anterior",
+    "Next week": "Semana siguiente",
+    "MY PORTFOLIO": "MI PORTAFOLIO",
+    "Your work across all 15 weeks": "Tu trabajo de las 15 semanas",
+    "Print portfolio": "Imprimir portafolio",
+    "Complete": "Completado",
+    "Review artifact": "Revisar entrega",
+    "Continue work": "Continuar trabajo"
   },
   "de": {
     "--progress": "--Fortschritt",
@@ -1317,7 +1328,18 @@
     "Workflow Example: Fictional Student Support Triage": "Beispiel: fiktive Triage im Studierendenservice",
     "Human Review Checkpoint Practice": "Übung zum menschlichen Prüfpunkt",
     "Week 9 Workflow Rubric: usefulness 30%, human oversight 30%, verification 25%, clarity 15%": "Bewertung: Nutzen 30 %, menschliche Aufsicht 30 %, Verifizierung 25 %, Klarheit 15 %",
-    "Week 9 Human-Reviewed Workflow": "Arbeitsablauf mit menschlicher Prüfung, Woche 9"
+    "Week 9 Human-Reviewed Workflow": "Arbeitsablauf mit menschlicher Prüfung, Woche 9",
+    "My Portfolio": "Mein Portfolio",
+    "Course progress": "Kursfortschritt",
+    "CONTINUE LEARNING": "WEITERLERNEN",
+    "Previous week": "Vorherige Woche",
+    "Next week": "Nächste Woche",
+    "MY PORTFOLIO": "MEIN PORTFOLIO",
+    "Your work across all 15 weeks": "Ihre Arbeit aus allen 15 Wochen",
+    "Print portfolio": "Portfolio drucken",
+    "Complete": "Abgeschlossen",
+    "Review artifact": "Arbeit prüfen",
+    "Continue work": "Weiterarbeiten"
   },
   "ko": {
     "AI may support brainstorming, research organization, drafting, analysis, prototyping, and revision when the assignment permits it. You must still verify the work, follow disclosure requirements, and be able to explain and defend everything you submit.": "AI는 과제가 허용하는 경우 브레인스토밍, 연구 조직, 초안 작성, 분석, 프로토타입 작성 및 수정을 지원할 수 있습니다. 귀하는 여전히 저작물을 검증하고 공개 요구 사항을 준수해야 하며 제출한 모든 것을 설명하고 방어할 수 있어야 합니다.",
@@ -1977,7 +1999,18 @@
     "Workflow Example: Fictional Student Support Triage": "예시: 가상 학생 지원 분류",
     "Human Review Checkpoint Practice": "사람 검토 체크포인트 연습",
     "Week 9 Workflow Rubric: usefulness 30%, human oversight 30%, verification 25%, clarity 15%": "평가 기준: 유용성 30%, 사람 감독 30%, 검증 25%, 명확성 15%",
-    "Week 9 Human-Reviewed Workflow": "9주차 사람 검토 워크플로"
+    "Week 9 Human-Reviewed Workflow": "9주차 사람 검토 워크플로",
+    "My Portfolio": "내 포트폴리오",
+    "Course progress": "과정 진행률",
+    "CONTINUE LEARNING": "계속 학습하기",
+    "Previous week": "이전 주",
+    "Next week": "다음 주",
+    "MY PORTFOLIO": "내 포트폴리오",
+    "Your work across all 15 weeks": "15주 전체 학습 결과",
+    "Print portfolio": "포트폴리오 인쇄",
+    "Complete": "완료",
+    "Review artifact": "결과물 검토",
+    "Continue work": "계속 작업"
   },
   "zh-CN": {
     "AI may support brainstorming, research organization, drafting, analysis, prototyping, and revision when the assignment permits it. You must still verify the work, follow disclosure requirements, and be able to explain and defend everything you submit.": "在任务允许的情况下，人工智能可以支持集思广益、研究组织、起草、分析、原型设计和修订。您仍然必须验证工作，遵循披露要求，并能够解释和捍卫您提交的所有内容。",
@@ -2637,6 +2670,17 @@
     "Workflow Example: Fictional Student Support Triage": "示例：虚构学生支持分流",
     "Human Review Checkpoint Practice": "人工审核检查点练习",
     "Week 9 Workflow Rubric: usefulness 30%, human oversight 30%, verification 25%, clarity 15%": "评分：实用性30%，人工监督30%，验证25%，清晰度15%",
-    "Week 9 Human-Reviewed Workflow": "第9周人工审核工作流程"
+    "Week 9 Human-Reviewed Workflow": "第9周人工审核工作流程",
+    "My Portfolio": "我的作品集",
+    "Course progress": "课程进度",
+    "CONTINUE LEARNING": "继续学习",
+    "Previous week": "上一周",
+    "Next week": "下一周",
+    "MY PORTFOLIO": "我的作品集",
+    "Your work across all 15 weeks": "全部15周的学习成果",
+    "Print portfolio": "打印作品集",
+    "Complete": "已完成",
+    "Review artifact": "查看成果",
+    "Continue work": "继续学习"
   }
 }
