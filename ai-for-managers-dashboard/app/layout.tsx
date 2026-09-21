@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import QolEnhancements from './qol-enhancements';
+import CourseAssistant from './course-assistant';
 
 const siteUrl = 'https://ai-for-managers-student-dashboard.danielgwilkie.chatgpt.site';
 
@@ -46,6 +47,7 @@ export default function RootLayout({
       >
         {children}
         <QolEnhancements />
+        <CourseAssistant />
       </body>
     </html>
   );
