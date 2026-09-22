@@ -120,8 +120,8 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     { id: 'quiz-12-lesson-4', title: 'Quiz 4 · Lesson 4: Worker Voice and AI Change', category: 'Assignment' },
     { id: 'quiz-12-lesson-5', title: 'Quiz 5 · Lesson 5: Reskilling and Transition Risk', category: 'Assignment' },
   ],
-  13: standardSearchItems(13, ['Problem and Stakeholder Fit', 'Benefits and Risks', 'Controls and Ownership', 'Training and Change', 'Timeline and Pilot', 'KPIs and Stop Conditions'], 'AI Implementation Plan', 'Week 13 Implementation Review'),
-  14: standardSearchItems(14, ['Acceptance Criteria', 'Usability Testing', 'Peer Feedback', 'Risk and Safeguard Testing', 'Revision Priorities', 'Release Readiness'], 'Dashboard Testing and Revision Record', 'Week 14 Peer Product Review'),
+  13: standardSearchItems(13, ['Problem and Stakeholder Fit', 'Benefits and Risks', 'Controls and Ownership', 'Training and Change', 'Timeline and Pilot', 'KPIs and Stop Conditions'], 'AI Implementation Plan', 'Week 13 Homework · AI Implementation Plan'),
+  14: standardSearchItems(14, ['Acceptance Criteria', 'Usability Testing', 'Peer Feedback', 'Risk and Safeguard Testing', 'Revision Priorities', 'Release Readiness'], 'Dashboard Testing and Revision Record', 'Week 14 Homework · Dashboard Testing and Revision'),
   15: [
     ...['Course Synthesis: From Problem to Product', 'AI Tools, Prompting, and Verification', 'Productivity, Decisions, and Automation', 'Ethics, Bias, Privacy, and Human Oversight', 'Governance, Disclosure, and Accountability', 'Values, Workforce, and Organizational Impact', 'Implementation, Measurement, and Adoption'].map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}` })),
     { id: 'practice-15', title: 'Final Defense Rehearsal' }, { id: 'build-15', title: 'Final Integrated Dashboard' },
