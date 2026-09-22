@@ -110,6 +110,7 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     { id: 'quiz-11-lesson-3', title: 'Quiz 3 · Lesson 3: Justice and Fairness in AI-Enabled Work', category: 'Assignment' },
     { id: 'quiz-11-lesson-4', title: 'Quiz 4 · Lesson 4: Stewardship in AI-Enabled Work', category: 'Assignment' },
     { id: 'quiz-11-lesson-5', title: 'Quiz 5 · Lesson 5: Responsibility in AI-Enabled Work', category: 'Assignment' },
+    { id: 'quiz-11-lesson-6', title: 'Quiz 6 · Lesson 6: Moral Discernment in AI-Enabled Work', category: 'Assignment' },
   ],
   12: standardSearchItems(12, ['Tasks vs. Jobs', 'Automation and Augmentation', 'Human Skills', 'Worker Voice', 'Reskilling', 'Transition Risk'], 'Workforce Impact Map', 'Week 12 Workforce Case'),
   13: standardSearchItems(13, ['Problem and Stakeholder Fit', 'Benefits and Risks', 'Controls and Ownership', 'Training and Change', 'Timeline and Pilot', 'KPIs and Stop Conditions'], 'AI Implementation Plan', 'Week 13 Implementation Review'),
