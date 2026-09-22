@@ -112,7 +112,14 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     { id: 'quiz-11-lesson-5', title: 'Quiz 5 · Lesson 5: Responsibility in AI-Enabled Work', category: 'Assignment' },
     { id: 'quiz-11-lesson-6', title: 'Quiz 6 · Lesson 6: Moral Discernment in AI-Enabled Work', category: 'Assignment' },
   ],
-  12: standardSearchItems(12, ['Tasks vs. Jobs', 'Automation and Augmentation', 'Human Skills', 'Worker Voice', 'Reskilling', 'Transition Risk'], 'Workforce Impact Map', 'Week 12 Workforce Case'),
+  12: [
+    ...standardSearchItems(12, ['Tasks vs. Jobs', 'Automation and Augmentation', 'Human Skills', 'Worker Voice', 'Reskilling', 'Transition Risk'], 'Workforce Impact Map', 'Week 12 Workforce Case'),
+    { id: 'quiz-12-lesson-1', title: 'Quiz 1 · Lesson 1: Tasks vs. Jobs in AI-Enabled Work', category: 'Assignment' },
+    { id: 'quiz-12-lesson-2', title: 'Quiz 2 · Lesson 2: Automation and Augmentation', category: 'Assignment' },
+    { id: 'quiz-12-lesson-3', title: 'Quiz 3 · Lesson 3: Human Skills at Work', category: 'Assignment' },
+    { id: 'quiz-12-lesson-4', title: 'Quiz 4 · Lesson 4: Worker Voice and AI Change', category: 'Assignment' },
+    { id: 'quiz-12-lesson-5', title: 'Quiz 5 · Lesson 5: Reskilling and Transition Risk', category: 'Assignment' },
+  ],
   13: standardSearchItems(13, ['Problem and Stakeholder Fit', 'Benefits and Risks', 'Controls and Ownership', 'Training and Change', 'Timeline and Pilot', 'KPIs and Stop Conditions'], 'AI Implementation Plan', 'Week 13 Implementation Review'),
   14: standardSearchItems(14, ['Acceptance Criteria', 'Usability Testing', 'Peer Feedback', 'Risk and Safeguard Testing', 'Revision Priorities', 'Release Readiness'], 'Dashboard Testing and Revision Record', 'Week 14 Peer Product Review'),
   15: [
