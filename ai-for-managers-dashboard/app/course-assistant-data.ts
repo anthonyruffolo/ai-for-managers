@@ -23,7 +23,7 @@ function standardModule(week: number, overview: string, objectives: string[], ar
   };
 }
 
-export const structuredModules: Record<number, { overview: string; objectives: string[]; artifact: string; buildDescription: string; items: ModuleItem[] }> = {
+export const structuredModules: Record<number, { overview: string; objectives: string[]; artifact: string; buildDescription: string; items: CourseAssistantModule['items'] }> = {
   1: {
     overview: 'Week 1 establishes the course foundation. You will learn what AI is, how a model differs from an AI tool, what AI can and cannot do well, and how a manager remains accountable even when AI helps with the work.',
     objectives: ['Define AI, machine learning, generative AI, models, and LLMs in plain language.', 'Explain the difference between a model and an AI application or tool.', 'Identify useful AI strengths and important limitations, including hallucinations.', 'Choose a management problem and build the first dashboard structure with human accountability.', 'Create a clear starter project brief and navigation for the semester.'],
