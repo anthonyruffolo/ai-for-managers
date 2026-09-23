@@ -56,7 +56,7 @@ ${courseMaterial}`;
       console.error('Course assistant gateway error', gatewayResponse.status, detail.slice(0, 500));
       return Response.json({ error: 'The AI Course Assistant is not configured yet. Add AI_GATEWAY_API_KEY in the deployment environment.' }, { status: 503 });
     }
-    const result = await gatewayResponse.json();
+    const result = await gatewayResponse.json() as { choices?: Array<{ message?: { content?: string } }> };
     const text = result?.choices?.[0]?.message?.content;
     if (!text) return Response.json({ error: 'The assistant returned an empty response. Please try again.' }, { status: 502 });
     return Response.json({ text });

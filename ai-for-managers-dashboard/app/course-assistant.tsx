@@ -42,9 +42,9 @@ export default function CourseAssistant() {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: next, context: currentContext() }),
       });
-      const data = await response.json();
+      const data = await response.json() as { text?: string; error?: string };
       if (!response.ok) throw new Error(data.error || 'Assistant unavailable');
-      setMessages([...next, { role: 'assistant', content: data.text }]);
+      setMessages([...next, { role: 'assistant', content: data.text || 'The assistant returned an empty response.' }]);
     } catch (error) {
       setMessages([...next, { role: 'assistant', content: error instanceof Error ? error.message : 'The course assistant is temporarily unavailable.' }]);
     } finally { setBusy(false); }
