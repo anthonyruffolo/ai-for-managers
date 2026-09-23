@@ -4,8 +4,16 @@ function standardModule(week: number, overview: string, objectives: string[], ar
   return {
     overview, objectives, artifact, buildDescription,
     items: [
-      ...lessons.map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: `Learn the Week ${week} concept, apply it to a management situation, and identify what requires human judgment.`, type: 'lesson' as const, time: '15–20 min' })),
-      { id: `practice-${week}`, title: practice, description: 'Apply the week’s concepts to a realistic management scenario and document your reasoning.', type: 'practice' as const, time: '30–45 min' },
+      ...(week === 15 ? [] : lessons.map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: `Learn the Week ${week} concept, apply it to a management situation, and identify what requires human judgment.`, type: 'lesson' as const, time: '15–20 min' }))),
+      ...(week === 15 ? [] : [{ id: `practice-${week}`, title: practice, description: 'Apply the week’s concepts to a realistic management scenario and document your reasoning.', type: 'practice' as const, time: '30–45 min' }]),
+      ...(week === 13 ? [
+        { id: 'assignment-13-implementation', title: 'Assignment 1 · Implementation Readiness Decision', description: 'Decide whether an AI solution is ready for a controlled pilot and justify the risks, controls, owner, and evidence required.', type: 'assignment' as const, time: '45–60 min' },
+        { id: 'assignment-13-adoption', title: 'Assignment 2 · Adoption and Measurement Plan', description: 'Plan training, ownership, KPIs, worker feedback, and a stop condition for responsible adoption.', type: 'assignment' as const, time: '60–75 min' },
+      ] : []),
+      ...(week === 14 ? [
+        { id: 'assignment-14-testing', title: 'Assignment 1 · Dashboard Acceptance Test', description: 'Write acceptance tests, expected results, evidence requirements, and release criteria for the dashboard.', type: 'assignment' as const, time: '45–60 min' },
+        { id: 'assignment-14-future', title: 'Assignment 2 · Future of AI and Responsible Revision', description: 'Evaluate an emerging AI capability, its risks, safeguards, and the evidence needed before a pilot.', type: 'assignment' as const, time: '45–60 min' },
+      ] : []),
       { id: `build-${week}`, title: artifact, description: buildDescription, type: 'build' as const, time: '2–3 hrs' },
       { id: `assessment-${week}`, title: assessment, description: 'Apply this week’s concepts to a realistic management scenario and explain your reasoning.', type: 'assessment' as const, time: '30–45 min' },
       { id: `submit-${week}`, title: submission, description: `Submit the completed ${artifact}, evidence that you tested it, and a concise explanation of your management judgment.`, type: 'submit' as const },
@@ -152,8 +160,6 @@ export const structuredModules: Record<number, { overview: string; objectives: s
     artifact: 'Final Integrated AI Management Dashboard',
     buildDescription: 'Complete the integrated dashboard, end-to-end testing record, presentation/defense, cumulative final exam, and summative final paper.',
     items: [
-      ...['Course Synthesis: From Problem to Product', 'AI Tools, Prompting, and Verification', 'Productivity, Decisions, and Automation', 'Ethics, Bias, Privacy, and Human Oversight', 'Governance, Disclosure, and Accountability', 'Values, Workforce, and Organizational Impact', 'Implementation, Measurement, and Adoption'].map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: 'Review the concept, connect it to a dashboard artifact, and prepare to defend the management judgment behind it.', type: 'lesson' as const, time: '20–30 min' })),
-      { id: 'practice-15', title: 'Final Defense Rehearsal', description: 'Practice a concise walkthrough of the problem, dashboard, evidence, risks, safeguards, revisions, and deployment recommendation.', type: 'practice' as const, time: '45–60 min' },
       { id: 'build-15', title: 'Final Integrated Dashboard', description: 'Complete and test the full dashboard. Confirm every required component is usable, connected, disclosed, verified, and ready to demonstrate.', type: 'build' as const, time: '2–3 hrs' },
       { id: 'assessment-final-exam', title: 'Final Exam · Cumulative Weeks 1–15', description: 'Complete the summative exam: explain concepts, analyze scenarios, verify evidence, identify risks, choose safeguards, and defend an implementation decision.', type: 'assessment' as const, time: '90 min' },
       { id: 'submit-final-paper', title: 'Final Paper · AI Management Synthesis', description: 'Submit a 1,500–2,000 word paper that synthesizes what you learned across the course and uses your dashboard as evidence.', type: 'submit' as const },

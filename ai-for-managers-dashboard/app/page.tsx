@@ -820,7 +820,7 @@ export default function Home() {
       setQuizSecondsById((current) => ({ ...current, [activeQuizId]: Math.max(0, (current[activeQuizId] ?? quizDuration) - 1) }));
     }, 1000);
     return () => window.clearInterval(timer);
-  }, [activeQuizId]);
+  }, [activeQuizId, quizDuration]);
 
   useEffect(() => {
     if (quizSecondsRemaining !== 0 || !activeQuizSubmissionKey) return;

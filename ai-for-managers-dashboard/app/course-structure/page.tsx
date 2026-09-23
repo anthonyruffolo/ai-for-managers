@@ -17,9 +17,9 @@ const weeks = [
   ['Week 10', 'AI and Plagiarism', 'Add an AI Use / Disclosure Log recording major AI use, prompts, AI contribution, student changes, verification, and disclosure.'],
   ['Week 11', 'Christian Perspective on AI', 'Add a Values-Based AI Decision Framework addressing truthfulness, human dignity, fairness, responsibility, stewardship, harm, and accountability.'],
   ['Week 12', 'AI and the Workforce', 'Add a Workforce Impact section covering a profession’s current tasks, automation opportunities, human-retained work, skills, training, risks, and management recommendations.'],
-  ['Week 13', 'Implementing AI in an Organization', 'Add an AI Implementation Plan connecting the business problem, solution, benefits, risks, oversight, training, timeline, KPIs, and applicable policy.'],
-  ['Week 14', 'Future of AI and Dashboard Testing', 'Stop adding major features. Test the full dashboard, test another student’s dashboard, document feedback, and revise.'],
-  ['Week 15', 'Final AI Management Dashboard', 'Complete and present the integrated AI Management Dashboard, explain its development and safeguards, and complete the final reflection.'],
+  ['Week 13', 'Implementing AI in an Organization', 'Complete the Implementation Readiness Decision and Adoption and Measurement Plan assignments with risks, controls, ownership, training, KPIs, and stop conditions.'],
+  ['Week 14', 'Future of AI and Dashboard Testing', 'Complete the Dashboard Acceptance Test and Future of AI assignments, then record peer feedback, revisions, and release-readiness evidence.'],
+  ['Week 15', 'Final AI Management Dashboard', 'Focus on the 50-question, 90-minute final exam, the 1,500–2,000 word final paper, the final dashboard portfolio, defense evidence, and reflection.'],
 ];
 
 const template = [
