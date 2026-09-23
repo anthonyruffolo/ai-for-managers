@@ -1,0 +1,24 @@
+name: Vercel Debug Build
+
+on:
+  push:
+    branches:
+      - fix/vercel-course-assistant-moduleitem
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install dashboard dependencies
+        working-directory: ai-for-managers-dashboard
+        run: pnpm install --frozen-lockfile
+      - name: Build dashboard
+        working-directory: ai-for-managers-dashboard
+        run: pnpm build
