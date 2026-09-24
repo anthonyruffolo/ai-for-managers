@@ -189,6 +189,7 @@ const standardModule = (week: number, overview: string, objectives: string[], ar
       { id: 'assignment-10-lesson-2', title: 'Assignment · Support vs. Substitution', description: 'Analyze whether an AI use case supports human judgment or substitutes for it, and recommend appropriate safeguards.', type: 'assignment' as const, time: '30–45 min' },
       { id: 'assignment-10-lesson-3', title: 'Assignment · Attribution', description: 'Trace the sources and AI contribution in a management report, then explain what must be verified and disclosed.', type: 'assignment' as const, time: '30–45 min' },
       { id: 'assignment-10-lesson-4', title: 'Assignment · Disclosure Quality', description: 'Write a clear disclosure that identifies the AI contribution, human changes, verification, and final accountability.', type: 'assignment' as const, time: '30–45 min' },
+      { id: 'assignment-10-lesson-5', title: 'Assignment · Create a Verification Record', description: 'Create a short verification record for an AI-generated recommendation before acting on a management decision.', type: 'assignment' as const, time: '30–45 min' },
     ] : []),
     ...(week === 11 ? [
       { id: 'quiz-11-lesson-1', title: 'Quiz 1 · Lesson 1: Human Dignity in AI-Enabled Work', description: 'Check your understanding of dignity, human oversight, fairness, and human responsibility in AI-enabled work.', type: 'quiz' as const, time: '10 min' },
@@ -1163,6 +1164,11 @@ export default function Home() {
             prompt: 'Write a disclosure for a presentation where AI helped organize research and draft an initial recommendation, while the team reviewed sources and changed the final recommendation.',
             requirements: 'Name the tool or AI use, what it contributed, what people changed or verified, and who remains responsible.',
             concepts: 'Disclosure, human review, verification, contribution, or responsibility.',
+          },
+          '5': {
+            prompt: 'Your company uses an AI tool to analyze employee turnover. The AI reports that one department has a high risk of losing employees and recommends changing employee schedules and workloads. Before management acts on the recommendation, create a short Verification Record documenting how you would check the AI-generated information.',
+            requirements: 'Include the AI claim, evidence checked, human review, verification result, manager action, accountability, and a short reflection in 100–150 words explaining why verification records matter when AI contributes to an important business decision.',
+            concepts: 'Verification record, evidence, human review, accountability, and responsible management action.',
           },
         };
         const details = assignmentDetails[lessonNumber];
