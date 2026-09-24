@@ -44,7 +44,8 @@ export default function CourseAssistant() {
       });
       const data = await response.json() as { text?: string; error?: string };
       if (!response.ok) throw new Error(data.error || 'Assistant unavailable');
-      setMessages([...next, { role: 'assistant', content: data.text || 'The assistant returned an empty response.' }]);
+      if (!data.text) throw new Error('Assistant unavailable');
+      setMessages([...next, { role: 'assistant', content: data.text }]);
     } catch (error) {
       setMessages([...next, { role: 'assistant', content: error instanceof Error ? error.message : 'The course assistant is temporarily unavailable.' }]);
     } finally { setBusy(false); }

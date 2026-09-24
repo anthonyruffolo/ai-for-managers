@@ -1,4 +1,6 @@
-export type CourseAssistantModule = { overview: string; objectives: string[]; artifact: string; buildDescription: string; items: Array<{ id: string; title: string; description: string; type: string; time?: string }> };
+export type ModuleItem = { id: string; title: string; description: string; type: string; time?: string };
+
+export type CourseAssistantModule = { overview: string; objectives: string[]; artifact: string; buildDescription: string; items: ModuleItem[] };
 
 function standardModule(week: number, overview: string, objectives: string[], artifact: string, buildDescription: string, lessons: string[], practice: string, assessment: string, submission: string) {
   return {
