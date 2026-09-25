@@ -191,6 +191,7 @@ const standardModule = (week: number, overview: string, objectives: string[], ar
       { id: 'assignment-10-lesson-3', title: 'Assignment · Attribution', description: 'Trace the sources and AI contribution in a management report, then explain what must be verified and disclosed.', type: 'assignment' as const, time: '30–45 min' },
       { id: 'assignment-10-lesson-4', title: 'Assignment · Disclosure Quality', description: 'Write a clear disclosure that identifies the AI contribution, human changes, verification, and final accountability.', type: 'assignment' as const, time: '30–45 min' },
       { id: 'assignment-10-lesson-5', title: 'Assignment · Create a Verification Record', description: 'Create a short verification record for an AI-generated recommendation before acting on a management decision.', type: 'assignment' as const, time: '30–45 min' },
+      { id: 'assignment-10-lesson-6', title: 'Assignment · Accountable Authorship Review', description: 'Review an AI-assisted performance report through the lens of accountable authorship and explain how human responsibility is preserved.', type: 'assignment' as const, time: '30–45 min' },
     ] : []),
     ...(week === 11 ? [
       { id: 'quiz-11-lesson-1', title: 'Quiz 1 · Lesson 1: Human Dignity in AI-Enabled Work', description: 'Check your understanding of dignity, human oversight, fairness, and human responsibility in AI-enabled work.', type: 'quiz' as const, time: '10 min' },
@@ -1184,6 +1185,11 @@ export default function Home() {
             prompt: 'Your company uses an AI tool to analyze employee turnover. The AI reports that one department has a high risk of losing employees and recommends changing employee schedules and workloads. Before management acts on the recommendation, create a short Verification Record documenting how you would check the AI-generated information.',
             requirements: 'Include the AI claim, evidence checked, human review, verification result, manager action, accountability, and a short reflection in 100–150 words explaining why verification records matter when AI contributes to an important business decision.',
             concepts: 'Verification record, evidence, human review, accountability, and responsible management action.',
+          },
+          '6': {
+            prompt: 'You are a manager preparing a quarterly performance report for senior leadership. You use an AI tool to help summarize employee performance data and draft recommendations. The AI produces a professional-looking report, but you notice that some conclusions are not clearly supported by the original data.',
+            requirements: 'Answer the following questions clearly: AI Contribution, Manager Responsibility, Verification, Human Review, Corrections, and Accountability. Then write a short reflection in 100–150 words explaining why managers cannot blame AI for errors in work they approve or submit, and how accountable authorship supports responsible AI use in an organization.',
+            concepts: 'AI contribution, manager responsibility, verification, human review, corrections, and accountable authorship.',
           },
         };
         const details = assignmentDetails[lessonNumber];
