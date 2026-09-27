@@ -1433,7 +1433,7 @@ export default function Home() {
           {activeView === 'home' && (
             <div className="homeView">
               <section className="welcomeBanner">
-                <div><span className="weekLabel">START HERE</span><h3>You do not need to be a coder.</h3><p>Bring a real management problem, curiosity, and a willingness to build, test, explain, and improve. AI helps with the work; you remain responsible for the result.</p><button className="startHereButton" type="button" onClick={() => { setSelectedWeek(10); switchView('content'); }}><strong>▶ Start Week 10</strong><span>AI and Plagiarism · Quizzes</span></button></div>
+                <div><span className="weekLabel">START HERE</span><h3>You do not need to be a coder.</h3><p>Bring a real management problem, curiosity, and a willingness to build, test, explain, and improve. AI helps with the work; you remain responsible for the result.</p><button className="startHereButton" type="button" onClick={() => { setSelectedWeek(1); switchView('content'); }}><strong>▶ Start Week 1</strong><span>{weeklyPlan[0].title}</span></button></div>
                 <div className="weekProgress"><strong>{courseProgress}%</strong><span>Course progress</span><div><i style={{ width: `${courseProgress}%` }} /></div><small>{activeWeek.dates}</small></div>
               </section>
 
