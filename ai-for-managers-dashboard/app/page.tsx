@@ -230,7 +230,7 @@ const standardModule = (week: number, overview: string, objectives: string[], ar
       { id: 'assignment-14-future', title: 'Assignment 2 · Future of AI and Responsible Revision', description: 'Evaluate a future AI capability, identify its management risk, and propose a responsible dashboard revision backed by evidence.', type: 'assignment' as const, time: '45–60 min' },
     ] : []),
     ...(week !== 10 && week !== 11 && week !== 12 ? [{ id: `practice-${week}`, title: 'Manager Practice Lab', description: practice, type: 'practice' as const, time: '30–45 min' }] : []),
-    ...(week === 11 || week === 12 ? [] : [{ id: `build-${week}`, title: artifact, description: buildDescription, type: 'build' as const, time: '2–3 hrs' }]),
+    ...(week === 10 || week === 11 || week === 12 ? [] : [{ id: `build-${week}`, title: artifact, description: buildDescription, type: 'build' as const, time: '2–3 hrs' }]),
     { id: `assessment-${week}`, title: assessment, description: 'Apply this week’s concepts to a realistic management scenario and explain your reasoning.', type: 'assessment' as const, time: '30–45 min' },
     ...(week === 10 || week === 11 || week === 12 ? [] : [{ id: `submit-${week}`, title: submission, description: `Submit the completed ${artifact}, evidence that you tested it, and a concise explanation of your management judgment.`, type: 'submit' as const }]),
     ...(week === 10 || week === 11 || week === 12 ? [] : [
