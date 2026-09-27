@@ -225,7 +225,7 @@ const standardModule = (week: number, overview: string, objectives: string[], ar
     ...(week !== 10 ? [{ id: `practice-${week}`, title: 'Manager Practice Lab', description: practice, type: 'practice' as const, time: '30–45 min' }] : []),
     { id: `build-${week}`, title: artifact, description: buildDescription, type: 'build' as const, time: '2–3 hrs' },
     { id: `assessment-${week}`, title: assessment, description: 'Apply this week’s concepts to a realistic management scenario and explain your reasoning.', type: 'assessment' as const, time: '30–45 min' },
-    { id: `submit-${week}`, title: submission, description: `Submit the completed ${artifact}, evidence that you tested it, and a concise explanation of your management judgment.`, type: 'submit' as const },
+    ...(week === 10 ? [] : [{ id: `submit-${week}`, title: submission, description: `Submit the completed ${artifact}, evidence that you tested it, and a concise explanation of your management judgment.`, type: 'submit' as const }]),
     ...(week === 10 ? [] : [
       { id: `reflect-${week}`, title: `Week ${week} Reflection`, description: 'Explain what changed in your thinking, what remains uncertain, and what a responsible manager should do next.', type: 'reflect' as const, time: '20–30 min' },
       { id: `resources-${week}`, title: `Week ${week} Resources`, description: 'Review the assigned readings, tool documentation, examples, and verification guidance before submitting.', type: 'resource' as const },
