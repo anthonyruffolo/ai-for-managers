@@ -982,6 +982,16 @@ export default function Home() {
   });
   const submittedAssessmentGrades = assessmentGrades.filter((assessment) => assessment.submitted);
   const assessmentAverage = submittedAssessmentGrades.length ? Math.round(submittedAssessmentGrades.reduce((sum, assessment) => sum + assessment.percent, 0) / submittedAssessmentGrades.length) : null;
+  const autoScoredLabels = new Set(assessmentGrades.filter((assessment) => assessment.submitted).map((assessment) => assessment.label));
+  const completedCourseWork = Object.entries(structuredModules).flatMap(([weekNumber, module]) => module.items
+    .filter((item) => moduleCompletions[`${weekNumber}-${item.id}`])
+    .filter((item) => !['lesson', 'resource'].includes(item.type))
+    .map((item) => ({ id: `week${weekNumber}-${item.id}`, week: Number(weekNumber), label: item.title, type: item.type }))
+  ).filter((item) => !autoScoredLabels.has(item.label));
+  const gradebookEntries = [
+    ...submittedAssessmentGrades.map((assessment) => ({ id: assessment.id, week: Number(assessment.id.match(/week(\\d+)/)?.[1] || 0), label: assessment.label, status: 'Graded', score: `${assessment.percent}%`, sortScore: assessment.percent })),
+    ...completedCourseWork.map((item) => ({ id: item.id, week: item.week, label: item.label, status: 'Completed', score: 'Complete', sortScore: null as number | null })),
+  ].sort((a, b) => a.week - b.week || a.label.localeCompare(b.label));
   const pageTitle = navItems.find((item) => item.id === activeView)?.label ?? 'Course Home';
   const normalizedSearch = searchQuery.trim().toLowerCase();
   const searchResults = normalizedSearch ? [
@@ -1659,9 +1669,9 @@ export default function Home() {
           {activeView === 'grades' && (
             <div className="gradesView">
               <section className="gradeSummary"><div><span>COURSE PROGRESS</span><strong>{completedPercent}%</strong><small>assignment completion</small></div><div><span>ASSESSMENT AVERAGE</span><strong>{assessmentAverage === null ? '—' : `${assessmentAverage}%`}</strong><small>{submittedAssessmentGrades.length ? `${submittedAssessmentGrades.length} graded assessment${submittedAssessmentGrades.length === 1 ? '' : 's'}` : 'No submitted quizzes or tests yet'}</small></div><div><span>EVIDENCE CHECKS</span><strong>{tasks.filter((task) => task.verified).length}/{tasks.length}</strong><small>assignment records verified</small></div></section>
-              <section className="lmsPanel gradebook"><div className="panelBar"><h3>Assessment Grades</h3><span>Updates when you submit</span></div>{assessmentGrades.map((assessment) => <article key={assessment.id}><div><strong>{assessment.label}</strong><span>{assessment.submitted ? 'Submitted' : 'Not submitted'}</span></div><div className="weightTrack"><i style={{ width: `${assessment.submitted ? assessment.percent : 0}%` }} /></div><b>{assessment.submitted ? `${assessment.percent}%` : '—'}</b></article>)}</section>
+              <section className="lmsPanel gradebook"><div className="panelBar"><h3>Completed & Graded Work</h3><span>{gradebookEntries.length} completed item{gradebookEntries.length === 1 ? '' : 's'}</span></div>{gradebookEntries.length ? gradebookEntries.map((entry) => <article key={entry.id}><div><strong>Week {entry.week} · {entry.label}</strong><span>{entry.status}</span></div><div className="weightTrack"><i style={{ width: entry.sortScore === null ? '100%' : `${entry.sortScore}%` }} /></div><b>{entry.score}</b></article>) : <article><div><strong>No completed graded work yet</strong><span>Complete or submit course work to add it here.</span></div><b>—</b></article>}</section>
               <section className="lmsPanel gradebook"><div className="panelBar"><h3>How Your Grade Works</h3><span>Total: 100%</span></div>{gradeItems.map((item) => <article key={item.name}><div><strong>{item.name}</strong><span>{item.status}</span></div><div className="weightTrack"><i style={{ width: `${item.weight}%` }} /></div><b>{item.weight}%</b></article>)}</section>
-              <section className="fairnessCallout"><strong>Gradebook note</strong><p>Quiz and test scores shown here are calculated from the submitted assessment answers saved in this dashboard. Written work, discussions, projects, and instructor-reviewed items may still require manual grading.</p></section>
+              <section className="fairnessCallout"><strong>Gradebook note</strong><p>Every completed gradable activity is recorded here. Quizzes and tests show their automatically calculated percentage. Completed forms, builds, cases, discussions, reflections, assignments, and submissions show Complete until an instructor-reviewed score is available.</p></section>
             </div>
           )}
 
