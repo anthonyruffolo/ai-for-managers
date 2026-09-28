@@ -1,3 +1,4 @@
+import { extraLessonItems } from './extra-week-lessons';
 import { easyWeekItems } from './easy-week-activities';
 
 export type ModuleItem = { id: string; title: string; description: string; type: string; time?: string };
@@ -10,6 +11,7 @@ function standardModule(week: number, overview: string, objectives: string[], ar
     items: [
       ...easyWeekItems(week),
       ...(week === 15 ? [] : lessons.map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: `Learn the Week ${week} concept, apply it to a management situation, and identify what requires human judgment.`, type: 'lesson' as const, time: '15–20 min' }))),
+    ...extraLessonItems(week),
       ...(week === 15 ? [] : [{ id: `practice-${week}`, title: practice, description: 'Apply the week’s concepts to a realistic management scenario and document your reasoning.', type: 'practice' as const, time: '30–45 min' }]),
       ...(week === 13 ? [
         { id: 'assignment-13-implementation', title: 'Assignment 1 · Implementation Readiness Decision', description: 'Decide whether an AI solution is ready for a controlled pilot and justify the risks, controls, owner, and evidence required.', type: 'assignment' as const, time: '45–60 min' },
