@@ -961,6 +961,7 @@ export default function Home() {
   const completedPercent = tasks.length ? Math.round(tasks.filter((task) => task.complete).length / tasks.length * 100) : 0;
   const checkPercent = Math.round(checks.filter(Boolean).length / checks.length * 100);
   const assessmentGrades = [
+    { id: 'week5-quiz2', label: 'Quiz 2 · Weeks 3–5', submittedKey: 'week5-quiz2-submitted', questionPrefix: 'week5-quiz2-', total: quiz2Questions.length, answers: quiz2Questions.map((q) => q.answer) },
     { id: 'week7-test1', label: 'Test 1 · Weeks 1–7', submittedKey: 'week7-test1-submitted', questionPrefix: 'week7-test1-', total: 25, answers: [1,0,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1] },
     { id: 'week10-academic-integrity', label: 'Week 10 · Academic Integrity Quiz', submittedKey: 'week10-academic-integrity-submitted', questionPrefix: 'week10-academic-integrity-', total: academicIntegrityQuestions.length, answers: academicIntegrityQuestions.map((q) => q.answer) },
     { id: 'week10-support-substitution', label: 'Week 10 · Support vs. Substitution Quiz', submittedKey: 'week10-support-substitution-submitted', questionPrefix: 'week10-support-substitution-', total: supportSubstitutionQuestions.length, answers: supportSubstitutionQuestions.map((q) => q.answer) },
