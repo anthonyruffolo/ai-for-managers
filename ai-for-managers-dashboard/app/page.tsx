@@ -960,6 +960,27 @@ export default function Home() {
   const nextDeadlineTask = focusTasks.find((task) => !task.complete) ?? focusTasks[0];
   const completedPercent = tasks.length ? Math.round(tasks.filter((task) => task.complete).length / tasks.length * 100) : 0;
   const checkPercent = Math.round(checks.filter(Boolean).length / checks.length * 100);
+  const assessmentGrades = [
+    { id: 'week7-test1', label: 'Test 1 · Weeks 1–7', submittedKey: 'week7-test1-submitted', questionPrefix: 'week7-test1-', total: 25, answers: [1,0,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1] },
+    { id: 'week10-academic-integrity', label: 'Week 10 · Academic Integrity Quiz', submittedKey: 'week10-academic-integrity-submitted', questionPrefix: 'week10-academic-integrity-', total: academicIntegrityQuestions.length, answers: academicIntegrityQuestions.map((q) => q.answer) },
+    { id: 'week10-support-substitution', label: 'Week 10 · Support vs. Substitution Quiz', submittedKey: 'week10-support-substitution-submitted', questionPrefix: 'week10-support-substitution-', total: supportSubstitutionQuestions.length, answers: supportSubstitutionQuestions.map((q) => q.answer) },
+    { id: 'week10-attribution', label: 'Week 10 · Attribution Quiz', submittedKey: 'week10-attribution-submitted', questionPrefix: 'week10-attribution-', total: attributionQuestions.length, answers: attributionQuestions.map((q) => q.answer) },
+    { id: 'week10-disclosure-quality', label: 'Week 10 · Disclosure Quality Quiz', submittedKey: 'week10-disclosure-quality-submitted', questionPrefix: 'week10-disclosure-quality-', total: disclosureQualityQuestions.length, answers: disclosureQualityQuestions.map((q) => q.answer) },
+    { id: 'week11-dignity', label: 'Week 11 · Human Dignity Quiz', submittedKey: 'week11-human-dignity-submitted', questionPrefix: 'week11-human-dignity-', total: humanDignityQuestions.length, answers: humanDignityQuestions.map((q) => q.answer) },
+    { id: 'week11-truthfulness', label: 'Week 11 · Truthfulness Quiz', submittedKey: 'week11-truthfulness-submitted', questionPrefix: 'week11-truthfulness-', total: truthfulnessQuestions.length, answers: truthfulnessQuestions.map((q) => q.answer) },
+    { id: 'week11-justice', label: 'Week 11 · Justice & Fairness Quiz', submittedKey: 'week11-justice-fairness-submitted', questionPrefix: 'week11-justice-fairness-', total: justiceFairnessQuestions.length, answers: justiceFairnessQuestions.map((q) => q.answer) },
+    { id: 'week11-stewardship', label: 'Week 11 · Stewardship Quiz', submittedKey: 'week11-stewardship-submitted', questionPrefix: 'week11-stewardship-', total: stewardshipQuestions.length, answers: stewardshipQuestions.map((q) => q.answer) },
+    { id: 'week11-responsibility', label: 'Week 11 · Responsibility Quiz', submittedKey: 'week11-responsibility-submitted', questionPrefix: 'week11-responsibility-', total: responsibilityQuestions.length, answers: responsibilityQuestions.map((q) => q.answer) },
+    { id: 'week11-discernment', label: 'Week 11 · Moral Discernment Quiz', submittedKey: 'week11-moral-discernment-submitted', questionPrefix: 'week11-moral-discernment-', total: moralDiscernmentQuestions.length, answers: moralDiscernmentQuestions.map((q) => q.answer) },
+    { id: 'week12-workforce', label: 'Week 12 · AI and the Workforce Quiz', submittedKey: 'week12-workforce-submitted', questionPrefix: 'week12-workforce-', total: workforceQuestions.length, answers: workforceQuestions.map((q) => q.answer) },
+  ].map((assessment) => {
+    const submitted = Boolean(structuredAnswers[assessment.submittedKey]);
+    const correct = assessment.answers.filter((answer, index) => structuredAnswers[`${assessment.questionPrefix}${index}`] === answer).length;
+    const percent = assessment.total ? Math.round((correct / assessment.total) * 100) : 0;
+    return { ...assessment, submitted, correct, percent };
+  });
+  const submittedAssessmentGrades = assessmentGrades.filter((assessment) => assessment.submitted);
+  const assessmentAverage = submittedAssessmentGrades.length ? Math.round(submittedAssessmentGrades.reduce((sum, assessment) => sum + assessment.percent, 0) / submittedAssessmentGrades.length) : null;
   const pageTitle = navItems.find((item) => item.id === activeView)?.label ?? 'Course Home';
   const normalizedSearch = searchQuery.trim().toLowerCase();
   const searchResults = normalizedSearch ? [
@@ -1636,9 +1657,10 @@ export default function Home() {
 
           {activeView === 'grades' && (
             <div className="gradesView">
-              <section className="gradeSummary"><div><span>COURSE PROGRESS</span><strong>{completedPercent}%</strong><small>assignment completion</small></div><div><span>GRADEBOOK STATUS</span><strong>—</strong><small>No final grade calculated</small></div><div><span>EVIDENCE CHECKS</span><strong>{tasks.filter((task) => task.verified).length}/{tasks.length}</strong><small>assignment records verified</small></div></section>
+              <section className="gradeSummary"><div><span>COURSE PROGRESS</span><strong>{completedPercent}%</strong><small>assignment completion</small></div><div><span>ASSESSMENT AVERAGE</span><strong>{assessmentAverage === null ? '—' : `${assessmentAverage}%`}</strong><small>{submittedAssessmentGrades.length ? `${submittedAssessmentGrades.length} graded assessment${submittedAssessmentGrades.length === 1 ? '' : 's'}` : 'No submitted quizzes or tests yet'}</small></div><div><span>EVIDENCE CHECKS</span><strong>{tasks.filter((task) => task.verified).length}/{tasks.length}</strong><small>assignment records verified</small></div></section>
+              <section className="lmsPanel gradebook"><div className="panelBar"><h3>Assessment Grades</h3><span>Updates when you submit</span></div>{assessmentGrades.map((assessment) => <article key={assessment.id}><div><strong>{assessment.label}</strong><span>{assessment.submitted ? 'Submitted' : 'Not submitted'}</span></div><div className="weightTrack"><i style={{ width: `${assessment.submitted ? assessment.percent : 0}%` }} /></div><b>{assessment.submitted ? `${assessment.percent}%` : '—'}</b></article>)}</section>
               <section className="lmsPanel gradebook"><div className="panelBar"><h3>How Your Grade Works</h3><span>Total: 100%</span></div>{gradeItems.map((item) => <article key={item.name}><div><strong>{item.name}</strong><span>{item.status}</span></div><div className="weightTrack"><i style={{ width: `${item.weight}%` }} /></div><b>{item.weight}%</b></article>)}</section>
-              <section className="fairnessCallout"><strong>Team fairness promise</strong><p>You are not graded only by the team’s polish or by one forced-ranking position. Weekly contribution records, demonstrations, and individual judgment checks show patterns over time.</p></section>
+              <section className="fairnessCallout"><strong>Gradebook note</strong><p>Quiz and test scores shown here are calculated from the submitted assessment answers saved in this dashboard. Written work, discussions, projects, and instructor-reviewed items may still require manual grading.</p></section>
             </div>
           )}
 
@@ -1670,8 +1692,8 @@ export default function Home() {
                 <div className="syllabusContent">
                   <article>
                     <h3>Course Description</h3>
-                    <p>This is a 7–15 week course designed for business students with no coding experience to understand how AI can be used responsibly in management, business decisions, teamwork, and everyday workplace problems.</p>
-                    <p>Rather than learning AI theory, students build a complete AI-enabled dashboard system from the ground up. Each week adds a new capability: prototyping, deployment, research workflows, data analysis, automation, governance, communication, customer insights, people management, forecasting, strategy, innovation, value measurement, adoption planning, and final integration.</p>
+                    <p>AI for Managers is a 15-week, hands-on management course for business students. No prior coding experience is required. Students learn how to use AI responsibly for research, productivity, decision support, ethics, governance, communication, workforce planning, implementation, and organizational change.</p>
+                    <p>The course is organized around a progressive AI Management Dashboard. Each week adds a practical management capability, and students must be able to explain the reasoning, evidence, safeguards, and human accountability behind what they build.</p>
                     <p>The course emphasizes judgment over features: framing problems, testing AI outputs, identifying risks, explaining decisions, and maintaining human accountability.</p>
                   </article>
 
@@ -1816,23 +1838,23 @@ export default function Home() {
 
                   <article>
                     <h3>Course Schedule Overview</h3>
-                    <p>The course spans 15 weeks, with each week building one capability into the system:</p>
+                    <p>The course spans 15 weeks. The schedule below summarizes the primary topic and build for each week:</p>
                     <ul>
-                      <li><strong>Week 1:</strong> Orient & prototype</li>
-                      <li><strong>Week 2:</strong> Deploy & Use</li>
-                      <li><strong>Week 3:</strong> Research & know</li>
-                      <li><strong>Week 4:</strong> AI for Productivity</li>
-                      <li><strong>Week 5:</strong> AI-Assisted Managerial Decisions</li>
-                      <li><strong>Week 6:</strong> AI Ethics / AI Ethics Checker</li>
-                      <li><strong>Week 7:</strong> Responsible AI & Governance / Responsible AI Policy</li>
-                      <li><strong>Week 8:</strong> AI in Management</li>
-                      <li><strong>Week 9:</strong> Accuracy, Hallucinations, and Verification</li>
-                      <li><strong>Week 10:</strong> AI and Plagiarism</li>
-                      <li><strong>Week 11:</strong> Christian Perspective on AI</li>
-                      <li><strong>Week 12:</strong> AI and the Workforce</li>
-                      <li><strong>Week 13:</strong> Measure value</li>
-                      <li><strong>Week 14:</strong> Lead adoption</li>
-                      <li><strong>Week 15:</strong> Integrate & defend</li>
+                      <li><strong>Week 1:</strong> AI foundations and Dashboard Starter Version</li>
+                      <li><strong>Week 2:</strong> AI tools, integrations, APIs, and privacy</li>
+                      <li><strong>Week 3:</strong> AI-supported research, source quality, and verification</li>
+                      <li><strong>Week 4:</strong> AI for productivity and workflow assistance</li>
+                      <li><strong>Week 5:</strong> AI-assisted managerial decisions and human accountability</li>
+                      <li><strong>Week 6:</strong> AI ethics, bias, privacy, stakeholder impact, and AI Ethics Checker</li>
+                      <li><strong>Week 7:</strong> Responsible AI governance, policy, monitoring, and cumulative Test 1 over Weeks 1–7</li>
+                      <li><strong>Week 8:</strong> Customer evidence and decision-ready insights</li>
+                      <li><strong>Week 9:</strong> Human-reviewed AI workflows and verification</li>
+                      <li><strong>Week 10:</strong> Academic integrity, attribution, disclosure, and AI Use / Disclosure Log</li>
+                      <li><strong>Week 11:</strong> Values-based and Christian ethical reasoning for AI decisions</li>
+                      <li><strong>Week 12:</strong> AI and the workforce, augmentation, reskilling, and transition risk</li>
+                      <li><strong>Week 13:</strong> AI implementation planning, rollout, KPIs, and stop conditions</li>
+                      <li><strong>Week 14:</strong> Dashboard testing, peer feedback, acceptance criteria, and revision</li>
+                      <li><strong>Week 15:</strong> Final integrated dashboard, defense, cumulative final exam, and final paper</li>
                     </ul>
                   </article>
 
