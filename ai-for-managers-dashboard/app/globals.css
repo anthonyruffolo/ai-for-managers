@@ -509,7 +509,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .assessmentFields .fullField { grid-column: 1 / -1; }
 .formActions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px; margin: 16px 18px 0; }
 .formActions button { min-height: 34px; padding: 8px 12px; border: 1px solid #9ba5ab; border-radius: 2px; background: white; color: #46535c; font-size: 9px; font-weight: 740; }
-.formActions .primaryAction { border-color: var(--blue-dark); color: white; }
+.formActions .primaryAction { border-color: var(--blue-dark); background: var(--blue-dark); color: white; box-shadow: 0 2px 6px rgb(0 51 102 / 18%); }
+.formActions .primaryAction:hover:not(:disabled) { background: var(--blue); }
+.formActions .primaryAction:disabled { background: #7d91a5; border-color: #7d91a5; color: white; cursor: not-allowed; opacity: .8; }
 .riskGrid { grid-template-columns: repeat(3, 1fr); }
 .riskGrid > div:first-child strong { color: #27836d; }
 .riskGrid > div:nth-child(2) strong { color: #946b17; }
