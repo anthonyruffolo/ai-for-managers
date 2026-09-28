@@ -77,7 +77,7 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     ['lesson-4', 'Lesson 4 · Transparency & Explainability'], ['lesson-5', 'Lesson 5 · Accountability'], ['lesson-6', 'Lesson 6 · Human Oversight'],
     ['lesson-7', 'Lesson 7 · AI Reliability & Hallucinations'], ['lesson-8', 'Lesson 8 · Stakeholder Impact'], ['practice-ethics', 'Ethics Decision Lab'],
     ['practice-bias', 'Bias Practice'], ['practice-privacy', 'Privacy Decision Lab'], ['practice-verify', 'AI Verification Exercise'],
-    ['case-brightpath', 'BrightPath Manufacturing Case'], ['build-ethics', 'AI Ethics Checker'], ['assessment-knowledge', 'Week 6 Knowledge Check', 'Assignment'],
+    ['case-brightpath', 'BrightPath Manufacturing Case'], ['build-ethics', 'AI Ethics Checker'],
     ['assessment-discussion', 'Discussion 3', 'Assignment'], ['submit-ethics', 'AI Ethics Risk Assessment', 'Assignment'], ['reflect-ethics', 'Week 6 Reflection'], ['resources-ethics', 'Week 6 Resources'],
   ].map(([id, title, category]) => ({ id, title, category: category as SearchCategory | undefined })),
   7: [
@@ -87,7 +87,7 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     ['practice-roles', 'Governance Role Activity'], ['practice-map', 'Palmetto AI Use Case Map'], ['practice-deploy', 'Before You Deploy'],
     ['practice-treatment', 'Risk Treatment Activity'], ['practice-data', 'Data Governance Decision'], ['practice-maturity', 'AI Governance Maturity'],
     ['case-governance', 'Palmetto Governance Simulation'], ['build-policy', 'Responsible AI Policy Builder'], ['connect-builds', 'Connect Your Week 6 & Week 7 Builds'],
-    ['assessment-test', 'Test 1', 'Assignment'], ['assessment-guide', 'Test 1 Study Guide', 'Assignment'], ['assessment-capstone', 'Final Governance Challenge', 'Assignment'],
+    ['assessment-test', 'Test 1 · Cumulative Weeks 1–7', 'Assignment'], ['assessment-guide', 'Test 1 Study Guide · Weeks 1–7'], ['assessment-capstone', 'Governance Application Practice'],
     ['submit-policy', 'Responsible AI Policy', 'Assignment'], ['reflect-policy', 'Week 7 Reflection'], ['resources-policy', 'Week 7 Resources'],
   ].map(([id, title, category]) => ({ id, title, category: category as SearchCategory | undefined })),
   8: standardSearchItems(8, ['AI in Leadership and Communication', 'Planning and Project Management', 'AI Agents and Agentic AI', 'Manager AI Assistant', 'Human-in-the-Loop Decisions', 'Discussion 4: Trust and Verification'], 'Manager AI Assistant', 'Week 8 Decision Memo'),
