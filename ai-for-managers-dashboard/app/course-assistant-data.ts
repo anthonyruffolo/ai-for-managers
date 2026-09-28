@@ -1,3 +1,5 @@
+import { easyWeekItems } from './easy-week-activities';
+
 export type ModuleItem = { id: string; title: string; description: string; type: string; time?: string };
 
 export type CourseAssistantModule = { overview: string; objectives: string[]; artifact: string; buildDescription: string; items: ModuleItem[] };
@@ -6,6 +8,7 @@ function standardModule(week: number, overview: string, objectives: string[], ar
   return {
     overview, objectives, artifact, buildDescription,
     items: [
+      ...easyWeekItems(week),
       ...(week === 15 ? [] : lessons.map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: `Learn the Week ${week} concept, apply it to a management situation, and identify what requires human judgment.`, type: 'lesson' as const, time: '15–20 min' }))),
       ...(week === 15 ? [] : [{ id: `practice-${week}`, title: practice, description: 'Apply the week’s concepts to a realistic management scenario and document your reasoning.', type: 'practice' as const, time: '30–45 min' }]),
       ...(week === 13 ? [
