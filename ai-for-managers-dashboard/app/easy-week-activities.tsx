@@ -28,6 +28,10 @@ const activities: Record<number, Activity> = {
   },
 };
 
+export const easyQuizDefinitions = Object.entries(activities).map(([week, activity]) => ({
+  week: Number(week), itemId: `quiz-${week}-easy`, prefix: `week${week}-easy-quiz`, questions: activity.questions,
+}));
+
 export function easyWeekItems(week: number) {
   const activity = activities[week];
   return activity ? [
