@@ -1028,11 +1028,8 @@ export default function Home() {
     ...easyQuizDefinitions,
     { week: 15, itemId: 'assessment-final-exam', prefix: 'week15-final-exam', questions: finalExamQuestions },
   ];
-  const gradebookEntries = Object.entries(structuredModules).flatMap(([weekNumber, module]) => [...module.items,
-    ...(focusedDiscussions[Number(weekNumber)] && !module.items.some((item) => item.id.includes('discussion'))
-      ? [{ id: 'discussion-board', title: focusedDiscussions[Number(weekNumber)].title, type: 'assessment' as const }] : []),
-  ]
-    .filter((item) => !['lesson', 'resource', 'connect'].includes(item.type) && item.id !== 'assessment-guide')
+  const gradebookEntries = Object.entries(structuredModules).flatMap(([weekNumber, module]) => module.items
+    .filter((item) => !item.id.includes('discussion') && item.id !== 'assessment-guide')
     .map((item) => {
       const week = Number(weekNumber);
       const assessment = assessmentDefinitions.find((entry) => entry.week === week && entry.itemId === item.id);
@@ -1044,7 +1041,7 @@ export default function Home() {
         : item.id.endsWith('-easy') ? 3
         : item.type === 'assignment' && ([10, 13, 14].includes(week) || ['assignment-11-lesson-1', 'assignment-11-lesson-2'].includes(item.id)) ? 10
         : (week === 13 || week === 14) && item.type === 'assessment' ? 20
-        : week === 6 && item.id === 'assessment-discussion' ? 20 : null;
+        : null;
       const earned = submitted ? correct * (isFinal ? 2 : 1) : null;
       const percent = earned !== null && possible ? Math.round(earned / possible * 100) : null;
       return {
@@ -1053,9 +1050,9 @@ export default function Home() {
           : assessment ? 'Not submitted' : completed ? 'Marked complete · Awaiting instructor grade' : 'Not completed',
         possible: isFinal ? '110 points (100 objective + 10 written)' : possible === null ? 'Points not set' : `${possible} ${assessment && !item.id.endsWith('-easy') ? 'questions' : 'points'}`,
         score: earned === null ? '—' : isFinal ? `${earned}/100 objective points` : `${earned}/${possible} · ${percent}%`,
-        percent, earned, scoredPossible: submitted ? possible : null,
+        possiblePoints: possible, percent, earned, scoredPossible: submitted ? possible : null,
       };
-    }));
+    })).filter((entry) => entry.possiblePoints !== null);
   const submittedAssessmentGrades = gradebookEntries.filter((entry) => entry.earned !== null);
   const scoredPossible = submittedAssessmentGrades.reduce((sum, entry) => sum + (entry.scoredPossible ?? 0), 0);
   const assessmentAverage = scoredPossible ? Math.round(submittedAssessmentGrades.reduce((sum, entry) => sum + (entry.earned ?? 0), 0) / scoredPossible * 100) : null;
@@ -1714,14 +1711,14 @@ export default function Home() {
           {activeView === 'grades' && (
             <div className="gradesView">
               <section className="gradeSummary"><div><span>COURSE PROGRESS</span><strong>{completedPercent}%</strong><small>assignment completion</small></div><div><span>SCORED ANSWERS</span><strong>{assessmentAverage === null ? '—' : `${assessmentAverage}%`}</strong><small>{submittedAssessmentGrades.length ? `${submittedAssessmentGrades.length} scored assessment${submittedAssessmentGrades.length === 1 ? '' : 's'}` : 'No submitted quizzes or tests yet'}</small></div><div><span>EVIDENCE CHECKS</span><strong>{tasks.filter((task) => task.verified).length}/{tasks.length}</strong><small>assignment records verified</small></div></section>
-              <section className="lmsPanel gradebook"><div className="panelBar"><h3>Activities & Scores</h3><span>{gradebookEntries.length} activities</span></div>
+              <section className="lmsPanel gradebook"><div className="panelBar"><h3>Quizzes, Graded Activities & Exams</h3><span>{gradebookEntries.length} activities</span></div>
                 {gradebookEntries.map((entry) => <article key={entry.id}>
-                  <div><button type="button" className="gradeActivityLink" onClick={() => { setSelectedWeek(entry.week); setModuleItem(entry.itemId); switchView(entry.itemId === 'discussion-board' ? 'discussions' : 'content'); }}>Week {entry.week} · {entry.label}</button><span>{entry.status}</span><span>{entry.possible}</span></div>
+                  <div><button type="button" className="gradeActivityLink" onClick={() => { setSelectedWeek(entry.week); setModuleItem(entry.itemId); switchView('content'); }}>Week {entry.week} · {entry.label}</button><span>{entry.status}</span><span>{entry.possible}</span></div>
                   <div className="weightTrack" aria-hidden="true"><i style={{ width: `${entry.percent ?? 0}%` }} /></div><b>{entry.score}</b>
                 </article>)}
               </section>
               <section className="lmsPanel gradebook"><div className="panelBar"><h3>How Your Grade Works</h3><span>Total: 100%</span></div>{gradeItems.map((item) => <article key={item.name}><div><strong>{item.name}</strong><span>{item.status}</span></div><div className="weightTrack"><i style={{ width: `${item.weight}%` }} /></div><b>{item.weight}%</b></article>)}</section>
-              <section className="fairnessCallout"><strong>Gradebook note</strong><p>Activities are matched to their course modules. Scores come from answers saved on this device and are not an official instructor gradebook. Scored Answers combines submitted objective answers only; it is not your weighted course grade. The final exam shows its objective score separately from 10 written points awaiting review. A completion check does not award points or submit work to an instructor. Missing point values must be set by your instructor. Use each activity link to review its instructions and rubric.</p></section>
+              <section className="fairnessCallout"><strong>Gradebook note</strong><p>This page shows quizzes, knowledge checks, exams, and activities with defined grading points. Discussions and general completion activities are excluded. Scores come from answers saved on this device and are not an official instructor gradebook. Scored Answers combines submitted objective answers only; it is not your weighted course grade. The final exam shows its objective score separately from 10 written points awaiting review. A completion check does not award points or submit work to an instructor. Use each activity link to review its instructions and rubric.</p></section>
             </div>
           )}
 
