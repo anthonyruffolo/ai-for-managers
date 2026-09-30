@@ -164,7 +164,7 @@ export const structuredModules: Record<number, { overview: string; objectives: s
     artifact: 'Final Integrated AI Management Dashboard',
     buildDescription: 'Complete the integrated dashboard, end-to-end testing record, presentation/defense, cumulative final exam, and summative final paper.',
     items: [
-      { id: 'build-15', title: 'Final Integrated Dashboard', description: 'Complete and test the full dashboard. Confirm every required component is usable, connected, disclosed, verified, and ready to demonstrate.', type: 'build' as const, time: '2–3 hrs' },
+      { id: 'build-15', title: 'Final Integrated AI Management Dashboard', description: 'Complete and test the full dashboard. Confirm every required component is usable, connected, disclosed, verified, and ready to demonstrate.', type: 'build' as const, time: '2–3 hrs' },
       { id: 'assessment-final-exam', title: 'Final Exam · Cumulative Weeks 1–15', description: 'Complete the summative exam: explain concepts, analyze scenarios, verify evidence, identify risks, choose safeguards, and defend an implementation decision.', type: 'assessment' as const, time: '90 min' },
       { id: 'submit-final-paper', title: 'Final Paper · AI Management Synthesis', description: 'Submit a 1,500–2,000 word paper that synthesizes what you learned across the course and uses your dashboard as evidence.', type: 'submit' as const },
       { id: 'submit-final-dashboard', title: 'Final Dashboard Portfolio and Defense', description: 'Submit the final dashboard link or repository evidence, testing record, revision log, presentation, and individual contribution record.', type: 'submit' as const },

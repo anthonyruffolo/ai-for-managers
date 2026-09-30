@@ -12,14 +12,14 @@ const weeks = [
   ['Week 5', 'AI-Assisted Managerial Decisions', 'Add a Manager Decision Assistant that records the problem, AI analysis, recommendation, alternatives, missing information, risks, and final human decision.'],
   ['Week 6', 'AI Ethics', 'Add an AI Ethics Checker / Risk Assessment covering sensitive information, bias, harm, human review, explainability, verification, accountability, and risk level.'],
   ['Week 7', 'Responsible AI and Governance', 'Add a Responsible AI Policy covering approved uses, prohibited uses, confidentiality, verification, human review, disclosure, and accountability.'],
-  ['Week 8', 'AI and Management', 'Add a Manager AI Assistant that supports management problems while clearly separating AI recommendations from the manager’s final decision.'],
-  ['Week 9', 'Accuracy, Hallucinations, and Verification', 'Add an AI Verification section and verify at least three AI-generated claims, sources, accuracy, reliability, and corrections.'],
-  ['Week 10', 'AI and Plagiarism', 'Add an AI Use / Disclosure Log recording major AI use, prompts, AI contribution, student changes, verification, and disclosure.'],
-  ['Week 11', 'Christian Perspective on AI', 'Add a Values-Based AI Decision Framework addressing truthfulness, human dignity, fairness, responsibility, stewardship, harm, and accountability.'],
-  ['Week 12', 'AI and the Workforce', 'Add a Workforce Impact section covering a profession’s current tasks, automation opportunities, human-retained work, skills, training, risks, and management recommendations.'],
-  ['Week 13', 'Implementing AI in an Organization', 'Complete the Implementation Readiness Decision and Adoption and Measurement Plan assignments with risks, controls, ownership, training, KPIs, and stop conditions.'],
-  ['Week 14', 'Future of AI and Dashboard Testing', 'Complete the Dashboard Acceptance Test and Future of AI assignments, then record peer feedback, revisions, and release-readiness evidence.'],
-  ['Week 15', 'Final AI Management Dashboard', 'Focus on the 50-question, 90-minute final exam, the 1,500–2,000 word final paper, the final dashboard portfolio, defense evidence, and reflection.'],
+  ['Week 8', 'Customer Evidence and Decision Briefs', 'Build a Customer Evidence Decision Brief with three sourced insights, evidence labels, a missing customer voice, a validation question, options/tradeoffs, and a manager-owned recommendation.'],
+  ['Week 9', 'Human-Reviewed AI Workflows', 'Build a Human-Reviewed AI Workflow connected to the Week 8 problem with an AI-supported step, human review checkpoint, verification checks, escalation trigger, accountable owner, and test evidence.'],
+  ['Week 10', 'AI and Plagiarism', 'Build an AI Use / Disclosure Log recording the task, tool, prompt or input, AI contribution, student changes, verification, and disclosure statement.'],
+  ['Week 11', 'Christian Perspective on AI', 'Build a Values-Based AI Decision Framework that records the situation, affected people, values, tensions, evidence, safeguards, and accountable decision.'],
+  ['Week 12', 'AI and the Workforce', 'Build a Workforce Impact Map covering current tasks, automation and augmentation opportunities, human-retained work, skills, training, worker voice, transition risks, and a management recommendation.'],
+  ['Week 13', 'Implementing AI in an Organization', 'Build an AI Implementation Plan with the business problem, bounded AI solution, benefits, risks, controls, owners, training, timeline, KPIs, stop conditions, and rollout recommendation.'],
+  ['Week 14', 'Future of AI and Dashboard Testing', 'Build a Dashboard Testing and Revision Record with acceptance criteria, end-to-end test evidence, defects, peer feedback, revisions, retest results, and a release-readiness decision.'],
+  ['Week 15', 'Final AI Management Dashboard', 'Complete the Final Integrated AI Management Dashboard, connect Weeks 1–14, document limitations and the final release decision, then submit the portfolio/defense evidence, 50-question final exam, 1,500–2,000 word final paper, and reflection.'],
 ];
 
 const template = [

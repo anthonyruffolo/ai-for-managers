@@ -7,9 +7,9 @@ This is the implementation-facing map for the team. It helps Anthony know what s
 | Brittany Ward | 1–3 | Dashboard start, AI Tools, Prompt Library | Quiz 1; Discussion 1 |
 | Cade | 4–5 | AI Productivity and decision/automation-related build work | Quiz 2; Discussion 2 |
 | Josiah | 6–7 | Ethics Checker / Risk Assessment and Responsible AI Policy | Test 1; Discussion 3 |
-| Kimberly Quintos | 8–9 | Manager AI Assistant and AI Verification | Quiz 3; Discussion 4 |
-| Lena | 10–12 | AI Use/Disclosure, Values-Based AI, Workforce Impact | Test 2; Discussions 5–6 |
-| Payton Smith | 13–15 | Implementation Plan, testing, final integration | Quiz 4; Test 3/Final; Discussion 7 |
+| Kimberly Quintos | 8–9 | Customer Evidence Decision Brief and Human-Reviewed AI Workflow | Quiz 3; Discussion 4 |
+| Lena | 10–12 | AI Use / Disclosure Log, Values-Based AI Decision Framework, Workforce Impact Map | Test 2; Discussions 5–6 |
+| Payton Smith | 13–15 | AI Implementation Plan, Dashboard Testing and Revision Record, Final Integrated AI Management Dashboard | Quiz 4; Test 3/Final; Discussion 7 |
 
 ## Implementation boundary
 
