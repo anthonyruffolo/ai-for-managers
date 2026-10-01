@@ -776,3 +776,23 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
 
 .gradeActivityLink { background: none; border: 0; padding: 0; color: inherit; font: inherit; font-weight: 700; text-align: left; text-decoration: underline; cursor: pointer; }
 .gradeActivityLink:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+/* Course deadlines */
+.deadlinePanel .deadlineNote { margin: 14px 20px; color: #526174; font-size: .85rem; line-height: 1.5; }
+.deadlineFilters { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 14px; }
+.deadlineFilters button { border: 1px solid #cbd5e1; border-radius: 20px; padding: 8px 12px; background: #fff; color: #334155; cursor: pointer; }
+.deadlineFilters button[aria-pressed="true"] { background: #173b35; color: #fff; border-color: #173b35; }
+.deadlineFilters span { margin-left: 5px; font-weight: 700; }
+.deadlineResults > p { padding: 16px 20px; line-height: 1.5; }
+.deadlineItems { list-style: none; padding: 0; margin: 0; }
+.deadlineItems li { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-top: 1px solid #e2e8f0; }
+.deadlineLink { flex: 1; min-width: 0; text-align: left; border: 0; background: transparent; color: #173b35; cursor: pointer; padding: 4px 0; }
+.deadlineLink strong, .deadlineLink span { display: block; overflow-wrap: anywhere; }
+.deadlineLink span { margin-top: 5px; color: #526174; font-size: .8rem; line-height: 1.5; }
+.deadlineLink:hover strong { text-decoration: underline; }
+.deadlineStatus { flex-shrink: 0; font-size: .75rem; padding: 5px 8px; border-radius: 6px; background: #eaf0f7; color: #334155; }
+.deadlineStatus.overdue { background: #fff1f2; color: #9f1239; }
+.deadlineStatus.due-soon { background: #fff7df; color: #854d0e; }
+.deadlineStatus.completed { background: #ecfdf5; color: #166534; }
+.deadlineMore { margin: 14px 20px; border: 1px solid #cbd5e1; background: #fff; border-radius: 6px; padding: 9px 14px; cursor: pointer; }
+.deadlinePanel button:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+@media (max-width: 480px) { .deadlineItems li { align-items: flex-start; flex-direction: column; } }
