@@ -796,3 +796,8 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
 .deadlineMore { margin: 14px 20px; border: 1px solid #cbd5e1; background: #fff; border-radius: 6px; padding: 9px 14px; cursor: pointer; }
 .deadlinePanel button:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
 @media (max-width: 480px) { .deadlineItems li { align-items: flex-start; flex-direction: column; } }
+.answerSaveStatus { margin: 8px 0 16px; font-size: .85rem; line-height: 1.5; color: #526174; }
+.answerSaveStatus.saved { color: #166534; }
+.answerSaveStatus.error { color: #9f1239; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 6px; padding: 10px 12px; }
+
+.answerSaveStatus { grid-column: 1 / -1; }
