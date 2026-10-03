@@ -839,8 +839,8 @@ const aiToolComparisons = [
     purpose: 'Generates and revises text, explains concepts, brainstorms options, and helps organize information through conversation.',
     bestUse: 'First drafts, outlining, brainstorming, and turning a clearly described management question into options to investigate.',
     strengths: 'Flexible across many writing and reasoning tasks; can adapt tone and format; useful for iterating through follow-up questions.',
-    limitations: 'May produce plausible but incorrect claims, miss context, or give outdated information. It is not a substitute for reliable sources or expert judgment.',
-    risks: 'Do not enter confidential or personal data into a public account. Check the account’s data controls, verify claims, and follow organizational AI policy.',
+    limitations: 'May produce plausible but incorrect claims, miss context, or give outdated information; generated citations or summaries may also be incomplete. It is not a substitute for reliable sources or expert judgment.',
+    risks: 'Do not enter confidential or personal data into a public account. Check the specific account’s data controls and terms, verify claims and sources, and follow organizational AI policy.',
     useCase: 'A manager asks it to draft three versions of a change-announcement email from a non-confidential outline, then reviews the facts, tone, and impact before sending.',
   },
   {
@@ -850,7 +850,7 @@ const aiToolComparisons = [
     bestUse: 'Summarizing or drafting around approved work materials in a properly configured Microsoft 365 environment.',
     strengths: 'Can fit into familiar Microsoft workflows; organizational versions may ground assistance in work context and show references to source material.',
     limitations: 'Available features and grounding depend on the specific product, license, permissions, and administrator configuration. References still need checking.',
-    risks: 'Existing file and sharing permissions matter: confirm access controls before using organizational content, and follow the organization’s retention and AI policies.',
+    risks: 'Existing file and sharing permissions still apply: AI may surface content a user can access but did not intend to include in a response. Confirm permissions and audience, and follow organizational retention and AI policies.',
     useCase: 'Using an organization-approved account, a manager prepares a draft project-status summary from team documents they are authorized to access, then checks it against the originals.',
   },
   {
@@ -859,7 +859,7 @@ const aiToolComparisons = [
     purpose: 'Supports conversational research, drafting, summarization, and other generative tasks; integrations vary by product and account.',
     bestUse: 'Developing an initial outline or synthesizing non-sensitive background material into questions and themes for further review.',
     strengths: 'Supports a broad range of generative tasks and may connect with Google services in eligible, configured accounts.',
-    limitations: 'Output can be inaccurate or incomplete, and available integrations and protections differ across consumer and organizational accounts.',
+    limitations: 'Output can be inaccurate or incomplete, including generated summaries or source references. Available integrations and data protections differ across consumer and organizational accounts.',
     risks: 'Check which account and service are in use before sharing information. Do not assume that a consumer account has workplace privacy protections.',
     useCase: 'A manager asks it to group themes from public customer reviews, checks representative reviews for accuracy, and uses the themes to plan follow-up research.',
   },
@@ -1948,7 +1948,7 @@ export default function Home() {
               <section className="aiToolsBottom">
                 <article className="lmsPanel privacyNote">
                   <div className="panelBar"><h3>Privacy Note</h3><span>Pause before you paste</span></div>
-                  <p>Information entered into a public AI service may be stored or handled under that service’s terms and account settings. It could be exposed, retained, or used in ways that are not appropriate for your organization. Never assume a public tool is private. Use only organization-approved services, share the minimum necessary information, and check the applicable privacy, security, and retention rules.</p>
+                  <p>Information entered into a public AI service is sent to the provider and handled according to that service’s terms, account type, and settings. It is not necessarily visible to other users, but it may be retained or processed in ways that are not appropriate for your organization. Never assume a public tool is approved for workplace data. Use organization-approved services, share the minimum necessary information, and check applicable privacy, security, and retention rules.</p>
                   <h4>Never enter sensitive information such as:</h4>
                   <ul>
                     <li>Confidential employee information, performance reviews, or personnel records</li>
