@@ -767,6 +767,11 @@ const focusedAssignments: Record<8 | 9, { title: string; purpose: string; steps:
 };
 
 const focusedDiscussions: Record<number, { label: string; title: string; prompt: string }> = {
+  2: {
+    label: 'WEEK 2 · DISCUSSION',
+    title: 'Where Should a Manager Refuse AI Assistance?',
+    prompt: 'AI can help managers save time, organize information, generate ideas, and support decision-making. However, managers must also recognize situations where using AI could create greater risks than benefits. Decisions involving confidential information, employee privacy, ethical concerns, or significant consequences may require greater human oversight.\n\nYour task: Identify one situation in which a manager should refuse or limit AI assistance because the potential risk is greater than the value it provides.\n\nIn your initial post:\n• Describe the management situation.\n• Explain why using AI could create more risk than value.\n• Apply one course concept to support your reasoning.\n• Identify who remains accountable for the final decision.\n• Describe a safer alternative to using AI in that situation.\n\nThen, reply constructively to one classmate. Build on their example, ask a thoughtful question, or provide another perspective they may not have considered.\n\nThink like a manager: The goal is not simply to decide whether AI is “good” or “bad.” Consider when AI is appropriate, when human judgment should take priority, and how managers can use AI responsibly.'
+  },
   8: {
     label: 'WEEK 8 · DISCUSSION 4',
     title: 'When should a manager trust an AI recommendation?',
@@ -995,7 +1000,7 @@ export default function Home() {
         try { setModuleSteps(JSON.parse(savedSteps)); } catch { /* keep module steps open */ }
       }
       if (savedDiscussion) setDiscussionDraft(savedDiscussion);
-    setFocusedDrafts(Object.fromEntries([8, 9].map((week) => [week, window.localStorage.getItem('aim-discussion-draft-week-' + week) ?? ''])));
+    setFocusedDrafts(Object.fromEntries([2, 8, 9].map((week) => [week, window.localStorage.getItem('aim-discussion-draft-week-' + week) ?? ''])));
       if (savedEthics) { try { setEthicsAssessment({ ...initialEthicsAssessment, ...JSON.parse(savedEthics) }); } catch { /* use blank assessment */ } }
       if (savedPolicy) { try { setPolicyDraft({ ...initialPolicyDraft, ...JSON.parse(savedPolicy) }); } catch { /* use blank policy */ } }
       if (savedEthicsActivities) { try { const saved = JSON.parse(savedEthicsActivities); setEthicsCase(saved.ethicsCase || ''); setPrivacyChoices(saved.privacyChoices || {}); setKnowledgeAnswers(saved.knowledgeAnswers || {}); } catch { /* use blank activities */ } }
