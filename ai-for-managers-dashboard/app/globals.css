@@ -380,7 +380,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .discussionPrompt > span { color: var(--red); font-size: 9px; font-weight: 850; letter-spacing: .1em; }
 .discussionPrompt h3 { margin: 7px 0 9px; font-size: 23px; }
 .discussionPrompt p { color: #536069; font-size: 12px; line-height: 1.6; white-space: pre-line; }
-.discussionView article[aria-label="Week 2 questions for classmates"] { display: none; }
+.discussionView article[aria-label="Week 2 questions for classmates"], .discussionView article[aria-label="Week 3 questions for classmates"] { display: none; }
 .discussionPrompt dl { display: grid; grid-template-columns: repeat(3, 1fr); margin: 20px 0; border: 1px solid var(--line); }
 .discussionPrompt dl div { padding: 12px; border-left: 1px solid var(--line); }
 .discussionPrompt dl div:first-child { border-left: 0; }
