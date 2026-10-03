@@ -436,6 +436,31 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .toolkitStarters button:hover, .toolkitStarters button.selected { border-color: var(--blue); background: var(--blue-pale); }
 .toolkitStarters button span { color: var(--blue-dark); font-size: 10px; font-weight: 800; }
 .toolkitStarters button small { color: var(--muted); font-size: 8px; line-height: 1.35; }
+.aiToolsPage { display: grid; gap: 18px; }
+.aiToolsIntro { padding: 23px 25px; border-left: 5px solid var(--blue); background: white; }
+.aiToolsIntro > span { color: var(--blue); font-size: 9px; font-weight: 850; letter-spacing: .12em; }
+.aiToolsIntro h3 { max-width: 760px; margin: 7px 0; font-size: clamp(20px, 2.5vw, 28px); font-weight: 620; line-height: 1.2; }
+.aiToolsIntro p { max-width: 920px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.aiToolGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
+.aiToolCard { overflow: hidden; }
+.aiToolHeading { display: flex; align-items: center; gap: 11px; padding: 16px 16px 13px; border-bottom: 1px solid var(--soft-line); background: #f5faff; }
+.aiToolHeading > span { color: var(--blue); font-size: 11px; font-weight: 850; letter-spacing: .08em; }
+.aiToolHeading h3 { margin: 0; color: var(--ink); font-size: 17px; }
+.aiToolHeading p { margin: 3px 0 0; color: var(--muted); font-size: 9px; line-height: 1.4; }
+.aiToolCard dl { margin: 0; padding: 0 16px; }
+.aiToolCard dl > div { padding: 11px 0; border-bottom: 1px solid var(--soft-line); }
+.aiToolCard dt { color: var(--blue-dark); font-size: 9px; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+.aiToolCard dd { margin: 4px 0 0; color: #536069; font-size: 10px; line-height: 1.5; }
+.aiToolUseCase { margin: 13px 16px 16px; padding: 12px; border-left: 3px solid var(--green); background: #f1faf7; }
+.aiToolUseCase strong { color: #14745f; font-size: 9px; letter-spacing: .05em; text-transform: uppercase; }
+.aiToolUseCase p { margin: 5px 0 0; color: #435d57; font-size: 10px; line-height: 1.5; }
+.aiToolsBottom { display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; align-items: start; }
+.privacyNote > p, .toolReflection > p { margin: 15px 18px 0; color: #536069; font-size: 10px; line-height: 1.6; }
+.privacyNote h4 { margin: 17px 18px 7px; color: var(--ink); font-size: 10px; }
+.privacyNote ul { margin: 0; padding: 0 22px 17px 37px; color: #536069; font-size: 10px; line-height: 1.6; }
+.privacyNote li { padding: 3px 0; }
+.toolReflection > p:last-child { margin-bottom: 18px; }
+.toolReflection > p strong { color: var(--blue-dark); }
 .moduleDetail > .lmsPanel { overflow: hidden; }
 .bridgePanel { padding-bottom: 18px; }
 .bridgeFlow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 10px; padding: 16px 18px 0; }
@@ -618,6 +643,7 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
   .rightColumn { grid-template-columns: repeat(3, 1fr); }
   .contentView { grid-template-columns: 220px minmax(0, 1fr); }
   .discussionView, .messagesView, .toolkitView { grid-template-columns: 1fr; }
+  .aiToolGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .starterSteps { grid-template-columns: repeat(3, 1fr); }
   .starterSteps article:nth-child(3) { border-right: 0; }
   .starterSteps article:nth-child(n + 4) { border-top: 1px solid var(--soft-line); }
@@ -701,6 +727,7 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
   .fairnessCallout, .helpChoice { grid-template-columns: 1fr; gap: 10px; }
   .briefFields, .formRow { grid-template-columns: 1fr; }
   .lessonColumns, .assessmentFields, .termGrid, .riskGrid, .comparisonTable, .biasGrid, .oversightGrid, .decisionGrid { grid-template-columns: 1fr; }
+  .aiToolGrid, .aiToolsBottom { grid-template-columns: 1fr; }
   .bridgeFlow, .caseTabs, .privacyGrid, .governanceGrid, .policyMeta, .riskAssessmentGrid, .checklistGrid { grid-template-columns: 1fr; }
   .workloadGrid { grid-template-columns: 1fr; }
   .bridgeFlow i { text-align: center; transform: rotate(90deg); }

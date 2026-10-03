@@ -8,7 +8,7 @@ import { FinalizedArtifactBuilder } from './finalized-artifact-builder';
 import { CourseLanguage, useCourseLocale } from './useCourseLocale';
 
 type Priority = 'High' | 'Medium' | 'Low';
-type View = 'home' | 'content' | 'portfolio' | 'assignments' | 'discussions' | 'grades' | 'messages' | 'toolkit' | 'syllabus';
+type View = 'home' | 'content' | 'portfolio' | 'assignments' | 'discussions' | 'grades' | 'messages' | 'toolkit' | 'ai-tools' | 'syllabus';
 type HelpMode = 'instructions' | 'technical' | 'team';
 type Task = {
   id: number;
@@ -812,6 +812,7 @@ const navItems: { id: View; label: string; icon: string }[] = [
   { id: 'grades', label: 'My Grades', icon: '▥' },
   { id: 'messages', label: 'Messages & Help', icon: '✉' },
   { id: 'toolkit', label: 'AI Toolkit', icon: '✦' },
+  { id: 'ai-tools', label: 'AI Tools', icon: '◈' },
   { id: 'syllabus', label: 'Syllabus', icon: '📋' },
 ];
 
@@ -829,6 +830,39 @@ const toolkitStarters = [
   { id: 'decision', label: 'Prepare a decision', description: 'Compare options without handing over judgment.', goal: 'Prepare a decision memo with clear options and tradeoffs', context: 'I need to help a manager choose among realistic options. Organize the decision, surface missing information, and show what each option would require.', constraints: 'Distinguish facts, assumptions, and recommendations. Show risks and alternatives. A human makes the final decision.', success: 'A manager can compare the options, understand the tradeoffs, and see what evidence would change the recommendation.' },
   { id: 'workflow', label: 'Improve a workflow', description: 'Find a useful, bounded place for AI assistance.', goal: 'Improve a repeatable management workflow with responsible AI assistance', context: 'Describe the current steps, who owns them, where time is lost, and what a better handoff could look like.', constraints: 'Keep a human checkpoint for consequential decisions. Exclude private data, credentials, and information I do not have permission to share.', success: 'The proposed workflow has an owner, a measurable improvement, failure handling, and a clear stop condition.' },
   { id: 'brief', label: 'Draft a briefing', description: 'Shape a clear message for a real audience.', goal: 'Draft a concise management briefing for a specific audience', context: 'Help me organize the situation, recommendation, supporting evidence, and the action I am asking the audience to take.', constraints: 'Preserve my judgment and voice. Do not add unsupported claims. Make AI assistance easy to disclose and review.', success: 'The audience can understand the recommendation, why it matters, and what decision or action comes next.' },
+];
+
+const aiToolComparisons = [
+  {
+    name: 'ChatGPT',
+    category: 'General-purpose conversational assistant',
+    purpose: 'Generates and revises text, explains concepts, brainstorms options, and helps organize information through conversation.',
+    bestUse: 'First drafts, outlining, brainstorming, and turning a clearly described management question into options to investigate.',
+    strengths: 'Flexible across many writing and reasoning tasks; can adapt tone and format; useful for iterating through follow-up questions.',
+    limitations: 'May produce plausible but incorrect claims, miss context, or give outdated information. It is not a substitute for reliable sources or expert judgment.',
+    risks: 'Do not enter confidential or personal data into a public account. Check the account’s data controls, verify claims, and follow organizational AI policy.',
+    useCase: 'A manager asks it to draft three versions of a change-announcement email from a non-confidential outline, then reviews the facts, tone, and impact before sending.',
+  },
+  {
+    name: 'Microsoft Copilot',
+    category: 'Workplace assistant in the Microsoft ecosystem',
+    purpose: 'Helps with content and productivity tasks; some work or Microsoft 365 versions can use authorized organizational content, depending on the license and setup.',
+    bestUse: 'Summarizing or drafting around approved work materials in a properly configured Microsoft 365 environment.',
+    strengths: 'Can fit into familiar Microsoft workflows; organizational versions may ground assistance in work context and show references to source material.',
+    limitations: 'Available features and grounding depend on the specific product, license, permissions, and administrator configuration. References still need checking.',
+    risks: 'Existing file and sharing permissions matter: confirm access controls before using organizational content, and follow the organization’s retention and AI policies.',
+    useCase: 'Using an organization-approved account, a manager prepares a draft project-status summary from team documents they are authorized to access, then checks it against the originals.',
+  },
+  {
+    name: 'Google Gemini',
+    category: 'General-purpose assistant with Google ecosystem options',
+    purpose: 'Supports conversational research, drafting, summarization, and other generative tasks; integrations vary by product and account.',
+    bestUse: 'Developing an initial outline or synthesizing non-sensitive background material into questions and themes for further review.',
+    strengths: 'Supports a broad range of generative tasks and may connect with Google services in eligible, configured accounts.',
+    limitations: 'Output can be inaccurate or incomplete, and available integrations and protections differ across consumer and organizational accounts.',
+    risks: 'Check which account and service are in use before sharing information. Do not assume that a consumer account has workplace privacy protections.',
+    useCase: 'A manager asks it to group themes from public customer reviews, checks representative reviews for accuracy, and uses the themes to plan follow-up research.',
+  },
 ];
 
 const testOneQuestions = [
@@ -1884,6 +1918,52 @@ export default function Home() {
             <div className="toolkitView">
               <section className="lmsPanel briefBuilder"><div className="panelBar"><h3>AI Collaboration Brief</h3><span>Planning aid—not assessed work</span></div><div className="toolkitIntro"><strong>Start with the work in front of you.</strong><p>Choose a manager scenario to get useful starting language, then edit the brief until it matches your real situation.</p></div><div className="toolkitStarters" aria-label="AI brief starters">{toolkitStarters.map((starter) => <button className={selectedStarter === starter.id ? 'selected' : ''} type="button" onClick={() => applyToolkitStarter(starter)} key={starter.id}><span>{starter.label}</span><small>{starter.description}</small></button>)}</div><div className="briefFields"><label>Goal<input value={goal} onChange={(event) => { setGoal(event.target.value); setSelectedStarter(''); }} placeholder="What are you trying to accomplish?" /></label><label>Context<textarea value={context} onChange={(event) => { setContext(event.target.value); setSelectedStarter(''); }} placeholder="Audience, situation, inputs, and background" /></label><label>Constraints<textarea value={constraints} onChange={(event) => { setConstraints(event.target.value); setSelectedStarter(''); }} placeholder="Rules, privacy, time, format, and boundaries" /></label><label>Success standard<input value={success} onChange={(event) => { setSuccess(event.target.value); setSelectedStarter(''); }} placeholder="How will you know it works?" /></label></div><div className="briefOutput"><div><span>READY-TO-USE BRIEF</span><small>Review it, then paste it into the course-approved AI tool.</small></div><pre>{aiBrief}</pre><button className="primaryAction" type="button" onClick={copyBrief}>{copied ? 'Copied to clipboard' : 'Copy AI brief'}</button></div></section>
               <aside className="lmsPanel verificationPanel"><div className="panelBar"><h3>Verify Before You Trust</h3><strong>{checkPercent}%</strong></div><p>Complete this before you submit, recommend, automate, or deploy an AI-assisted output.</p><div className="verificationProgress"><i style={{ width: `${checkPercent}%` }} /></div>{verificationItems.map((item, index) => <label className={checks[index] ? 'checked' : ''} key={item}><input type="checkbox" checked={checks[index]} onChange={() => setChecks((current) => current.map((value, checkIndex) => checkIndex === index ? !value : value))} /><span>{item}</span></label>)}<div className="dataWarning"><strong>Never enter</strong><span>FERPA-protected, confidential, proprietary, password, credential, or API-key data.</span></div></aside>
+            </div>
+          )}
+
+          {activeView === 'ai-tools' && (
+            <div className="aiToolsPage">
+              <section className="aiToolsIntro">
+                <span>MANAGER REFERENCE</span>
+                <h3>Choose the tool for the task—and protect the people and information involved.</h3>
+                <p>AI products change frequently, and capabilities depend on the version, account, settings, and organization. Treat these as starting points: check current product terms and workplace policy before using a tool for real work.</p>
+              </section>
+
+              <section className="aiToolGrid" aria-label="AI tool comparison">
+                {aiToolComparisons.map((tool, index) => (
+                  <article className="lmsPanel aiToolCard" key={tool.name}>
+                    <div className="aiToolHeading"><span>0{index + 1}</span><div><h3>{tool.name}</h3><p>{tool.category}</p></div></div>
+                    <dl>
+                      <div><dt>Purpose</dt><dd>{tool.purpose}</dd></div>
+                      <div><dt>Best use</dt><dd>{tool.bestUse}</dd></div>
+                      <div><dt>Strengths</dt><dd>{tool.strengths}</dd></div>
+                      <div><dt>Limitations</dt><dd>{tool.limitations}</dd></div>
+                      <div><dt>Risks</dt><dd>{tool.risks}</dd></div>
+                    </dl>
+                    <div className="aiToolUseCase"><strong>Management use case</strong><p>{tool.useCase}</p></div>
+                  </article>
+                ))}
+              </section>
+
+              <section className="aiToolsBottom">
+                <article className="lmsPanel privacyNote">
+                  <div className="panelBar"><h3>Privacy Note</h3><span>Pause before you paste</span></div>
+                  <p>Information entered into a public AI service may be stored or handled under that service’s terms and account settings. It could be exposed, retained, or used in ways that are not appropriate for your organization. Never assume a public tool is private. Use only organization-approved services, share the minimum necessary information, and check the applicable privacy, security, and retention rules.</p>
+                  <h4>Never enter sensitive information such as:</h4>
+                  <ul>
+                    <li>Confidential employee information, performance reviews, or personnel records</li>
+                    <li>Customer or patient names, contact details, account records, or health information</li>
+                    <li>Passwords, login credentials, API keys, or security codes</li>
+                    <li>Proprietary company information, trade secrets, or unreleased plans</li>
+                    <li>Sensitive financial information, such as private account or payroll details</li>
+                  </ul>
+                </article>
+                <article className="lmsPanel toolReflection">
+                  <div className="panelBar"><h3>Reflection</h3><span>Management judgment</span></div>
+                  <p><strong>Microsoft Copilot would be most useful</strong> for routine management work that involves summarizing or drafting from authorized workplace documents in a properly configured organizational account. For example, it can help prepare a first-draft project update from approved team materials.</p>
+                  <p>A manager must confirm the account’s protections and access permissions, avoid exposing information beyond its intended audience, and verify every summary against the original sources. The manager—not the AI—remains accountable for the final message or decision.</p>
+                </article>
+              </section>
             </div>
           )}
 
