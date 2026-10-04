@@ -55,7 +55,7 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
   3: [
     ['lesson-1', 'Lesson 1 · Using AI for Research'], ['lesson-2', 'Lesson 2 · Asking AI Better Research Questions'], ['lesson-3', 'Lesson 3 · Research ≠ Just Asking AI'],
     ['lesson-4', 'Lesson 4 · Evaluating AI-Generated Information'], ['lesson-5', 'Lesson 5 · Hallucinations & Verification'], ['lesson-6', 'Lesson 6 · AI for Knowledge Building'],
-    ['practice-3', 'Research Practice Activity'], ['build-3', 'Research & Know Page'], ['assessment-3', 'Week 3 Knowledge Check', 'Assignment'],
+    ['assignment-3-research-practice', 'Research Practice Activity', 'Assignment'], ['build-3', 'Research & Know Page'], ['assessment-3', 'Week 3 Knowledge Check', 'Assignment'],
     ['submit-3', 'Week 3 Submission', 'Assignment'], ['reflect-3', 'Week 3 Reflection'], ['resources-3', 'Week 3 Resources'],
   ].map(([id, title, category]) => ({ id, title, category: category as SearchCategory | undefined })),
   4: [
