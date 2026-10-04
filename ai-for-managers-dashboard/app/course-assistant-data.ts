@@ -61,8 +61,21 @@ export const structuredModules: Record<number, { overview: string; objectives: s
     ],
   },
   3: {
-    overview: 'This week teaches students how to use AI as a research and knowledge tool. Students learn how to ask better research questions, provide appropriate context, evaluate AI-generated information, identify potential inaccuracies, and use AI to support—not replace—critical thinking and research.',
-    objectives: ['Use AI tools to research business and management topics.', 'Develop effective research questions and prompts.', 'Distinguish between AI-generated information and verified information.', 'Identify potential AI inaccuracies, bias, and unsupported claims.', 'Use AI to summarize and organize information.', 'Evaluate the quality and relevance of AI-generated research.', 'Apply AI research techniques to real-world management questions.'],
+    overview: 'Week 3 introduces managers to AI-assisted research as a practical starting point rather than a final authority. Students learn how AI can accelerate fact gathering, identify common research support tasks, and recognize when information must be verified with credible sources before it is used in a management decision.',
+    objectives: [
+      'Know: Define AI-assisted research and how managers can use AI to gather information.',
+      'Know: Identify common research tasks AI can support, such as brainstorming, summarizing, comparing, and finding key themes.',
+      'Know: Recognize that AI is a starting point—not always a reliable final source.',
+      'Understand: Explain how AI can make research faster and help managers organize large amounts of information.',
+      'Understand: Understand that AI can provide inaccurate, incomplete, outdated, or biased information.',
+      'Understand: Understand why managers should verify important facts using reliable and credible sources.',
+      'Understand: Identify when information is appropriate to use and when additional research is needed.',
+      'Apply: Use an AI tool to research a basic management question.',
+      'Apply: Review the AI-generated response for accuracy, relevance, and missing information.',
+      'Apply: Identify at least two facts that should be verified before using the information.',
+      'Apply: Compare AI-generated information with a reliable source.',
+      'Apply: Decide whether the research is strong enough to support a management decision.',
+    ],
     artifact: 'Research & Know',
     buildDescription: 'Create a Research & Know section on the dashboard that demonstrates a business or management research topic, prompt improvement, information evaluation, verification, and a short reflection.',
     items: [
