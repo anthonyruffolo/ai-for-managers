@@ -797,6 +797,11 @@ const focusedAssignments: Record<8 | 9, { title: string; purpose: string; steps:
 };
 
 const focusedDiscussions: Record<number, { label: string; title: string; prompt: string }> = {
+  1: {
+    label: 'WEEK 1 · DISCUSSION',
+    title: 'Where Should a Manager Refuse AI Assistance?',
+    prompt: 'AI can help managers analyze information, answer questions, and generate content, but it cannot take responsibility for a manager’s decisions. Describe one workplace situation where a manager could use AI and one situation where the manager should refuse or limit its use. Explain what the manager must review and who remains accountable. Then reply constructively to one classmate.',
+  },
   2: {
     label: 'WEEK 2 · DISCUSSION',
     title: 'Where Should a Manager Refuse AI Assistance?',
@@ -804,7 +809,7 @@ const focusedDiscussions: Record<number, { label: string; title: string; prompt:
   },
   3: {
     label: 'WEEK 3 · DISCUSSION',
-    title: 'Where Should a Manager Refuse AI Assistance??',
+    title: 'Where Should a Manager Refuse AI Assistance?',
     prompt: 'AI can help managers work faster and support decision-making, but it can also create risks involving privacy, confidentiality, accuracy, and ethics.\n\nYour task: Describe one situation where using AI would create more risk than value. Use one course concept to explain your reasoning, identify who remains accountable for the decision, and explain why human judgment is important.\n\nThen, reply constructively to one classmate by adding a perspective, asking a question, or building on their example.'
   },
   8: {
@@ -1938,12 +1943,13 @@ export default function Home() {
     </>;
 
     const groups = ['lesson', 'practice', 'case', 'build', 'connect', 'quiz', 'assignment', 'assessment', 'submit', 'reflect', 'resource'] as ModuleItem['type'][];
+    const overviewDiscussion = focusedDiscussions[selectedWeek];
     return <>
       <section className="structuredHomeHero"><div><span>WEEK {selectedWeek} MODULE HOME</span><h3>{activeWeek.title}</h3><p>{structuredModule.overview}</p></div><div><strong>{completed} / {structuredModule.items.length}</strong><small>items complete</small><div className="structuredProgress"><i style={{ width: `${completed / structuredModule.items.length * 100}%` }} /></div><span>{completed ? `Next: ${structuredModule.items.find((item) => !moduleCompletions[`${selectedWeek}-${item.id}`])?.title || 'Module complete'}` : selectedWeek === 15 ? 'Start with Final Exam' : 'Start with Lesson 1'}</span></div></section>
       <section className="structuredOverview"><article className="lmsPanel"><div className="panelBar"><h3>Week {selectedWeek} overview</h3><span>6–8 hours</span></div><p>{structuredModule.overview}</p><h4>Learning objectives</h4><ul>{structuredModule.objectives.map((objective) => <li key={objective}>{objective}</li>)}</ul></article><article className="buildCard"><span>THIS WEEK&apos;S BUILD</span><h3>🛠️ {structuredModule.artifact}</h3><p>{structuredModule.buildDescription}</p><strong>Deliverable</strong><span>{structuredModule.artifact}</span></article></section>
       <section className="lmsPanel glancePanel"><div className="panelBar"><h3>Week at a glance</h3><span>Teach → practice → apply → assess</span></div><div className="glanceGrid">{[['Learn', '2 hrs'], ['Practice', '1 hr'], ['Apply', '1 hr'], ['Build', '2–3 hrs'], ['Assess', '45 min'], ['Reflect', '30 min']].map(([label, time]) => <div key={label}><strong>{label}</strong><span>{time}</span></div>)}</div></section>
       <section className="structuredMap">{groups.map((group) => { const items = structuredModule.items.filter((item) => item.type === group); if (!items.length) return null; return <div className="moduleGroup" key={group}><div className="moduleGroupHeading"><span>{typeLabel[group]}</span><strong>{items.filter((item) => moduleCompletions[`${selectedWeek}-${item.id}`]).length} / {items.length}</strong></div><div className="moduleCardGrid">{items.map((item) => { const complete = Boolean(moduleCompletions[`${selectedWeek}-${item.id}`]); return <button className={`moduleCard ${complete ? 'complete' : ''}`} type="button" onClick={() => setModuleItem(item.id)} key={item.id}><span>{complete ? '✓' : group === 'lesson' ? '○' : '◐'}</span><div><strong>{item.title}</strong><small>{item.description}</small>{item.time && <em>{item.time}</em>}{hasWeeklyDeadline(item, selectedWeek) && <em>Due {formatDate(weekDueDate(selectedWeek))} · 11:59 PM ET</em>}</div><i>→</i></button>; })}</div></div>; })}</section>
-      {[10, 11, 12].includes(selectedWeek) && <section className="structuredMap"><div className="moduleGroup"><div className="moduleGroupHeading"><span>DISCUSSION</span><strong>1 / 1</strong></div><div className="moduleCardGrid"><button className="moduleCard" type="button" onClick={() => { setDiscussionWeekOpen(selectedWeek); setDraftOpen(false); switchView('discussions'); }}><span>◐</span><div><strong>Discussion Post</strong><small>Open the Week {selectedWeek} discussion board and respond to this week&apos;s discussion question.</small><em>Discussion Board</em></div><i>→</i></button></div></div></section>}
+      {overviewDiscussion && <section className="structuredMap"><div className="moduleGroup"><div className="moduleGroupHeading"><span>DISCUSSION ASSIGNMENT</span><strong>Due {formatDate(weekDueDate(selectedWeek))}</strong></div><div className="moduleCardGrid"><button className="moduleCard" type="button" onClick={() => { setDiscussionWeekOpen(selectedWeek); setDraftOpen(false); switchView('discussions'); }}><span>◐</span><div><strong>{overviewDiscussion.title}</strong><small>{overviewDiscussion.prompt}</small><em>Week {selectedWeek} · Discussion Board · Due {formatDate(weekDueDate(selectedWeek))} · 11:59 PM ET</em></div><i>→</i></button></div></div></section>}
       <section className="moduleConnection"><strong>YOUR WEEK {selectedWeek} WORK CONTINUES</strong><span>{selectedWeek === 1 ? 'AI foundations → real management problem → clear dashboard structure → human accountability → prototype' : selectedWeek === 6 ? 'AI Use Case → Ethical Risk Assessment → Identified Risks → Week 7 Governance Controls → Responsible AI Policy' : 'Week 6 Ethical Risks → Governance Controls → Responsible AI Policy → Continuous Monitoring'}</span></section>
     </>;
   }
