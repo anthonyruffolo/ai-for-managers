@@ -1171,7 +1171,9 @@ export default function Home() {
         score: earned === null ? '—' : isFinal ? `${earned}/100 objective points` : `${earned}/${possible} · ${percent}%`,
         possiblePoints: possible, percent, earned, scoredPossible: submitted ? possible : null,
       };
-    })).filter((entry) => entry.possiblePoints !== null || entry.week <= 2 && entry.dueDate !== null);
+    })).filter((entry) => entry.possiblePoints !== null
+      || entry.week <= 2 && entry.dueDate !== null
+      || entry.week === 3 && entry.itemId.startsWith('assignment-'));
   const submittedAssessmentGrades = gradebookEntries.filter((entry) => entry.earned !== null);
   const scoredPossible = submittedAssessmentGrades.reduce((sum, entry) => sum + (entry.scoredPossible ?? 0), 0);
   const assessmentAverage = scoredPossible ? Math.round(submittedAssessmentGrades.reduce((sum, entry) => sum + (entry.earned ?? 0), 0) / scoredPossible * 100) : null;
