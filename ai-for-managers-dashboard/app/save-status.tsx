@@ -4,7 +4,7 @@ export type SaveState = 'loading' | 'saving' | 'saved' | 'error';
 export function persistAnswers(storage: Pick<Storage, 'setItem'>, key: string, value: unknown): 'saved' | 'error' {
   try { storage.setItem(key, JSON.stringify(value)); return 'saved'; } catch { return 'error'; }
 }
-export function useAnswerSave(value: Record<string, string | boolean | number>, ready: boolean): SaveState {
+export function useAnswerSave(value: Record<string, unknown>, ready: boolean): SaveState {
   const [result, setResult] = useState<{ value: typeof value; state: 'saved' | 'error' } | null>(null);
   useEffect(() => {
     if (!ready) return;

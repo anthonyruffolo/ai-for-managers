@@ -73,7 +73,7 @@ type PolicyDraft = {
 
 type KnowledgeQuestion = [string, string[], string];
 type GovernanceAnswers = Record<string, string | boolean>;
-type StructuredAnswers = Record<string, string | boolean | number>;
+type StructuredAnswers = Record<string, string | boolean | number | number[]>;
 type PolicyEditableKey = 'organization' | 'purpose' | 'scope' | 'definitions' | 'approved' | 'prohibited' | 'highRisk' | 'confidentiality' | 'humanReview' | 'verification' | 'disclosure' | 'accountability' | 'security' | 'vendors' | 'incidents' | 'recordkeeping' | 'training' | 'monitoring' | 'reviewSchedule';
 
 const initialEthicsAssessment: EthicsAssessment = {
@@ -287,7 +287,7 @@ const structuredModules: Record<number, { overview: string; objectives: string[]
       { id: 'assignment-3-research-practice', title: 'Research Practice Activity', description: 'Practice using AI for research and verify whether its information is reliable.', type: 'assignment', time: '30–45 min' },
       { id: 'assignment-3-research-know', title: 'Assignment · Research & Know Page', description: 'Research a management topic using AI prompts, compare responses, verify an important claim with two credible sources, and document your findings on the dashboard.', type: 'assignment', time: '60–90 min' },
       { id: 'build-3', title: 'Research & Know Page', description: 'Add the Research & Know section to the dashboard with a topic, question, prompts, AI responses, verification, sources, and reflection.', type: 'build', time: '2–3 hrs' },
-      { id: 'assessment-3', title: 'Week 3 Knowledge Check', description: 'Check your understanding of research prompts, source verification, hallucinations, and evaluating AI-supported research.', type: 'assessment', time: '20–30 min' },
+      { id: 'assessment-3', title: 'Week 3 Knowledge Check', description: 'Complete a 20-question check on research prompts, source verification, hallucinations, and evaluating AI-supported research. Three questions allow multiple selections.', type: 'assessment', time: '20–30 min' },
       { id: 'submit-3', title: 'Week 3 Submission', description: 'Submit the completed Research & Know page, verified sources, and reflection on what AI helped with and what you had to verify yourself.', type: 'submit' },
       { id: 'reflect-3', title: 'Week 3 Reflection', description: 'Explain how AI helped you research faster and what you still had to do yourself to know something with confidence.', type: 'reflect', time: '15–20 min' },
       { id: 'resources-3', title: 'Week 3 Resources', description: 'Review the lesson notes, the research activity, source-quality guidance, and the verification process before submitting.', type: 'resource' },
@@ -507,7 +507,13 @@ const week5Rubric = [
   ['Reason for final decision', 'Clearly explains why the manager accepted, changed, or rejected the AI recommendation.'],
 ];
 
-type QuizQuestion = { question: string; options: string[]; answer: number; explanation: string };
+type QuizQuestion = { question: string; options: string[]; answer: number; multiAnswer?: number[]; explanation: string };
+function isCorrectQuizAnswer(question: Pick<QuizQuestion, 'answer' | 'multiAnswer'>, answer: StructuredAnswers[string] | undefined) {
+  if (question.multiAnswer) {
+    return Array.isArray(answer) && answer.length === question.multiAnswer.length && question.multiAnswer.every((choice) => answer.includes(choice));
+  }
+  return typeof answer === 'number' && answer === question.answer;
+}
 const week4KnowledgeQuestions: QuizQuestion[] = [
   { question: 'AI drafts a weekly team email from meeting notes. What should the manager do before sending it?', options: ['Send it as written because the notes are complete.', 'Review the recipients, purpose, tone, accuracy, and confidential details.', 'Ask AI to choose who should receive it.', 'Include the full notes so nobody misses context.'], answer: 1, explanation: 'The manager checks the message and decides what is appropriate to share.' },
   { question: 'What is most important to verify in an AI-generated meeting summary?', options: ['Whether every comment is included word for word.', 'Whether the summary sounds formal.', 'Names, decisions, action owners, and dates against the original notes.', 'Whether the AI used the shortest possible format.'], answer: 2, explanation: 'Incorrect decisions, owners, or dates can send the team in the wrong direction.' },
@@ -562,6 +568,28 @@ const lesson1KnowledgeQuestions: QuizQuestion[] = [
     { question: 'What should students define before building their AI Management Dashboard?', options: ['A dashboard name, purpose, target user, and management problem', 'A personal social media account', 'A final company AI policy', 'A list of employee salaries'], answer: 0, explanation: 'Defining the dashboard, user, purpose, and problem creates a clear starting point.' },
     { question: 'Which section would be most appropriate for storing examples of effective prompts?', options: ['Workforce', 'Verification', 'Prompt Library', 'Implementation'], answer: 2, explanation: 'A Prompt Library stores reusable examples of effective prompts.' },
     { question: 'Which statement best describes responsible AI use in management?', options: ['AI should make all final decisions independently.', 'Managers should use AI to support their work while maintaining human judgment, privacy, and accountability.', 'Any information can be entered into public AI tools.', 'AI output does not need to be reviewed.'], answer: 1, explanation: 'AI can support work, but managers remain responsible for judgment, privacy, review, and accountability.' },
+  ];
+  const week3KnowledgeQuestions: QuizQuestion[] = [
+    { question: 'What is the main purpose of writing a specific AI research prompt?', options: ['To make the AI response longer', 'To guide the AI toward a useful and relevant response', 'To guarantee the AI response is accurate', 'To eliminate the need for outside research'], answer: 1, explanation: 'Specific prompts guide the task and context, but they do not guarantee accuracy or replace independent research.' },
+    { question: 'Which prompt is most useful for researching employee engagement?', options: ['What is engagement?', 'Tell me about employees.', 'What are three evidence-based strategies managers can use to improve employee engagement on a small team?', 'Give me everything about employee engagement.'], answer: 2, explanation: 'This prompt defines the management goal, requests a specific number of strategies, and asks for evidence-based information.' },
+    { question: 'True or False: A detailed AI prompt guarantees that every fact in the AI response will be accurate.', options: ['True', 'False'], answer: 1, explanation: 'Prompt detail may improve relevance, but facts still need to be checked.' },
+    { question: 'What is the best first step when an AI response includes an important statistic?', options: ['Use the statistic immediately', 'Ask another AI tool for the same statistic', 'Verify the statistic using a credible source', 'Remove the statistic from the response'], answer: 2, explanation: 'Verify an important statistic against credible evidence before relying on it.' },
+    { question: 'Which characteristics generally make a source useful for verifying management research? Select all that apply.', options: ['Relevant to the claim being checked', 'Credible and trustworthy', 'Supported by evidence or authoritative information', 'The source appears first in a search engine'], answer: 0, multiAnswer: [0, 1, 2], explanation: 'A useful source is relevant, credible, and evidence-based; search ranking alone does not establish quality.' },
+    { question: 'What is an AI hallucination?', options: ['When AI refuses to answer a question', 'When AI generates information that is false or unsupported but presents it as information', 'When AI gives a very short response', 'When AI uses a formal writing style'], answer: 1, explanation: 'A hallucination is false or unsupported information that may be presented as if it were factual.' },
+    { question: 'True or False: AI can sometimes provide a citation that looks legitimate even when the cited source does not support the claim.', options: ['True', 'False'], answer: 0, explanation: 'Citations may be fabricated or may fail to support the associated claim, so check the original source.' },
+    { question: 'A manager asks AI for current employee turnover statistics but does not provide a date or industry. What is the biggest research problem?', options: ['The prompt lacks important context', 'The prompt is too polite', 'The manager used a question', 'The manager should never use AI for research'], answer: 0, explanation: 'Date and industry are important context for a question about current turnover statistics.' },
+    { question: 'Which action best demonstrates critical evaluation of an AI response?', options: ['Accepting the response because it sounds professional', 'Checking important claims against reliable evidence', 'Using the response exactly as written', 'Assuming the longest answer is the best answer'], answer: 1, explanation: 'Critical evaluation checks important claims against evidence rather than judging polish or length.' },
+    { question: 'Why should a manager compare AI-generated information with outside sources?', options: ['AI responses are always incorrect', 'AI responses can contain errors, missing context, or outdated information', 'Outside sources make AI respond faster', 'Managers are not allowed to use AI'], answer: 1, explanation: 'Independent sources help reveal errors, missing context, and outdated information.' },
+    { question: 'A student wants to verify an AI claim about workplace productivity. Which actions would strengthen the verification process? Select all that apply.', options: ['Check a reputable government or university source', 'Compare the claim with a credible research publication', 'Check whether the source actually supports the specific claim', 'Use a random social media comment as the only evidence'], answer: 0, multiAnswer: [0, 1, 2], explanation: 'Use credible evidence and confirm that each source actually supports the claim.' },
+    { question: 'An AI response says, “Research proves that four-day workweeks always increase productivity.” What should a student do first?', options: ['Copy the statement into the dashboard', 'Verify the claim and examine the research evidence', 'Assume the statement is true because AI used the word “research”', 'Delete the entire AI response'], answer: 1, explanation: 'Check the underlying research and evidence before accepting an absolute claim.' },
+    { question: 'True or False: A reliable source should be evaluated based on whether it actually supports the specific claim being verified.', options: ['True', 'False'], answer: 0, explanation: 'Source credibility matters, and the source must also substantiate the particular claim.' },
+    { question: 'What should a student do if two credible sources disagree with an AI-generated claim?', options: ['Automatically choose the AI response', 'Ignore both sources', 'Investigate the disagreement and consider the quality and context of the evidence', 'Choose whichever source is shorter'], answer: 2, explanation: 'Examine methods, dates, definitions, populations, and context to understand the disagreement.' },
+    { question: 'Which statement best describes AI’s role in management research?', options: ['AI should replace all traditional research', 'AI can support research by generating ideas, summaries, and starting points', 'AI is only useful for entertainment', 'AI should make the final management decision'], answer: 1, explanation: 'AI can assist research, but managers still need evidence, critical thinking, and judgment.' },
+    { question: 'Which problems can occur when a manager relies on an unverified AI response? Select all that apply.', options: ['Using inaccurate information in a decision', 'Repeating unsupported claims', 'Making decisions based on outdated information', 'Automatically improving the quality of the evidence'], answer: 0, multiAnswer: [0, 1, 2], explanation: 'Unverified responses can introduce inaccuracies, unsupported claims, or outdated information into decisions.' },
+    { question: 'Which prompt provides the clearest research direction?', options: ['Tell me about leadership.', 'Leadership tips?', 'What are three evidence-based ways a first-time manager can improve communication with a remote team?', 'Give me leadership information for work.'], answer: 2, explanation: 'This prompt identifies the audience, goal, context, and desired number of evidence-based suggestions.' },
+    { question: 'A student verifies an AI claim using a source published ten years ago, even though the topic changes quickly. What should the student consider?', options: ['Whether the source is current enough for the claim', 'Whether the source has a colorful website', 'Whether the source uses difficult vocabulary', 'Whether the AI response was longer than the source'], answer: 0, explanation: 'For fast-changing topics, source date and currency are important to whether evidence is useful.' },
+    { question: 'What is the manager’s responsibility when using AI-supported research?', options: ['Accept whatever AI recommends', 'Verify important information and use professional judgment', 'Avoid all outside sources', 'Assume AI understands the organization’s situation'], answer: 1, explanation: 'Managers verify important information, account for organizational context, and retain responsibility for decisions.' },
+    { question: 'True or False: The fact that an AI response sounds confident is not evidence that the information is accurate.', options: ['True', 'False'], answer: 0, explanation: 'Confidence and polished language do not establish accuracy; evidence and verification do.' },
   ];
 
   const academicIntegrityQuestions: QuizQuestion[] = [
@@ -1102,6 +1130,7 @@ export default function Home() {
   const assessmentDefinitions = [
     { week: 1, itemId: 'assessment-1', prefix: 'week1-knowledge', questions: lesson1KnowledgeQuestions },
     { week: 2, itemId: 'quiz-2-tools', prefix: 'week2-ai-tools-dashboard-quiz', questions: week2ToolsQuizQuestions },
+    { week: 3, itemId: 'assessment-3', prefix: 'week3-knowledge-check', questions: week3KnowledgeQuestions },
     { week: 4, itemId: 'assessment-4', prefix: 'week4-knowledge-check', questions: week4KnowledgeQuestions },
     { week: 5, itemId: 'assessment-quiz-2', prefix: 'week5-quiz2', questions: quiz2Questions },
     { week: 7, itemId: 'assessment-test', prefix: 'week7-test1', questions: testOneQuestions },
@@ -1123,7 +1152,7 @@ export default function Home() {
       const assessment = assessmentDefinitions.find((entry) => entry.week === week && entry.itemId === item.id);
       const completed = Boolean(moduleCompletions[`${week}-${item.id}`]);
       const submitted = assessment ? structuredAnswers[`${assessment.prefix}-submitted`] === true : false;
-      const correct = assessment?.questions.filter((question, index) => structuredAnswers[`${assessment.prefix}-${index}`] === question.answer).length ?? 0;
+      const correct = assessment?.questions.filter((question, index) => isCorrectQuizAnswer(question, structuredAnswers[`${assessment.prefix}-${index}`])).length ?? 0;
       const isFinal = item.id === 'assessment-final-exam';
       const possible = assessment ? assessment.questions.length * (isFinal ? 2 : 1)
         : item.id.endsWith('-easy') ? 3
@@ -1249,7 +1278,7 @@ export default function Home() {
 
   const answerSaveState = useAnswerSave(structuredAnswers, hydrated);
 
-  function answerStructured(key: string, value: string | boolean | number) {
+  function answerStructured(key: string, value: string | boolean | number | number[]) {
     setStructuredAnswers((current) => ({ ...current, [key]: value }));
   }
 
@@ -1566,6 +1595,46 @@ export default function Home() {
           const answer = structuredAnswers[`week4-knowledge-check-${index}`];
           return <fieldset className="knowledgeItem" key={question.question}><legend>{index + 1}. {question.question}</legend>{question.options.map((option, optionIndex) => <label className="choiceLabel" key={option}><input type="radio" name={`week4-knowledge-check-${index}`} checked={answer === optionIndex} disabled={submitted} onChange={() => answerStructured(`week4-knowledge-check-${index}`, optionIndex)} />{option}</label>)}{typeof answer === 'number' && <p className={answer === question.answer ? 'feedbackCorrect' : 'feedback'}>{answer === question.answer ? 'Correct. ' : 'Review. '}{question.explanation}</p>}</fieldset>;
         })}<div className="formActions"><button className="primaryAction" type="button" disabled={submitted || answered < week4KnowledgeQuestions.length} onClick={() => answerStructured('week4-knowledge-check-submitted', true)}>{submitted ? 'Knowledge Check submitted' : answered < week4KnowledgeQuestions.length ? `Answer all questions (${answered}/${week4KnowledgeQuestions.length})` : 'Submit Knowledge Check'}</button>{submitted && <p><strong>Score:</strong> {score}/{week4KnowledgeQuestions.length} ({Math.round((score / week4KnowledgeQuestions.length) * 100)}%)</p>}</div></section>;
+      })()}
+      {selectedWeek === 3 && selectedItem.type === 'assessment' && selectedItem.id === 'assessment-3' && (() => {
+        const prefix = 'week3-knowledge-check';
+        const submitted = Boolean(structuredAnswers[`${prefix}-submitted`]);
+        const answered = week3KnowledgeQuestions.filter((_, index) => {
+          const answer = structuredAnswers[`${prefix}-${index}`];
+          return Array.isArray(answer) ? answer.length > 0 : typeof answer === 'number';
+        }).length;
+        const score = week3KnowledgeQuestions.filter((question, index) => isCorrectQuizAnswer(question, structuredAnswers[`${prefix}-${index}`])).length;
+        return <section className="lmsPanel structuredLesson">
+          <div className="panelBar"><h3>Week 3 · Research &amp; Know Knowledge Check</h3><span>{submitted ? `${score} / ${week3KnowledgeQuestions.length} correct` : `${answered} of ${week3KnowledgeQuestions.length} answered`}</span></div>
+          <p>Choose the best answer for each question. For questions marked “Select all that apply,” select every correct option. Submit all 20 answers to see your score and explanations.</p>
+          {week3KnowledgeQuestions.map((question, index) => {
+            const key = `${prefix}-${index}`;
+            const answer = structuredAnswers[key];
+            const correct = isCorrectQuizAnswer(question, answer);
+            const selectedOptions = Array.isArray(answer) ? answer : [];
+            return <fieldset className="knowledgeItem" key={question.question}>
+              <legend>{index + 1}. {question.question}</legend>
+              {question.options.map((option, optionIndex) => <label className="choiceLabel" key={option}><input
+                type={question.multiAnswer ? 'checkbox' : 'radio'}
+                name={key}
+                checked={question.multiAnswer ? selectedOptions.includes(optionIndex) : answer === optionIndex}
+                disabled={submitted}
+                onChange={(event) => {
+                  if (question.multiAnswer) {
+                    answerStructured(key, event.target.checked
+                      ? [...selectedOptions, optionIndex].sort((a, b) => a - b)
+                      : selectedOptions.filter((selected) => selected !== optionIndex));
+                  } else {
+                    answerStructured(key, optionIndex);
+                  }
+                }}
+              />{String.fromCharCode(65 + optionIndex)}. {option}</label>)}
+              {submitted && <p className={correct ? 'feedbackCorrect' : 'feedback'}><strong>{correct ? 'Correct.' : `Review. Answer: ${question.multiAnswer ? question.multiAnswer.map((choice) => String.fromCharCode(65 + choice)).join(', ') : String.fromCharCode(65 + question.answer)}.`}</strong> {question.explanation}</p>}
+            </fieldset>;
+          })}
+          {submitted && <div className="decisionFeedback"><strong>Score: {score}/{week3KnowledgeQuestions.length} ({Math.round(score / week3KnowledgeQuestions.length * 100)}%)</strong><p>Your score is saved in My Grades on this device.</p></div>}
+          <div className="formActions"><button className="primaryAction" type="button" disabled={submitted || answered < week3KnowledgeQuestions.length} onClick={() => { answerStructured(`${prefix}-submitted`, true); completeModuleItem(selectedItem.id); }}>{submitted ? 'Knowledge Check submitted' : `Submit Knowledge Check${answered < week3KnowledgeQuestions.length ? ` (${answered}/${week3KnowledgeQuestions.length})` : ''}`}</button><SaveStatus state={answerSaveState} /></div>
+        </section>;
       })()}
       {selectedWeek === 2 && selectedItem.type === 'quiz' && selectedItem.id === 'quiz-2-tools' && (() => {
         const prefix = 'week2-ai-tools-dashboard-quiz';

@@ -2,7 +2,7 @@
 
 import { FINALIZED_PROGRESSION, isFinalizedWeek } from './course-progression';
 
-type AnswerValue = string | boolean | number;
+type AnswerValue = string | boolean | number | number[];
 
 type Props = {
   week: number;

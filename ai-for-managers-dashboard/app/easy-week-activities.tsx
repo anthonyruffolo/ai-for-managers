@@ -43,8 +43,8 @@ export function easyWeekItems(week: number) {
 type Props = {
   week: number;
   kind: 'assignment' | 'quiz';
-  answers: Record<string, string | boolean | number>;
-  onAnswer: (key: string, value: string | boolean | number) => void;
+  answers: Record<string, string | boolean | number | number[]>;
+  onAnswer: (key: string, value: string | boolean | number | number[]) => void;
 };
 
 export function EasyWeekActivity({ week, kind, answers, onAnswer }: Props) {
