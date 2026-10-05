@@ -35,7 +35,23 @@ export const structuredModules: Record<number, { overview: string; objectives: s
     artifact: 'Dashboard Starter Version',
     buildDescription: 'Create the initial dashboard brief, homepage, navigation, and placeholders for each upcoming week of the course.',
     items: [
-      ...['What AI Is', 'Models, Tools, and LLMs', 'Capabilities and Limits', 'AI Use Boundaries', 'Problem Framing for the Dashboard'].map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: 'Learn the concept, connect it to a business context, and identify the manager’s responsibility before moving on.', type: 'lesson' as const, time: `${index < 2 ? 8 : index < 4 ? 10 : 12} min` })),
+      ...['What AI Is', 'Models, Tools, and LLMs', 'Capabilities and Limits', 'AI Use Boundaries', 'Problem Framing for the Dashboard'].map((title, index) => ({
+        id: `lesson-${index + 1}`,
+        title: `Lesson ${index + 1} · ${title}`,
+        description: index === 0
+          ? 'Know: Learn what artificial intelligence (AI) is and how it can perform tasks that normally require human thinking. Understand: Understand how AI is used in business to support tasks such as analyzing information, answering questions, and generating content. Apply: Identify an example of AI in the workplace and explain what responsibility the manager has when using AI.'
+          : index === 1
+            ? 'Know: Learn the difference between AI models, AI tools, and large language models (LLMs). Understand: Understand how models and tools work together to help businesses complete tasks and solve problems. Apply: Identify an AI model or tool used in a business setting and explain the manager’s responsibility when using it.'
+            : index === 2
+              ? 'Know: Learn what AI can do well and identify common limitations of AI systems. Understand: Understand that AI can support tasks such as generating ideas, analyzing information, and summarizing content, but it can also make mistakes or miss important context. Apply: Identify an appropriate business task for AI and explain what a manager should review or verify before using the AI-generated result.'
+              : index === 3
+                ? 'Know: Learn when AI is appropriate to use and when it should be avoided. Understand: Understand the risks of using AI with sensitive, confidential, or inaccurate information in the workplace. Apply: Identify a business situation where AI should or should not be used and explain the manager’s responsibility for protecting information and making the final decision. Business example: Intuit Mailchimp predictive marketing analytics is described as identifying who is most likely to convert. Managers should confirm customer data is authorized and appropriate, treat predictions as estimates, and make the final decision.'
+                : index === 4
+                  ? 'Know: Learn how to clearly define a business problem before using AI to solve it. Understand: Understand that a clear problem helps managers choose the right AI tool, ask better questions, and focus on useful results. Apply: Write a clear business problem for your dashboard and identify how AI could help. Explain what the manager should consider before using AI to address the problem.'
+            : 'Learn the concept, connect it to a business context, and identify the manager’s responsibility before moving on.',
+        type: 'lesson' as const,
+        time: `${index < 2 ? 8 : index < 4 ? 10 : 12} min`,
+      })),
       { id: 'practice-1', title: 'AI Foundations Prompt Lab', description: 'Test what generative AI does well, where it fails, and where human judgment must take over.', type: 'practice', time: '30–45 min' },
       { id: 'build-1', title: 'Dashboard Starter Version', description: 'Write the project brief, define the user and problem, and build the first homepage with placeholder navigation for future sections.', type: 'build', time: '2–3 hrs' },
       { id: 'assessment-1', title: 'Week 1 Knowledge Check', description: 'Check your understanding of AI foundations, model limitations, safe use, and the manager’s role.', type: 'assessment', time: '20–30 min' },
