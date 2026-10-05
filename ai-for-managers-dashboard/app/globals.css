@@ -497,6 +497,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .caseTabs strong { color: var(--blue-dark); font-size: 9px; }
 .caseTabs p { min-height: 38px; color: #536069; font-size: 9px; line-height: 1.45; }
 .caseTabs textarea { min-height: 128px; }
+.aiToolResearchGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 16px 18px 0; }
+.aiToolResearchCard { min-width: 0; padding: 12px; border: 1px solid var(--soft-line); background: #f8fbfd; }
+.aiToolResearchCard h4 { margin: 0 0 10px; color: var(--blue-dark); font-size: 12px; }
+.aiToolResearchCard label { display: block; margin-top: 9px; font-size: 9px; }
+.aiToolResearchCard textarea { min-height: 64px; margin-top: 4px; }
+.aiToolComparisonWrap { overflow-x: auto; margin: 16px 18px 0; }
+.aiToolComparisonTable { width: 100%; min-width: 760px; border-collapse: collapse; color: #536069; font-size: 9px; line-height: 1.45; }
+.aiToolComparisonTable caption { padding: 0 0 8px; color: var(--muted); text-align: left; }
+.aiToolComparisonTable th, .aiToolComparisonTable td { padding: 9px; border: 1px solid var(--soft-line); text-align: left; vertical-align: top; white-space: pre-wrap; overflow-wrap: anywhere; }
+.aiToolComparisonTable thead th { background: var(--blue-pale); color: var(--blue-dark); }
+.aiToolComparisonTable tbody th { min-width: 140px; background: #f8fbfd; color: var(--blue-dark); }
 .riskAssessmentGrid { grid-template-columns: repeat(4, 1fr); }
 .readinessLine { border-top: 1px solid var(--soft-line); padding-top: 12px; }
 .knowledgeItem { margin: 12px 18px 0; padding: 12px; border: 1px solid var(--soft-line); }
@@ -728,7 +739,7 @@ input::placeholder, textarea::placeholder { color: #8fa3b5; }
   .briefFields, .formRow { grid-template-columns: 1fr; }
   .lessonColumns, .assessmentFields, .termGrid, .riskGrid, .comparisonTable, .biasGrid, .oversightGrid, .decisionGrid { grid-template-columns: 1fr; }
   .aiToolGrid, .aiToolsBottom { grid-template-columns: 1fr; }
-  .bridgeFlow, .caseTabs, .privacyGrid, .governanceGrid, .policyMeta, .riskAssessmentGrid, .checklistGrid { grid-template-columns: 1fr; }
+  .bridgeFlow, .caseTabs, .privacyGrid, .governanceGrid, .policyMeta, .riskAssessmentGrid, .checklistGrid, .aiToolResearchGrid { grid-template-columns: 1fr; }
   .workloadGrid { grid-template-columns: 1fr; }
   .bridgeFlow i { text-align: center; transform: rotate(90deg); }
   .fourQuestions { grid-template-columns: 1fr; }
