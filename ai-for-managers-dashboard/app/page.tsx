@@ -2020,7 +2020,14 @@ export default function Home() {
             <section className="lmsPanel assignmentView">
               <div className="panelBar"><h3>Assignments and Deliverables</h3><span>{tasks.filter((task) => !task.complete).length} open</span></div>
               <div className="roadmapHeading"><div><span>FALL 2026</span><h3>Quiz and assignment due dates</h3></div><p>Each item is due Sunday at 11:59 PM ET in its assigned week.</p></div>
-              {courseWeeks.map(({ week, module }) => <section className="discussionPrompt" key={week}><span>Week {week} · {weeklyPlan[week - 1].dates}</span><h3>Due {formatDate(weekDueDate(week))} · 11:59 PM ET</h3><ul>{module.items.filter(hasWeeklyDeadline).map((item) => <li key={item.id}><button type="button" onClick={() => { setSelectedWeek(week); setModuleItem(item.id); switchView('content'); }}>{item.title}</button> — <time dateTime={weekDueDate(week)}>{formatDate(weekDueDate(week))}</time></li>)}</ul></section>)}
+              {courseWeeks.map(({ week, module }) => {
+                const dueItems = module.items.filter((item) => hasWeeklyDeadline(item, week) && !(week === 2 && item.id === 'build-2'));
+                return <section className="discussionPrompt" key={week}><span>Week {week} · {weeklyPlan[week - 1].dates}</span><h3>Due {formatDate(weekDueDate(week))} · 11:59 PM ET</h3><ul>{dueItems.map((item) => {
+                  const isDashboardAssignment = week === 1 && item.id === 'build-1' || week === 2 && item.id === 'assignment-2-tools-page';
+                  const itemLabel = week === 2 && item.id === 'assignment-2-tools-page' ? 'AI Tools Page' : item.title;
+                  return <li key={item.id}><button type="button" onClick={() => { setSelectedWeek(week); setModuleItem(item.id); switchView('content'); }}>{itemLabel}</button>{isDashboardAssignment && <strong> · 10 points</strong>} — <time dateTime={weekDueDate(week)}>{formatDate(weekDueDate(week))}</time></li>;
+                })}</ul></section>;
+              })}
               <div className="assignmentHeader"><span>Status</span><span>Assignment</span><span>Due</span><span>Evidence check</span><span>Priority</span></div>
               {focusTasks.map((task) => <article className={task.complete ? 'complete' : ''} key={task.id}><button className="roundCheck" type="button" onClick={() => toggleTask(task.id)} aria-label={`Mark ${task.title} ${task.complete ? 'incomplete' : 'complete'}`}>{task.complete ? '✓' : ''}</button><div><strong>{task.title}</strong><span>{task.category}</span></div><time>{formatDate(task.due)}</time><button className={`evidenceButton ${task.verified ? 'verified' : ''}`} type="button" onClick={() => toggleVerified(task.id)}>{task.verified ? '✓ Verified' : 'Verify first'}</button><span className={`priority ${task.priority.toLowerCase()}`}>{task.priority}</span></article>)}
               <div className="roadmapHeading"><div><span>YOUR WEEKS</span><h3>Weeks 8 and 9 assignments</h3></div><p>Use these steps to prepare your work for the course submission process.</p></div>
