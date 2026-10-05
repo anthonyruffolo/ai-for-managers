@@ -285,6 +285,7 @@ const structuredModules: Record<number, { overview: string; objectives: string[]
     items: [
       ...['Using AI for Research', 'Asking AI Better Research Questions', 'Research ≠ Just Asking AI', 'Evaluating AI-Generated Information', 'Hallucinations & Verification', 'AI for Knowledge Building'].map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: 'Learn the concept, apply it to a management research example, and identify what still needs verification before using the result.', type: 'lesson' as const, time: `${index < 2 ? 10 : index < 4 ? 12 : index < 6 ? 15 : 18} min` })),
       { id: 'assignment-3-research-practice', title: 'Research Practice Activity', description: 'Practice using AI for research and verify whether its information is reliable.', type: 'assignment', time: '30–45 min' },
+      { id: 'assignment-3-research-know', title: 'Assignment · Research & Know Page', description: 'Research a management topic using AI prompts, compare responses, verify an important claim with two credible sources, and document your findings on the dashboard.', type: 'assignment', time: '60–90 min' },
       { id: 'build-3', title: 'Research & Know Page', description: 'Add the Research & Know section to the dashboard with a topic, question, prompts, AI responses, verification, sources, and reflection.', type: 'build', time: '2–3 hrs' },
       { id: 'assessment-3', title: 'Week 3 Knowledge Check', description: 'Check your understanding of research prompts, source verification, hallucinations, and evaluating AI-supported research.', type: 'assessment', time: '20–30 min' },
       { id: 'submit-3', title: 'Week 3 Submission', description: 'Submit the completed Research & Know page, verified sources, and reflection on what AI helped with and what you had to verify yourself.', type: 'submit' },
@@ -1238,6 +1239,10 @@ export default function Home() {
         updated['2-build-2'] = true;
         updated['2-assignment-2-tools-page'] = true;
       }
+      if (selectedWeek === 3 && ['build-3', 'assignment-3-research-know'].includes(itemId)) {
+        updated['3-build-3'] = true;
+        updated['3-assignment-3-research-know'] = true;
+      }
       return updated;
     });
   }
@@ -1254,8 +1259,27 @@ export default function Home() {
     const completed = structuredModule.items.filter((item) => moduleCompletions[`${selectedWeek}-${item.id}`]).length;
     const selectedItem = structuredModule.items.find((item) => item.id === moduleItem);
     const isWeek2ToolsPage = selectedWeek === 2 && (selectedItem?.id === 'assignment-2-tools-page' || selectedItem?.id === 'build-2');
+    const isWeek3ResearchKnow = selectedWeek === 3 && (selectedItem?.id === 'assignment-3-research-know' || selectedItem?.id === 'build-3');
     const researchAssignmentFields = ['problem', 'weak-prompt', 'improved-prompt', 'response', 'claim', 'source', 'reflection'];
     const researchAssignmentReady = researchAssignmentFields.every((field) => String(structuredAnswers[`week3-research-${field}`] || '').trim().length > 0);
+    const researchKnowFields = ['topic', 'topic-importance', 'question', 'weak-prompt', 'weak-response', 'improved-prompt', 'improved-response', 'comparison', 'claim', 'source-1-name', 'source-1-link', 'source-2-name', 'source-2-link', 'verification-result', 'verification-notes', 'reflection', 'final-question'];
+    const researchKnowReflection = String(structuredAnswers['week3-research-know-reflection'] || '');
+    const researchKnowReflectionWordCount = researchKnowReflection.trim() ? researchKnowReflection.trim().split(/\s+/).filter(Boolean).length : 0;
+    const researchKnowFieldsComplete = researchKnowFields.filter((field) => field !== 'reflection').every((field) => String(structuredAnswers[`week3-research-know-${field}`] || '').trim().length > 0)
+      && researchKnowReflectionWordCount >= 150 && researchKnowReflectionWordCount <= 200;
+    const researchKnowChecklist = [
+      'Topic',
+      'Research question',
+      'Weak prompt',
+      'Improved prompt',
+      'AI responses',
+      'Verified claim',
+      'Two sources',
+      'Verification results',
+      'Reflection',
+    ];
+    const researchKnowChecklistComplete = researchKnowChecklist.every((_, index) => structuredAnswers[`week3-research-know-check-${index}`] === true);
+    const researchKnowAssignmentReady = researchKnowFieldsComplete && researchKnowChecklistComplete;
     const aiToolResearchFields = [
       ['name', 'Tool Name'],
       ['purpose', 'Purpose'],
@@ -1390,6 +1414,90 @@ export default function Home() {
         </section>
       )}
       {selectedWeek === 3 && selectedItem.type === 'assignment' && selectedItem.id === 'assignment-3-research-practice' && <section className="lmsPanel structuredLesson"><div className="panelBar"><h3>Research Practice Activity</h3><span>Week 3 · Assignment</span></div><p><strong>Objective:</strong> Practice using AI for research and learn how to check whether the information it provides is reliable.</p><section className="lmsPanel activityPanel"><div className="panelBar"><h3>Your Task</h3></div><p>Imagine you are a manager trying to solve a workplace problem. Choose one:</p><div className="choiceStack">{['Employees are leaving the company.', 'Employees are not communicating well.', 'Team members are not meeting deadlines.', 'Employees are feeling unmotivated.', 'Customer satisfaction is decreasing.'].map((problem) => <button className={structuredAnswers['week3-research-problem'] === problem ? 'selected' : ''} type="button" aria-pressed={structuredAnswers['week3-research-problem'] === problem} onClick={() => answerStructured('week3-research-problem', problem)} key={problem}>{problem}</button>)}</div></section><section className="lmsPanel activityPanel"><div className="panelBar"><h3>Complete the Activity</h3></div><label className="fullField">1. Ask AI · Write a simple question about your chosen problem.<textarea value={String(structuredAnswers['week3-research-weak-prompt'] || '')} onChange={(event) => answerStructured('week3-research-weak-prompt', event.target.value)} placeholder="Write your simple research question." /></label><label className="fullField">2. Improve Your Question · Add context and ask for a more useful answer.<textarea value={String(structuredAnswers['week3-research-improved-prompt'] || '')} onChange={(event) => answerStructured('week3-research-improved-prompt', event.target.value)} placeholder="Rewrite your question with relevant context, details, or constraints." /></label><label className="fullField">3. Evaluate the Answer · Paste the AI response.<textarea value={String(structuredAnswers['week3-research-response'] || '')} onChange={(event) => answerStructured('week3-research-response', event.target.value)} placeholder="Paste the AI response." /></label><label className="fullField">Important claim · Identify one claim in the response that seems important to the manager.<textarea value={String(structuredAnswers['week3-research-claim'] || '')} onChange={(event) => answerStructured('week3-research-claim', event.target.value)} placeholder="Write one important claim from the response." /></label><label className="fullField">4. Verify the Claim · Record the credible website, article, or other source you used and what it showed.<textarea value={String(structuredAnswers['week3-research-source'] || '')} onChange={(event) => answerStructured('week3-research-source', event.target.value)} placeholder="Provide the source title and URL or citation, and summarize what you found." /></label><label className="fullField">5. Explain Your Decision · In 2–3 sentences, should the manager rely on the AI response? What should they do before using it?<textarea value={String(structuredAnswers['week3-research-reflection'] || '')} onChange={(event) => answerStructured('week3-research-reflection', event.target.value)} placeholder="Write your 2–3 sentence decision." /></label><SaveStatus state={answerSaveState} /></section><section className="lmsPanel lessonGrid"><div className="panelBar"><h3>Submit</h3></div><ul><li>Weak prompt</li><li>Improved prompt</li><li>AI response</li><li>Important claim</li><li>Verification source</li><li>Short reflection</li></ul><div className="lessonCallout"><strong>Key question</strong><span>How do you know the AI is giving you accurate information?</span></div></section></section>}
+      {isWeek3ResearchKnow && selectedItem && (selectedItem.type === 'assignment' || selectedItem.type === 'build') && (
+        <section className="lmsPanel structuredLesson">
+          <div className="panelBar"><h3>Research & Know Page Assignment</h3><span>Week 3 · Research with verification</span></div>
+          <p><strong>Objective:</strong> Build the Research &amp; Know section of your dashboard and demonstrate how AI can support research without replacing critical thinking or source verification.</p>
+          <p>Choose a business or management topic such as employee engagement, leadership, hiring, customer service, teamwork, or workplace communication. Do not treat AI-generated claims as verified evidence.</p>
+          <section className="lmsPanel activityPanel">
+            <div className="panelBar"><h3>1 · Research Topic and Question</h3></div>
+            <div className="assessmentFields">
+              <label className="fullField">Research topic
+                <textarea value={String(structuredAnswers['week3-research-know-topic'] || '')} onChange={(event) => answerStructured('week3-research-know-topic', event.target.value)} placeholder="Choose a business or management topic." />
+              </label>
+              <label className="fullField">Why is this topic important to managers?
+                <textarea value={String(structuredAnswers['week3-research-know-topic-importance'] || '')} onChange={(event) => answerStructured('week3-research-know-topic-importance', event.target.value)} placeholder="Explain its relevance to management practice or decisions." />
+              </label>
+              <label className="fullField">Research question
+                <textarea value={String(structuredAnswers['week3-research-know-question'] || '')} onChange={(event) => answerStructured('week3-research-know-question', event.target.value)} placeholder="Write a clear question you want to answer through research." />
+              </label>
+            </div>
+          </section>
+          <section className="lmsPanel activityPanel">
+            <div className="panelBar"><h3>2 · Create Prompts and Review AI Responses</h3><span>Run both prompts in an AI tool</span></div>
+            <div className="assessmentFields">
+              <label className="fullField">Weak Prompt · Your first, basic question
+                <textarea value={String(structuredAnswers['week3-research-know-weak-prompt'] || '')} onChange={(event) => answerStructured('week3-research-know-weak-prompt', event.target.value)} placeholder="Write your initial basic question." />
+              </label>
+              <label className="fullField">AI response to the weak prompt
+                <textarea value={String(structuredAnswers['week3-research-know-weak-response'] || '')} onChange={(event) => answerStructured('week3-research-know-weak-response', event.target.value)} placeholder="Enter the response from the AI tool." />
+              </label>
+              <label className="fullField">Improved Prompt · Add context and specific instructions
+                <textarea value={String(structuredAnswers['week3-research-know-improved-prompt'] || '')} onChange={(event) => answerStructured('week3-research-know-improved-prompt', event.target.value)} placeholder="Add useful context, define the task, and specify the response you need." />
+              </label>
+              <label className="fullField">AI response to the improved prompt
+                <textarea value={String(structuredAnswers['week3-research-know-improved-response'] || '')} onChange={(event) => answerStructured('week3-research-know-improved-response', event.target.value)} placeholder="Enter the response from the AI tool." />
+              </label>
+              <label className="fullField">How did the improved prompt change the quality or usefulness of the answer?
+                <textarea value={String(structuredAnswers['week3-research-know-comparison'] || '')} onChange={(event) => answerStructured('week3-research-know-comparison', event.target.value)} placeholder="Compare the responses and explain what changed." />
+              </label>
+            </div>
+            <SaveStatus state={answerSaveState} />
+          </section>
+          <section className="lmsPanel activityPanel">
+            <div className="panelBar"><h3>3 · Verify One Important Claim</h3><span>Check with two credible sources</span></div>
+            <div className="assessmentFields">
+              <label className="fullField">Important claim from the AI response
+                <textarea value={String(structuredAnswers['week3-research-know-claim'] || '')} onChange={(event) => answerStructured('week3-research-know-claim', event.target.value)} placeholder="Record one specific, checkable claim." />
+              </label>
+              {[1, 2].map((sourceIndex) => <div className="fullField assessmentFields" key={sourceIndex}>
+                <label>Source {sourceIndex} name
+                  <textarea value={String(structuredAnswers[`week3-research-know-source-${sourceIndex}-name`] || '')} onChange={(event) => answerStructured(`week3-research-know-source-${sourceIndex}-name`, event.target.value)} placeholder="Source title and publisher or organization." />
+                </label>
+                <label>Source {sourceIndex} link
+                  <textarea value={String(structuredAnswers[`week3-research-know-source-${sourceIndex}-link`] || '')} onChange={(event) => answerStructured(`week3-research-know-source-${sourceIndex}-link`, event.target.value)} placeholder="Paste the source URL." />
+                </label>
+              </div>)}
+              <label className="fullField">Verification result
+                <select value={String(structuredAnswers['week3-research-know-verification-result'] || '')} onChange={(event) => answerStructured('week3-research-know-verification-result', event.target.value)}>
+                  <option value="">Select a result</option><option value="accurate">Accurate</option><option value="inaccurate">Inaccurate</option><option value="incomplete">Incomplete</option>
+                </select>
+              </label>
+              <label className="fullField">Explain how the two sources support your verification result
+                <textarea value={String(structuredAnswers['week3-research-know-verification-notes'] || '')} onChange={(event) => answerStructured('week3-research-know-verification-notes', event.target.value)} placeholder="Compare the evidence in both sources with the AI claim and explain your conclusion." />
+              </label>
+            </div>
+            <SaveStatus state={answerSaveState} />
+          </section>
+          <section className="lmsPanel reflectionPanel">
+            <div className="panelBar"><h3>4 · Reflection</h3><span>{researchKnowReflectionWordCount} / 150–200 words</span></div>
+            <p>What did you learn about using AI for research, and why is verification important for managers?</p>
+            <textarea value={researchKnowReflection} onChange={(event) => answerStructured('week3-research-know-reflection', event.target.value)} placeholder="Write a 150–200 word reflection." />
+            <p aria-live="polite">{researchKnowReflectionWordCount < 150 ? `${150 - researchKnowReflectionWordCount} more words needed.` : researchKnowReflectionWordCount > 200 ? `${researchKnowReflectionWordCount - 200} words over the limit.` : 'Your reflection is within the required word range.'}</p>
+          </section>
+          <section className="lmsPanel activityPanel">
+            <div className="panelBar"><h3>5 · Final Question</h3></div>
+            <label className="fullField">How can a manager use AI as a research assistant without simply trusting everything it says?
+              <textarea value={String(structuredAnswers['week3-research-know-final-question'] || '')} onChange={(event) => answerStructured('week3-research-know-final-question', event.target.value)} placeholder="Explain how a manager can use AI while checking its claims and retaining responsibility." />
+            </label>
+          </section>
+          <section className="lmsPanel readinessPanel">
+            <div className="panelBar"><h3>Dashboard Checklist</h3><span>{researchKnowChecklist.filter((_, index) => structuredAnswers[`week3-research-know-check-${index}`] === true).length} / {researchKnowChecklist.length} complete</span></div>
+            <div className="checklistGrid">{researchKnowChecklist.map((item, index) => <label key={item}><input type="checkbox" checked={structuredAnswers[`week3-research-know-check-${index}`] === true} onChange={() => answerStructured(`week3-research-know-check-${index}`, structuredAnswers[`week3-research-know-check-${index}`] !== true)} />{item}</label>)}</div>
+            <div className="decisionFeedback"><strong>Completion requirement</strong><p>Complete every response field, include two named sources and links, write a 150–200 word reflection, and check all dashboard items before marking the Research &amp; Know Page complete.</p></div>
+          </section>
+        </section>
+      )}
       {selectedWeek === 2 && selectedItem.type === 'case' && selectedItem.id === 'scenario-2' && (
         <section className="lmsPanel structuredLesson">
           <div className="panelBar"><h3>Manager Scenario · Confidential Review</h3><span>Week 2 · Case</span></div>
@@ -1746,7 +1854,7 @@ export default function Home() {
       {selectedItem.type === 'assessment' && selectedWeek === 7 && selectedItem.id === 'assessment-guide' && <section className="lmsPanel structuredLesson"><div className="panelBar"><h3>Study Through Scenarios</h3><span>Not memorization</span></div><p>Practice explaining what a manager would do when a vendor reports high accuracy but the organization cannot explain how applicants are affected.</p><div className="decisionFeedback"><strong>Strong answer includes</strong><p>Investigate explainability, fairness, error distribution, affected stakeholders, human review, data use, and the evidence required before approval.</p></div></section>}
       {selectedItem.type === 'assessment' && selectedWeek === 7 && selectedItem.id === 'assessment-capstone' && <section className="lmsPanel structuredLesson"><div className="panelBar"><h3>You Are the AI Governance Manager</h3><span>Weeks 6 + 7 capstone</span></div><p>Classify each Palmetto use and name the control it needs. Your Week 6 risks should inform your Week 7 policy.</p><div className="decisionTree">{['AI-assisted recruiting', 'Customer service chatbot', 'Personalized marketing', 'Employee productivity analysis'].map((useCase) => <label key={useCase}>{useCase}<select value={String(structuredAnswers[`capstone-${useCase}`] || '')} onChange={(event) => answerStructured(`capstone-${useCase}`, event.target.value)}><option value="">Classify</option><option>Approved</option><option>Approved with safeguards</option><option>Requires additional review</option><option>Prohibited</option></select></label>)}</div><div className="decisionFeedback"><strong>Final connection</strong><p>You identified ethical risks in Week 6. In Week 7, you created governance controls to manage those risks: policy, people, human oversight, monitoring, and incident response.</p></div></section>}
       {selectedItem.type !== 'lesson' && selectedItem.type !== 'build' && selectedItem.type !== 'practice' && selectedItem.type !== 'case' && selectedItem.type !== 'connect' && selectedItem.type !== 'assessment' && selectedItem.type !== 'quiz' && selectedItem.type !== 'assignment' && <section className="lmsPanel structuredLesson"><div className="panelBar"><h3>{typeLabel[selectedItem.type]} workspace</h3><span>Work here, then mark complete</span></div><p>{selectedItem.description}</p><div className="moduleWorkPrompt"><strong>What to record</strong><span>Your decision, evidence, affected stakeholders, responsible owner, safeguards, and what would change your recommendation.</span><textarea value={String(structuredAnswers['notes-' + selectedWeek + '-' + selectedItem.id] ?? '')} onChange={(event) => answerStructured('notes-' + selectedWeek + '-' + selectedItem.id, event.target.value)} placeholder="Record your reasoning or submission notes here." /><SaveStatus state={answerSaveState} /></div></section>}
-      <div className="lessonNav"><button type="button" onClick={() => setModuleItem(structuredModule.items[Math.max(0, structuredModule.items.findIndex((item) => item.id === selectedItem.id) - 1)].id)}>← Previous</button><button className="primaryAction" type="button" disabled={selectedWeek === 3 && selectedItem.id === 'assignment-3-research-practice' && !researchAssignmentReady || isWeek2ToolsPage && !aiToolAssignmentReady} onClick={() => completeModuleItem(selectedItem.id)}>{moduleCompletions[`${selectedWeek}-${selectedItem.id}`] ? 'Complete' : selectedWeek === 3 && selectedItem.id === 'assignment-3-research-practice' && !researchAssignmentReady ? 'Complete all fields to mark complete' : isWeek2ToolsPage && !aiToolAssignmentReady ? 'Complete assignment and checklist to mark complete' : 'Mark complete'}</button><button type="button" onClick={() => setModuleItem(structuredModule.items[Math.min(structuredModule.items.length - 1, structuredModule.items.findIndex((item) => item.id === selectedItem.id) + 1)].id)}>Next →</button></div>
+      <div className="lessonNav"><button type="button" onClick={() => setModuleItem(structuredModule.items[Math.max(0, structuredModule.items.findIndex((item) => item.id === selectedItem.id) - 1)].id)}>← Previous</button><button className="primaryAction" type="button" disabled={selectedWeek === 3 && selectedItem.id === 'assignment-3-research-practice' && !researchAssignmentReady || isWeek2ToolsPage && !aiToolAssignmentReady || isWeek3ResearchKnow && !researchKnowAssignmentReady} onClick={() => completeModuleItem(selectedItem.id)}>{moduleCompletions[`${selectedWeek}-${selectedItem.id}`] ? 'Complete' : selectedWeek === 3 && selectedItem.id === 'assignment-3-research-practice' && !researchAssignmentReady ? 'Complete all fields to mark complete' : isWeek2ToolsPage && !aiToolAssignmentReady || isWeek3ResearchKnow && !researchKnowAssignmentReady ? 'Complete assignment and checklist to mark complete' : 'Mark complete'}</button><button type="button" onClick={() => setModuleItem(structuredModule.items[Math.min(structuredModule.items.length - 1, structuredModule.items.findIndex((item) => item.id === selectedItem.id) + 1)].id)}>Next →</button></div>
       {selectedWeek === 15 && selectedItem.type === 'assessment' && selectedItem.id === 'assessment-final-exam' && (() => {
         const submitted = quizExpired || Boolean(structuredAnswers['week15-final-exam-submitted']);
         const answered = finalExamQuestions.filter((_, index) => typeof structuredAnswers[`week15-final-exam-${index}`] === 'number').length;
