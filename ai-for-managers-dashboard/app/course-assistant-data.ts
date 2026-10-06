@@ -4,13 +4,37 @@ export type ModuleItem = { id: string; title: string; description: string; type:
 
 export type CourseAssistantModule = { overview: string; objectives: string[]; artifact: string; buildDescription: string; items: ModuleItem[] };
 
+
+const synchronizedAssessmentItems: Record<number, ModuleItem[]> = {
+  9: [
+    { id: 'assessment-quiz-3', title: 'Quiz 3 · Customer Evidence and Human-Reviewed Workflows', description: 'Major course quiz covering Weeks 8–9: evidence quality, customer insight, human review, verification, escalation, and accountable ownership.', type: 'assessment', time: '25–35 min' },
+  ],
+  10: [
+    ...['Academic Integrity', 'Support vs. Substitution', 'Attribution', 'Disclosure Quality', 'Verification Records', 'Accountable Authorship'].map((topic, index) => ({ id: `quiz-10-lesson-${index + 1}`, title: `Quiz ${index + 1} · Lesson ${index + 1}: ${topic}`, description: `Practice check for Week 10 ${topic.toLowerCase()} concepts.`, type: 'quiz', time: '10 min' })),
+    ...['Academic Integrity Decision', 'Support vs. Substitution', 'Attribution', 'Disclosure Quality', 'Create a Verification Record', 'Accountable Authorship Review'].map((title, index) => ({ id: `assignment-10-lesson-${index + 1}`, title: `Assignment ${index + 1} · ${title}`, description: 'Apply the lesson to a realistic AI-assisted work situation and keep the human contribution, verification, and responsibility visible.', type: 'assignment', time: '30–45 min' })),
+  ],
+  11: [
+    ...['Human Dignity in AI-Enabled Work', 'Truthfulness in AI-Enabled Work', 'Justice and Fairness in AI-Enabled Work', 'Stewardship in AI-Enabled Work', 'Responsibility in AI-Enabled Work', 'Moral Discernment in AI-Enabled Work'].map((topic, index) => ({ id: `quiz-11-lesson-${index + 1}`, title: `Quiz ${index + 1} · Lesson ${index + 1}: ${topic}`, description: 'Practice check applying the Week 11 value to an AI-enabled management decision.', type: 'quiz', time: '10 min' })),
+    ...['Human Dignity in AI-Enabled Management', 'Truthfulness in AI-Enabled Work', 'Justice and Fairness in AI', 'Stewardship and Responsible AI Use', 'Responsibility and AI Decision-Making', 'Moral Discernment and AI Decision-Making'].map((title, index) => ({ id: `assignment-11-lesson-${index + 1}`, title: `Assignment ${index + 1} · ${title}`, description: 'Apply the lesson value to affected people, evidence, safeguards, and accountable management judgment.', type: 'assignment', time: '30–45 min' })),
+  ],
+  12: [
+    ...['Tasks vs. Jobs in AI-Enabled Work', 'Automation and Augmentation', 'Human Skills at Work', 'Worker Voice and AI Change', 'Reskilling and Transition Risk', 'Transition Risk'].map((topic, index) => ({ id: `quiz-12-lesson-${index + 1}`, title: `Quiz ${index + 1} · Lesson ${index + 1}: ${topic}`, description: 'Practice check for the Week 12 workforce concept.', type: 'quiz', time: '10 min' })),
+    ...['Tasks vs. Jobs', 'Automation or Augmentation?', 'Human Skills in an AI Workplace', 'Worker Voice', 'Reskilling', 'Transition Risk'].map((title, index) => ({ id: `assignment-12-lesson-${index + 1}`, title: `Assignment ${index + 1} · ${title}`, description: 'Apply the workforce concept to a realistic management transition and identify required human support.', type: 'assignment', time: '15–20 min' })),
+    { id: 'assessment-test-2', title: 'Test 2 · Weeks 10–12', description: 'Major course test covering responsible AI use and disclosure, values-based management judgment, and AI workforce impact.', type: 'assessment', time: '45–60 min' },
+  ],
+  14: [
+    { id: 'assessment-quiz-4', title: 'Quiz 4 · Implementation, Testing, and Release Readiness', description: 'Major course quiz covering Weeks 13–14: bounded implementation, controls, KPIs, stop conditions, acceptance testing, revision, and release readiness.', type: 'assessment', time: '25–35 min' },
+  ],
+};
+
 function standardModule(week: number, overview: string, objectives: string[], artifact: string, buildDescription: string, lessons: string[], practice: string, assessment: string, submission: string) {
   return {
     overview, objectives, artifact, buildDescription,
     items: [
       ...easyWeekItems(week),
       ...(week === 15 ? [] : lessons.map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}`, description: `Learn the Week ${week} concept, apply it to a management situation, and identify what requires human judgment.`, type: 'lesson' as const, time: '15–20 min' }))),
-      ...(week === 15 ? [] : [{ id: `practice-${week}`, title: practice, description: 'Apply the week’s concepts to a realistic management scenario and document your reasoning.', type: 'practice' as const, time: '30–45 min' }]),
+      ...([10, 11, 12, 15].includes(week) ? [] : [{ id: `practice-${week}`, title: practice, description: 'Apply the week’s concepts to a realistic management scenario and document your reasoning.', type: 'practice' as const, time: '30–45 min' }]),
+      ...(synchronizedAssessmentItems[week] || []),
       ...(week === 13 ? [
         { id: 'assignment-13-implementation', title: 'Assignment 1 · Implementation Readiness Decision', description: 'Decide whether an AI solution is ready for a controlled pilot and justify the risks, controls, owner, and evidence required.', type: 'assignment' as const, time: '45–60 min' },
         { id: 'assignment-13-adoption', title: 'Assignment 2 · Adoption and Measurement Plan', description: 'Plan training, ownership, KPIs, worker feedback, and a stop condition for responsible adoption.', type: 'assignment' as const, time: '60–75 min' },
@@ -80,6 +104,7 @@ export const structuredModules: Record<number, { overview: string; objectives: s
       { id: 'practice-2', title: 'AI Tool Comparison Lab', description: 'Compare at least three AI tools using purpose, best use, strengths, limitations, risks, and management use cases.', type: 'practice', time: '30–45 min' },
       { id: 'build-2', title: 'AI Tools Page', description: 'Add the AI Tools page to the dashboard and include the required comparison fields and privacy note.', type: 'build', time: '2–3 hrs' },
       { id: 'assessment-2', title: 'Week 2 Knowledge Check', description: 'Check your understanding of AI tools, APIs, integrations, privacy, and tool selection.', type: 'assessment', time: '20–30 min' },
+      { id: 'quiz-2-tools', title: 'Quiz 1 · AI Tools and Your AI Management Dashboard', description: 'Major course quiz covering AI assistants, APIs, privacy, tool selection, and responsible dashboard use.', type: 'quiz', time: '15–20 min' },
       { id: 'submit-2', title: 'Week 2 Submission', description: 'Submit the AI Tools page with at least three tool comparisons, a privacy note, and evidence that the dashboard build works.', type: 'submit' },
       { id: 'reflect-2', title: 'Week 2 Reflection', description: 'Explain which tool would be most appropriate for a specific management task and why privacy and risk matter.', type: 'reflect', time: '15–20 min' },
       { id: 'resources-2', title: 'Week 2 Resources', description: 'Review the lesson content, tool examples, privacy guidance, and the example comparison before submitting.', type: 'resource' },
@@ -139,7 +164,6 @@ export const structuredModules: Record<number, { overview: string; objectives: s
       { id: 'practice-4', title: 'AI Productivity Comparison Lab', description: 'Compare a normal version of an email, meeting summary, research task, or presentation with an AI-assisted version using time, quality, risk, and human-review criteria.', type: 'practice' as const, time: '30–45 min' },
       { id: 'build-4', title: 'AI for Productivity', description: 'Add a small AI productivity capability (email, meeting summary, research, brainstorming, presentation, planning, or workflow automation) and document the management judgment it supports.', type: 'build' as const, time: '2–3 hrs' },
       { id: 'assessment-4', title: 'Week 4 Knowledge Check', description: 'Check your understanding of AI-assisted productivity, workflow automation, and required human review.', type: 'assessment' as const, time: '20–30 min' },
-      { id: 'assessment-discussion-2', title: 'Discussion 2', description: 'Should employees have to disclose when they use AI for emails, reports, presentations, research, or other work? Post your position and respond to a classmate.', type: 'assessment' as const, time: '30–45 min' },
       { id: 'submit-4', title: 'Week 4 Submission', description: 'Submit the AI for Productivity component, your Discussion 2 post, and evidence that the productivity task was tested with appropriate human review.', type: 'submit' as const },
       { id: 'reflect-4', title: 'Week 4 Reflection', description: 'Explain how AI changed the process, what still required human judgment, and what evidence would change your recommendation.', type: 'reflect' as const, time: '15–20 min' },
       { id: 'resources-4', title: 'Week 4 Resources', description: 'Review the Week 4 lesson materials, productivity examples, workflow automation guidance, and disclosure expectations.', type: 'resource' as const },
@@ -175,7 +199,7 @@ export const structuredModules: Record<number, { overview: string; objectives: s
       { id: 'practice-verify', title: 'AI Verification Exercise', description: 'Check sources, calculations, causal claims, and uncertainty before trusting fluent output.', type: 'practice', time: '10–15 min' },
       { id: 'case-brightpath', title: 'BrightPath Manufacturing Case', description: 'Analyze an AI hiring shortcut and defend a recommendation as the case reveals more information.', type: 'case', time: '35–50 min' },
       { id: 'build-ethics', title: 'AI Ethics Checker', description: 'Complete the risk assessment and save your rating, recommendation, evidence, and rationale.', type: 'build', time: '45–75 min' },
-      { id: 'assessment-discussion', title: 'Discussion 3', description: 'Explain when a manager should allow, limit, or refuse an AI use case.', type: 'assessment', time: '30–45 min' },
+      { id: 'assessment-knowledge', title: 'Week 6 Knowledge Check', description: 'Check your understanding of ethics, bias, privacy, oversight, verification, and accountability.', type: 'assessment', time: '15–20 min' },
       { id: 'submit-ethics', title: 'AI Ethics Risk Assessment', description: 'Submit the completed checker, BrightPath analysis, risk rating, recommendation, and rationale.', type: 'submit' },
       { id: 'reflect-ethics', title: 'Week 6 Reflection', description: 'Connect your ethical reasoning to risk, stakeholders, oversight, and accountability.', type: 'reflect', time: '15–20 min' },
       { id: 'resources-ethics', title: 'Week 6 Resources', description: 'Review NIST, OECD, and UNESCO guidance for further study.', type: 'resource' },

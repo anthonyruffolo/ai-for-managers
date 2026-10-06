@@ -1,6 +1,6 @@
 # Student-View QA Record
 
-This record documents the implementation QA completed for the student-facing artifacts in Weeks 1–7 and the build gate used to prevent the Week 8–15 progression from drifting again.
+This record documents implementation QA for the student-facing course and the build gate used to prevent the 15-week progression from drifting.
 
 ## QA method
 
@@ -33,6 +33,12 @@ This is an implementation QA record. Instructor acceptance testing on representa
 |---:|---|---|---|
 | 6 | AI Ethics Checker / Risk Assessment | Passed | Dedicated ethics workflow, risk fields, bias/privacy/oversight activities, recommendation logic, management rationale, and Week 6 → Week 7 bridge are present. |
 | 7 | Responsible AI Policy | Passed | Dedicated policy builder, governance decision step, safeguard selection, policy sections, accountability/monitoring language, cumulative Test 1 path, and Week 6 risk → Week 7 control connection are present. |
+
+## Weeks 8–15 source-level QA
+
+Weeks 8–15 have usable artifact workspaces, synchronized artifact names, submission paths, and course-search/assistant references. The source pass also verifies the newly scheduled Quiz 3 (Week 9), Test 2 (Week 12), Quiz 4 (Week 14), and the seven-discussion schedule.
+
+This status is intentionally **source QA complete, browser acceptance pending**. A representative student/instructor still needs to click through these weeks on desktop and mobile, verify saved state and scoring behavior, and confirm the deployed AI Course Assistant environment before release.
 
 ## Regression protections added
 

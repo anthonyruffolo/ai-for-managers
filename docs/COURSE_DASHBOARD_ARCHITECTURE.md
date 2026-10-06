@@ -57,6 +57,12 @@ The student's AI Management Dashboard is a progressive semester project. The Wee
 | 14 | Dashboard Testing and Revision Record | Run acceptance tests, record defects/peer feedback, revise, retest, and make a release-readiness decision. |
 | 15 | Final Integrated AI Management Dashboard | Connect Weeks 1–14, document limitations, make the final release/deployment decision, and prepare portfolio/defense evidence. |
 
+## Assessment and discussion architecture
+
+Major assessments use a deliberate cadence: Quiz 1 (Week 2), Quiz 2 (Week 5), Test 1 (Week 7), Quiz 3 (Week 9), Test 2 (Week 12), Quiz 4 (Week 14), and the cumulative Final Exam (Week 15). Lesson-level checks are practice or formative assessment and do not create extra major-course quiz numbers.
+
+The Discussion Board contains exactly seven required discussions: Weeks 1, 4, 6, 8, 10, 11, and 14. Weeks without a required discussion may contain reflection or peer-review work, but they should not display a generic required-discussion fallback.
+
 ## Progress architecture
 
 Track two distinct kinds of progress.
