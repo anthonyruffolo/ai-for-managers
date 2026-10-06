@@ -23,7 +23,7 @@ This is an implementation QA record. Instructor acceptance testing on representa
 |---:|---|---|---|
 | 1 | Dashboard Starter Version | Passed | Project brief, target user/problem, homepage/navigation planning, submission path, and saved structured responses are present. The legacy generic “pending implementation” fallback no longer appears on the Week 1 build. |
 | 2 | AI Tools | Passed | Student comparison/build path, assessment activity, and the named artifact are present in the structured module. |
-| 3 | Prompt Library | Passed | Prompt-library build path, lesson sequence, artifact naming, and course-search visibility are present. |
+| 3 | Research & Know | Passed | Research question/prompt improvement, source evaluation, two-source verification, artifact naming, submission path, and course-search visibility are present. |
 | 4 | AI Productivity | Passed | Dedicated interactive productivity workspace, time comparison, quality/risk/human-review fields, submission checklist, and reflection path are present. |
 | 5 | Manager Decision Assistant | Passed | Dedicated interactive decision workspace clearly separates AI analysis/recommendation from the manager's final decision, with missing information, alternatives, verification, risk, submission, and reflection paths. |
 
@@ -39,4 +39,6 @@ This is an implementation QA record. Instructor acceptance testing on representa
 - Weeks 1–5 no longer fall through to the later-week generic build placeholder.
 - Weeks 10–12 once again expose their finalized build/submission/reflection/resource paths while preserving their detailed lesson assignments and quizzes.
 - Weeks 8–15 are checked against one finalized progression across the student dashboard, course assistant, search, course-structure workspace, architecture document, and build tracker.
+- Week 3 is canonically `Research & Know`; the retired `Prompt Library` artifact name is treated as drift.
+- Major assessment and discussion schedules are defined in `docs/COURSE_CANON.md` and should be checked against the student-facing module map.
 - The build fails if the old Week 8 “Manager AI Assistant” submission or old Week 9 “AI Verification Center” submission reappears in search metadata.
