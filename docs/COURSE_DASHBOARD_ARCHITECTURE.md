@@ -43,7 +43,7 @@ The student's AI Management Dashboard is a progressive semester project. The Wee
 |---:|---|---|
 | 1 | Dashboard Starter Version | Define the management problem, target user, purpose, homepage/navigation, and future placeholders. |
 | 2 | AI Tools | Compare appropriate AI tools, limitations, privacy considerations, and management use cases. |
-| 3 | Prompt Library | Build reusable prompts with context, constraints, verification, and human accountability. |
+| 3 | Research & Know | Build an AI-assisted research workflow with stronger questions, source evaluation, claim verification, and documented human judgment. |
 | 4 | AI Productivity | Compare a normal and AI-assisted workflow, including time, quality, risk, and human review. |
 | 5 | Manager Decision Assistant | Separate AI analysis/recommendation from alternatives, missing information, verification, risk, and the manager's final decision. |
 | 6 | AI Ethics Checker / Risk Assessment | Evaluate fairness, privacy, harm, explainability, oversight, accountability, verification, and overall risk. |
@@ -106,7 +106,7 @@ Before a weekly artifact is considered complete, test it as an undergraduate stu
 - Does the new build connect to prior dashboard work?
 - Does previously built functionality still work?
 
-The Week 1–7 implementation QA record is maintained in `docs/STUDENT_VIEW_QA.md`.
+The implementation QA record is maintained in `docs/STUDENT_VIEW_QA.md`. The canonical course and assessment schedule is maintained in `docs/COURSE_CANON.md`.
 
 ## Scope rule
 
