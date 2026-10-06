@@ -7,7 +7,7 @@ import styles from './structure.module.css';
 const weeks = [
   ['Week 1', 'What AI Is', 'Create the first AI Management Dashboard: name, purpose, target user, management problem, homepage, navigation, and placeholders for future sections.'],
   ['Week 2', 'AI Tools for Managers', 'Add an AI Tools page comparing at least three tools by purpose, use, strengths, limitations, risks, and management use cases.'],
-  ['Week 3', 'Prompt Engineering', 'Add a Prompt Library with management prompts and selected before/after prompt and response examples.'],
+  ['Week 3', 'Research & Know', 'Build an AI-assisted research workflow with stronger questions, prompt improvement, source evaluation, verification of an important claim with credible sources, and a short reflection.'],
   ['Week 4', 'AI for Productivity', 'Add an AI Productivity section comparing a normal management task with an AI-assisted process, including time, quality, risk, and human review.'],
   ['Week 5', 'AI-Assisted Managerial Decisions', 'Add a Manager Decision Assistant that records the problem, AI analysis, recommendation, alternatives, missing information, risks, and final human decision.'],
   ['Week 6', 'AI Ethics', 'Add an AI Ethics Checker / Risk Assessment covering sensitive information, bias, harm, human review, explainability, verification, accountability, and risk level.'],
