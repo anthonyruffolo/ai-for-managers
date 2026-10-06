@@ -1,48 +1,50 @@
 # AI for Managers
 
-**🚀 Live Dashboard:** [Open the AI for Managers Dashboard](https://ai-for-managers-dashboard.vercel.app/)
+**Live Dashboard:** [Open the AI for Managers Dashboard](https://ai-for-managers-dashboard.vercel.app/)
 
 ## Project
 
-This repository contains the **AI for Managers** undergraduate course dashboard and the materials used to build it.
+This repository contains the **AI for Managers** undergraduate course dashboard and the materials used to build, review, and maintain it.
 
-Students learn AI for management and progressively build an AI Management Dashboard. The course is designed for business students; advanced programming is not required.
+Students progressively build one AI Management Dashboard across 15 weeks. The course is designed for business students; advanced programming is not required.
 
-## Course build
+## Current course structure
 
-- 15 weekly modules
-- Student AI Management Dashboard developed throughout the course
-- Weekly lessons, builds, examples, submissions, rubrics, and assessments
-- Three tests, four quizzes, and seven discussions
-- Responsible AI, verification, disclosure, human judgment, and GitHub collaboration
+The canonical progression and assessment schedule are maintained in [`docs/COURSE_CANON.md`](docs/COURSE_CANON.md). The current course uses:
 
-The current team workflow source document is stored at the repository root:
+- 15 weekly modules;
+- one progressive AI Management Dashboard;
+- weekly lessons, applied work, dashboard builds, submission guidance, grading criteria, and reflection;
+- four major quizzes, two mid-course tests, and one cumulative final exam;
+- seven required course discussions;
+- lesson-level knowledge checks and practice quizzes that do not count toward the four major quizzes; and
+- responsible AI, verification, disclosure, privacy, human judgment, and accountability throughout the course.
 
-`MGMT 610 Team work flow.docx`
-
-Implementation guidance derived from the team workflow is maintained in `docs/GITHUB_COLLABORATION_WORKFLOW.md`, `docs/BUILDER_HANDOFF_CHECKLIST.md`, and `docs/WEEKLY_PAGE_TEMPLATE.md`.
+If older planning documents conflict with the canonical progression or current student dashboard, update the stale material rather than preserving two versions of the same week.
 
 ## Team workflow
 
-**Builder → second-builder review → Daniel/project lead approval → Anthony dashboard implementation → student-view testing → merge to main**
+The original team workflow source document is stored at the repository root as `MGMT 610 Team work flow.docx`.
 
-Builders own the approved instructional package. Anthony owns technical implementation and cross-week integration after approval. Use focused branches for work in progress and keep `main` stable.
+Implementation guidance is maintained in:
 
-Before opening a pull request, run `pnpm build` from `ai-for-managers-dashboard`, test the changed flow as a student, and commit only focused changes. Push the branch, request review for requirements, accessibility, privacy, and the student flow, resolve comments, rerun the build, and merge only after approval. Do not commit generated files such as `tsconfig.tsbuildinfo` or any passwords, API keys, student records, or confidential data.
+- `docs/COURSE_CANON.md`
+- `docs/GITHUB_COLLABORATION_WORKFLOW.md`
+- `docs/BUILDER_HANDOFF_TEMPLATE.md`
+- `docs/WEEKLY_PAGE_TEMPLATE.md`
+- `docs/COURSE_DASHBOARD_ARCHITECTURE.md`
 
-## Builder handoff
+The normal workflow is:
 
-Each weekly package should include:
+**Builder → second-builder review → project-lead approval → dashboard implementation → student-view testing → merge to main**
 
-- Lesson / course content
-- 5–8 key terms
-- Student dashboard build
-- Student directions
-- Example / model
-- Submission requirements
-- Rubric / answer key
-- Assessment materials when assigned
-- Dashboard needs
+Builders own instructional content and approved assessment material. Technical implementation owns cross-week consistency, navigation, state, search/assistant synchronization, regression protection, and student-view behavior.
+
+Before merging a change, run the application build and course QA, test the changed flow as a student, and review privacy, accessibility, submission language, and cross-week consistency. Never commit passwords, API keys, student records, or confidential data.
+
+## Weekly handoff standard
+
+A weekly package should include the approved lesson content, key terms, applied activity, dashboard build, directions, example/model, submission requirements, grading criteria or answer key, assigned assessment material, resources, and any dashboard requirements needed to support the week.
 
 ## Dashboard
 
@@ -51,7 +53,7 @@ The main app is in `ai-for-managers-dashboard/`.
 Key routes:
 
 - `/` — student course dashboard
-- `/course-structure` — course build and weekly implementation workspace
+- `/course-structure` — implementation and weekly-structure workspace
 
 ## Local development
 
@@ -61,21 +63,27 @@ pnpm install
 pnpm dev
 ```
 
-For a production build:
+For the release build:
 
 ```bash
 pnpm build
 ```
 
+The build runs `scripts/course-qa.mjs` before `next build` so course naming and key student-facing paths fail fast when they drift.
+
 ## Deployment
 
-The Vercel configuration explicitly installs and builds from `ai-for-managers-dashboard/` so the nested application is deployed from the repository root correctly.
+The Vercel configuration installs and builds from `ai-for-managers-dashboard/` so the nested application can be deployed from the repository root.
+
+The AI Course Assistant requires its deployment environment to contain `AI_GATEWAY_API_KEY`. The source code alone does not prove that the assistant is configured in production; the deployed route must be tested after environment changes.
 
 ## Project standards
 
 - Build for undergraduate business students.
-- Keep weekly work connected across the full course.
+- Keep each week connected to the same semester dashboard.
+- Use one canonical name and requirement set for each week.
 - Verify important AI-generated information.
 - Preserve human judgment and accountability.
 - Protect confidential, private, credential, and API-key information.
-- Test student-facing changes before merging.
+- Distinguish locally saved work from work actually submitted to an instructor or gradebook.
+- Test student-facing changes before release.
