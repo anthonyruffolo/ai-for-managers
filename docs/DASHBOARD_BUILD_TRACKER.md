@@ -14,12 +14,12 @@ A named artifact is not complete merely because its lesson title exists. The stu
 | 6 | AI Ethics Checker / Risk Assessment | **Tested — formal implementation QA passed** |
 | 7 | Responsible AI Policy | **Tested — formal implementation QA passed** |
 | 8 | Customer Evidence Decision Brief | **Implemented — source QA complete; browser acceptance QA pending** |
-| 9 | Human-Reviewed AI Workflow | **Implemented — student acceptance QA pending** |
-| 10 | AI Use / Disclosure Log | **Implemented — student acceptance QA pending** |
-| 11 | Values-Based AI Decision Framework | **Implemented — student acceptance QA pending** |
-| 12 | Workforce Impact Map | **Implemented — student acceptance QA pending** |
-| 13 | AI Implementation Plan | **Implemented — student acceptance QA pending** |
-| 14 | Dashboard Testing and Revision Record | **Implemented — student acceptance QA pending** |
+| 9 | Human-Reviewed AI Workflow | **Implemented — source QA complete; browser acceptance QA pending** |
+| 10 | AI Use / Disclosure Log | **Implemented — source QA complete; browser acceptance QA pending** |
+| 11 | Values-Based AI Decision Framework | **Implemented — source QA complete; browser acceptance QA pending** |
+| 12 | Workforce Impact Map | **Implemented — source QA complete; browser acceptance QA pending** |
+| 13 | AI Implementation Plan | **Implemented — source QA complete; browser acceptance QA pending** |
+| 14 | Dashboard Testing and Revision Record | **Implemented — source QA complete; browser acceptance QA pending** |
 | 15 | Final Integrated AI Management Dashboard | **Implemented — source QA complete; final browser acceptance/defense QA pending** |
 
 See `docs/STUDENT_VIEW_QA.md` for the implementation QA record and regression protections enforced by the course build gate. Source-level QA is not a substitute for the remaining representative desktop/mobile browser acceptance pass.
