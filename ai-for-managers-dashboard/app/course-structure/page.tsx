@@ -5,11 +5,11 @@ import Link from 'next/link';
 import styles from './structure.module.css';
 
 const weeks = [
-  ['Week 1', 'What AI Is', 'Create the first AI Management Dashboard: name, purpose, target user, management problem, homepage, navigation, and placeholders for future sections.'],
+  ['Week 1', 'AI Foundations and Dashboard Start', 'Create the Dashboard Starter Version: define the name, purpose, target user, management problem, homepage, navigation, and placeholders for future sections.'],
   ['Week 2', 'AI Tools for Managers', 'Add an AI Tools page comparing at least three tools by purpose, use, strengths, limitations, risks, and management use cases.'],
   ['Week 3', 'Research & Know', 'Build an AI-assisted research workflow with stronger questions, prompt improvement, source evaluation, verification of an important claim with credible sources, and a short reflection.'],
-  ['Week 4', 'AI for Productivity', 'Add an AI Productivity section comparing a normal management task with an AI-assisted process, including time, quality, risk, and human review.'],
-  ['Week 5', 'AI-Assisted Managerial Decisions', 'Add a Manager Decision Assistant that records the problem, AI analysis, recommendation, alternatives, missing information, risks, and final human decision.'],
+  ['Week 4', 'AI Productivity', 'Add an AI Productivity section comparing a normal management task with an AI-assisted process, including time, quality, risk, and human review.'],
+  ['Week 5', 'Managerial Decision Support', 'Add a Manager Decision Assistant that records the problem, AI analysis, recommendation, alternatives, missing information, risks, and final human decision.'],
   ['Week 6', 'AI Ethics', 'Add an AI Ethics Checker / Risk Assessment covering sensitive information, bias, harm, human review, explainability, verification, accountability, and risk level.'],
   ['Week 7', 'Responsible AI and Governance', 'Add a Responsible AI Policy covering approved uses, prohibited uses, confidentiality, verification, human review, disclosure, and accountability.'],
   ['Week 8', 'Customer Evidence and Decision Briefs', 'Build a Customer Evidence Decision Brief with three sourced insights, evidence labels, a missing customer voice, a validation question, options/tradeoffs, and a manager-owned recommendation.'],
@@ -17,9 +17,9 @@ const weeks = [
   ['Week 10', 'AI and Plagiarism', 'Build an AI Use / Disclosure Log recording the task, tool, prompt or input, AI contribution, student changes, verification, and disclosure statement.'],
   ['Week 11', 'Christian Perspective on AI', 'Build a Values-Based AI Decision Framework that records the situation, affected people, values, tensions, evidence, safeguards, and accountable decision.'],
   ['Week 12', 'AI and the Workforce', 'Build a Workforce Impact Map covering current tasks, automation and augmentation opportunities, human-retained work, skills, training, worker voice, transition risks, and a management recommendation.'],
-  ['Week 13', 'Implementing AI in an Organization', 'Build an AI Implementation Plan with the business problem, bounded AI solution, benefits, risks, controls, owners, training, timeline, KPIs, stop conditions, and rollout recommendation.'],
+  ['Week 13', 'Implement AI in an Organization', 'Build an AI Implementation Plan with the business problem, bounded AI solution, benefits, risks, controls, owners, training, timeline, KPIs, stop conditions, and rollout recommendation.'],
   ['Week 14', 'Future of AI and Dashboard Testing', 'Build a Dashboard Testing and Revision Record with acceptance criteria, end-to-end test evidence, defects, peer feedback, revisions, retest results, and a release-readiness decision.'],
-  ['Week 15', 'Final AI Management Dashboard', 'Complete the Final Integrated AI Management Dashboard, connect Weeks 1–14, document limitations and the final release decision, then submit the portfolio/defense evidence, 50-question final exam, 1,500–2,000 word final paper, and reflection.'],
+  ['Week 15', 'Final Integration and Defense', 'Complete the Final Integrated AI Management Dashboard, connect Weeks 1–14, document limitations and the final release decision, then submit the portfolio/defense evidence, 50-question final exam, 1,500–2,000 word final paper, and reflection.'],
 ];
 
 const template = [
