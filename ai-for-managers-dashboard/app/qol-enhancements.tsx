@@ -289,8 +289,20 @@ export default function QolEnhancements() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [recent, setRecent] = useState<string[]>([]);
-  const [resume, setResume] = useState<ResumePosition>({ week: 1 });
+  const [recent, setRecent] = useState<string[]>(() => {
+    try {
+      return JSON.parse(window.localStorage.getItem('aim-search-recent-v1') || '[]').slice(0, 5);
+    } catch {
+      return [];
+    }
+  });
+  const [resume, setResume] = useState<ResumePosition>(() => {
+    try {
+      const saved = JSON.parse(window.localStorage.getItem('aim-resume-position-v1') || 'null') as ResumePosition | null;
+      if (saved?.week) return saved;
+    } catch { /* fall through */ }
+    return inferResumePosition();
+  });
   const [continueHost, setContinueHost] = useState<HTMLElement | null>(null);
 
   const results = useMemo(() => {
@@ -359,9 +371,6 @@ export default function QolEnhancements() {
   }
 
   useEffect(() => {
-    try { setRecent(JSON.parse(window.localStorage.getItem('aim-search-recent-v1') || '[]').slice(0, 5)); } catch { /* ignore */ }
-    setResume(inferResumePosition());
-
     const input = document.querySelector<HTMLInputElement>('.portalSearch input');
     if (!input) return;
 

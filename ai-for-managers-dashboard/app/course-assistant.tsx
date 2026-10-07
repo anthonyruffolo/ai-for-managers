@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
 type PageContext = { week?: number; section?: string };
@@ -23,12 +23,8 @@ export default function CourseAssistant() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
-  const [context, setContext] = useState<PageContext>({});
   const endRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (open) setContext(currentContext());
-  }, [open]);
+  const context = useMemo(() => (open ? currentContext() : {}), [open]);
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, busy]);
 
