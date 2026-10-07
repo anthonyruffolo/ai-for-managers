@@ -43,7 +43,7 @@ The student's AI Management Dashboard is a progressive semester project. The Wee
 |---:|---|---|
 | 1 | Dashboard Starter Version | Define the management problem, target user, purpose, homepage/navigation, and future placeholders. |
 | 2 | AI Tools | Compare appropriate AI tools, limitations, privacy considerations, and management use cases. |
-| 3 | Prompt Library | Build reusable prompts with context, constraints, verification, and human accountability. |
+| 3 | Research & Know | Build an AI-assisted research workflow with stronger questions, source evaluation, claim verification, and documented human judgment. |
 | 4 | AI Productivity | Compare a normal and AI-assisted workflow, including time, quality, risk, and human review. |
 | 5 | Manager Decision Assistant | Separate AI analysis/recommendation from alternatives, missing information, verification, risk, and the manager's final decision. |
 | 6 | AI Ethics Checker / Risk Assessment | Evaluate fairness, privacy, harm, explainability, oversight, accountability, verification, and overall risk. |
@@ -56,6 +56,12 @@ The student's AI Management Dashboard is a progressive semester project. The Wee
 | 13 | AI Implementation Plan | Define the business problem, bounded solution, benefits, risks, controls, owners, training, timeline, KPIs, stop conditions, and rollout recommendation. |
 | 14 | Dashboard Testing and Revision Record | Run acceptance tests, record defects/peer feedback, revise, retest, and make a release-readiness decision. |
 | 15 | Final Integrated AI Management Dashboard | Connect Weeks 1–14, document limitations, make the final release/deployment decision, and prepare portfolio/defense evidence. |
+
+## Assessment and discussion architecture
+
+Major assessments use a deliberate cadence: Quiz 1 (Week 2), Quiz 2 (Week 5), Test 1 (Week 7), Quiz 3 (Week 9), Test 2 (Week 12), Quiz 4 (Week 14), and the cumulative Final Exam (Week 15). Lesson-level checks are practice or formative assessment and do not create extra major-course quiz numbers.
+
+The Discussion Board contains exactly seven required discussions: Weeks 1, 4, 6, 8, 10, 11, and 14. Weeks without a required discussion may contain reflection or peer-review work, but they should not display a generic required-discussion fallback.
 
 ## Progress architecture
 
@@ -106,7 +112,7 @@ Before a weekly artifact is considered complete, test it as an undergraduate stu
 - Does the new build connect to prior dashboard work?
 - Does previously built functionality still work?
 
-The Week 1–7 implementation QA record is maintained in `docs/STUDENT_VIEW_QA.md`.
+The implementation QA record is maintained in `docs/STUDENT_VIEW_QA.md`. The canonical course and assessment schedule is maintained in `docs/COURSE_CANON.md`.
 
 ## Scope rule
 

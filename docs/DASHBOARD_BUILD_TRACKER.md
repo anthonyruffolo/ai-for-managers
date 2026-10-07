@@ -8,21 +8,27 @@ A named artifact is not complete merely because its lesson title exists. The stu
 |---:|---|---|
 | 1 | Dashboard Starter Version | **Tested — implementation QA passed** |
 | 2 | AI Tools | **Tested — implementation QA passed** |
-| 3 | Prompt Library | **Tested — implementation QA passed** |
+| 3 | Research & Know | **Tested — implementation QA passed** |
 | 4 | AI Productivity | **Tested — implementation QA passed** |
 | 5 | Manager Decision Assistant | **Tested — implementation QA passed** |
 | 6 | AI Ethics Checker / Risk Assessment | **Tested — formal implementation QA passed** |
 | 7 | Responsible AI Policy | **Tested — formal implementation QA passed** |
-| 8 | Customer Evidence Decision Brief | **Implemented — student acceptance QA pending** |
-| 9 | Human-Reviewed AI Workflow | **Implemented — student acceptance QA pending** |
-| 10 | AI Use / Disclosure Log | **Implemented — student acceptance QA pending** |
-| 11 | Values-Based AI Decision Framework | **Implemented — student acceptance QA pending** |
-| 12 | Workforce Impact Map | **Implemented — student acceptance QA pending** |
-| 13 | AI Implementation Plan | **Implemented — student acceptance QA pending** |
-| 14 | Dashboard Testing and Revision Record | **Implemented — student acceptance QA pending** |
-| 15 | Final Integrated AI Management Dashboard | **Implemented — final acceptance/defense QA pending** |
+| 8 | Customer Evidence Decision Brief | **Implemented — source QA complete; browser acceptance QA pending** |
+| 9 | Human-Reviewed AI Workflow | **Implemented — source QA complete; browser acceptance QA pending** |
+| 10 | AI Use / Disclosure Log | **Implemented — source QA complete; browser acceptance QA pending** |
+| 11 | Values-Based AI Decision Framework | **Implemented — source QA complete; browser acceptance QA pending** |
+| 12 | Workforce Impact Map | **Implemented — source QA complete; browser acceptance QA pending** |
+| 13 | AI Implementation Plan | **Implemented — source QA complete; browser acceptance QA pending** |
+| 14 | Dashboard Testing and Revision Record | **Implemented — source QA complete; browser acceptance QA pending** |
+| 15 | Final Integrated AI Management Dashboard | **Implemented — source QA complete; final browser acceptance/defense QA pending** |
 
-See `docs/STUDENT_VIEW_QA.md` for the Week 1–7 QA record and the regression protections now enforced during every production build.
+See `docs/STUDENT_VIEW_QA.md` for the implementation QA record and regression protections enforced by the course build gate. Source-level QA is not a substitute for the remaining representative desktop/mobile browser acceptance pass.
+
+## Canonical assessment rhythm
+
+Major assessments are scheduled as Quiz 1 (Week 2), Quiz 2 (Week 5), Test 1 (Week 7), Quiz 3 (Week 9), Test 2 (Week 12), Quiz 4 (Week 14), and the cumulative Final Exam (Week 15). Seven required discussions occur in Weeks 1, 4, 6, 8, 10, 11, and 14. Lesson-level checks are practice/knowledge checks, not additional major quizzes.
+
+See `docs/COURSE_CANON.md` for the complete source-of-truth map.
 
 ## Final Week 8–15 progression
 

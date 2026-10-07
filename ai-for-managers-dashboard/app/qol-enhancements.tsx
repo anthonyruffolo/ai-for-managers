@@ -22,21 +22,21 @@ type ModuleSearchItem = {
 type ResumePosition = { week: number; itemTitle?: string; updatedAt?: number };
 
 const weekData = [
-  [1, 'Orient & prototype', 'generative AI models applications capabilities limits safe use prototype trust boundary dashboard starter'],
-  [2, 'Deploy & Use', 'AI assistants plugins integrations APIs tool comparison privacy deploy dashboard'],
-  [3, 'Research & know', 'AI research better questions prompts source quality hallucinations verification knowledge building'],
-  [4, 'AI for Productivity', 'email meeting summaries research brainstorming presentations project planning task organization workflow automation productivity human review'],
-  [5, 'AI-Assisted Managerial Decisions', 'decision support recommendations missing information alternative solutions verification automation bias human in the loop accountability'],
-  [6, 'AI Ethics: When Does Using AI Become Unethical?', 'ethics bias fairness privacy transparency explainability accountability human oversight BrightPath'],
-  [7, 'Responsible AI & Governance', 'governance confidentiality verification accountability incident reporting NIST policy Palmetto'],
-  [8, 'AI in Management', 'leadership communication planning project management agents decision support human judgment'],
-  [9, 'Accuracy, Hallucinations, and Verification', 'hallucination sources claims calculation uncertainty verification correction confidence'],
-  [10, 'AI and Plagiarism', 'academic integrity attribution disclosure original work support substitution verification accountable authorship'],
+  [1, 'AI Foundations and Dashboard Start', 'AI foundations models tools LLM capabilities limits safe use problem framing dashboard starter'],
+  [2, 'AI Tools for Managers', 'AI assistants plugins integrations APIs tool comparison privacy AI tools'],
+  [3, 'Research & Know', 'AI assisted research better questions source quality hallucinations verification credible sources knowledge building'],
+  [4, 'AI Productivity', 'email meeting summaries research brainstorming presentations project planning workflow productivity human review'],
+  [5, 'Managerial Decision Support', 'decision support recommendations missing information alternatives verification automation bias human in the loop accountability'],
+  [6, 'AI Ethics', 'ethics bias fairness privacy transparency explainability accountability human oversight stakeholder impact'],
+  [7, 'Responsible AI and Governance', 'governance NIST policy data governance incident response continuous monitoring responsible AI'],
+  [8, 'Customer Evidence and Decision Briefs', 'customer evidence assumptions journey source quality missing voices decision brief tradeoffs'],
+  [9, 'Human-Reviewed AI Workflows', 'workflow human review verification escalation accountable owner test evidence'],
+  [10, 'AI and Plagiarism', 'academic integrity attribution disclosure support substitution verification accountable authorship'],
   [11, 'Christian Perspective on AI', 'human dignity truthfulness justice fairness stewardship responsibility moral discernment values'],
-  [12, 'AI and the Workforce', 'tasks jobs automation augmentation worker voice reskilling transition human skills'],
-  [13, 'Measure value', 'business case adoption metrics quality costs benefits KPI scorecard investment implementation'],
-  [14, 'Lead adoption', 'stakeholders change readiness training resistance rollout feedback testing release readiness'],
-  [15, 'Integrate & defend', 'final dashboard portfolio defense testing deployment exam paper synthesis'],
+  [12, 'AI and the Workforce', 'tasks jobs automation augmentation worker voice reskilling transition risk human skills'],
+  [13, 'Implement AI in an Organization', 'business problem stakeholders bounded AI solution benefits risks controls training pilot KPIs stop conditions'],
+  [14, 'Future of AI and Dashboard Testing', 'acceptance criteria usability peer feedback safeguards revision testing release readiness future AI'],
+  [15, 'Final Integration and Defense', 'final integrated dashboard portfolio defense limitations release decision exam paper reflection'],
 ] as const;
 
 const moduleItems: Record<number, ModuleSearchItem[]> = {
@@ -50,7 +50,7 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     ['lesson-1', 'Lesson 1 · What Is an AI Assistant?'], ['lesson-2', 'Lesson 2 · Plugins, Integrations, and APIs'], ['lesson-3', 'Lesson 3 · Comparing AI Tools'],
     ['lesson-4', 'Lesson 4 · Example AI Tool Comparison'], ['lesson-5', 'Lesson 5 · AI Risks and Data Privacy'], ['scenario-2', 'Manager Scenario · Confidential Review'],
     ['practice-2', 'AI Tool Comparison Lab'], ['build-2', 'AI Tools Page'], ['assessment-2', 'Week 2 Knowledge Check', 'Assignment'],
-    ['submit-2', 'Week 2 Submission', 'Assignment'], ['reflect-2', 'Week 2 Reflection'], ['resources-2', 'Week 2 Resources'],
+    ['quiz-2-tools', 'Quiz 1 · AI Tools and Your AI Management Dashboard', 'Assignment'], ['submit-2', 'Week 2 Submission', 'Assignment'], ['reflect-2', 'Week 2 Reflection'], ['resources-2', 'Week 2 Resources'],
   ].map(([id, title, category]) => ({ id, title, category: category as SearchCategory | undefined })),
   3: [
     ['lesson-1', 'Lesson 1 · Using AI for Research'], ['lesson-2', 'Lesson 2 · Asking AI Better Research Questions'], ['lesson-3', 'Lesson 3 · Research ≠ Just Asking AI'],
@@ -62,7 +62,7 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     ['lesson-1', 'Lesson 1 · AI for Email and Meeting Summaries'], ['lesson-2', 'Lesson 2 · AI for Research and Brainstorming'],
     ['lesson-3', 'Lesson 3 · AI for Presentations and Project Planning'], ['lesson-4', 'Lesson 4 · Task Organization and Workflow Automation'],
     ['lesson-5', 'Lesson 5 · Productivity Gains and Human Review'], ['practice-4', 'AI Productivity Comparison Lab'], ['build-4', 'AI for Productivity'],
-    ['assessment-4', 'Week 4 Knowledge Check', 'Assignment'], ['assessment-discussion-2', 'Discussion 2', 'Assignment'], ['submit-4', 'Week 4 Submission', 'Assignment'],
+    ['assessment-4', 'Week 4 Knowledge Check', 'Assignment'], ['submit-4', 'Week 4 Submission', 'Assignment'],
     ['reflect-4', 'Week 4 Reflection'], ['resources-4', 'Week 4 Resources'],
   ].map(([id, title, category]) => ({ id, title, category: category as SearchCategory | undefined })),
   5: [
@@ -77,8 +77,8 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     ['lesson-4', 'Lesson 4 · Transparency & Explainability'], ['lesson-5', 'Lesson 5 · Accountability'], ['lesson-6', 'Lesson 6 · Human Oversight'],
     ['lesson-7', 'Lesson 7 · AI Reliability & Hallucinations'], ['lesson-8', 'Lesson 8 · Stakeholder Impact'], ['practice-ethics', 'Ethics Decision Lab'],
     ['practice-bias', 'Bias Practice'], ['practice-privacy', 'Privacy Decision Lab'], ['practice-verify', 'AI Verification Exercise'],
-    ['case-brightpath', 'BrightPath Manufacturing Case'], ['build-ethics', 'AI Ethics Checker'],
-    ['assessment-discussion', 'Discussion 3', 'Assignment'], ['submit-ethics', 'AI Ethics Risk Assessment', 'Assignment'], ['reflect-ethics', 'Week 6 Reflection'], ['resources-ethics', 'Week 6 Resources'],
+    ['case-brightpath', 'BrightPath Manufacturing Case'], ['build-ethics', 'AI Ethics Checker'], ['assessment-knowledge', 'Week 6 Knowledge Check', 'Assignment'],
+    ['submit-ethics', 'AI Ethics Risk Assessment', 'Assignment'], ['reflect-ethics', 'Week 6 Reflection'], ['resources-ethics', 'Week 6 Resources'],
   ].map(([id, title, category]) => ({ id, title, category: category as SearchCategory | undefined })),
   7: [
     ['lesson-1', 'Lesson 1 · What Is Responsible AI?'], ['lesson-2', 'Lesson 2 · What Is AI Governance?'], ['lesson-3', 'Lesson 3 · Policy ≠ Governance'],
@@ -90,8 +90,17 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     ['assessment-test', 'Test 1 · Cumulative Weeks 1–7', 'Assignment'], ['assessment-guide', 'Test 1 Study Guide · Weeks 1–7'], ['assessment-capstone', 'Governance Application Practice'],
     ['submit-policy', 'Responsible AI Policy', 'Assignment'], ['reflect-policy', 'Week 7 Reflection'], ['resources-policy', 'Week 7 Resources'],
   ].map(([id, title, category]) => ({ id, title, category: category as SearchCategory | undefined })),
-  8: standardSearchItems(8, ['Evidence vs. Assumption', 'Customer Journey Evidence', 'Source Quality and Missing Voices', 'Decision Brief Example: Fictional Campus Support Service'], 'Customer Evidence Decision Brief', 'Week 8 Customer Evidence Decision Brief'),
-  9: standardSearchItems(9, ['From Week 8 Evidence to Workflow', 'Human Review Checkpoints', 'Verification and Escalation', 'Workflow Example: Fictional Student Support Triage'], 'Human-Reviewed AI Workflow', 'Week 9 Human-Reviewed AI Workflow'),
+  8: [
+    ...standardSearchItems(8, ['Evidence vs. Assumption', 'Customer Journey Evidence', 'Source Quality and Missing Voices', 'Decision Brief Example: Fictional Campus Support Service'], 'Customer Evidence Decision Brief', 'Week 8 Customer Evidence Decision Brief'),
+    { id: 'assignment-8-easy', title: 'Easy Assignment · Help a Manager', category: 'Assignment' },
+    { id: 'quiz-8-easy', title: 'Quick Quiz · AI in Management', category: 'Assignment' },
+  ],
+  9: [
+    ...standardSearchItems(9, ['From Week 8 Evidence to Workflow', 'Human Review Checkpoints', 'Verification and Escalation', 'Workflow Example: Fictional Student Support Triage'], 'Human-Reviewed AI Workflow', 'Week 9 Human-Reviewed Workflow'),
+    { id: 'assignment-9-easy', title: 'Easy Assignment · Spot the AI Mistake', category: 'Assignment' },
+    { id: 'quiz-9-easy', title: 'Quick Quiz · Accuracy, Hallucinations, and Verification', category: 'Assignment' },
+    { id: 'assessment-quiz-3', title: 'Quiz 3 · Customer Evidence and Human-Reviewed Workflows', category: 'Assignment' },
+  ],
   10: [
     ...standardSearchItems(10, ['Academic Integrity', 'Support vs. Substitution', 'Attribution', 'Disclosure Quality', 'Verification Records', 'Accountable Authorship'], 'AI Use / Disclosure Log', 'Week 10 Integrity Check'),
     { id: 'quiz-10-lesson-1', title: 'Quiz 1 · Lesson 1: Academic Integrity', category: 'Assignment' },
@@ -136,16 +145,26 @@ const moduleItems: Record<number, ModuleSearchItem[]> = {
     { id: 'assignment-12-lesson-4', title: 'Assignment 4 · Worker Voice', category: 'Assignment' },
     { id: 'assignment-12-lesson-5', title: 'Assignment 5 · Reskilling', category: 'Assignment' },
     { id: 'assignment-12-lesson-6', title: 'Assignment 6 · Transition Risk', category: 'Assignment' },
+    { id: 'assessment-test-2', title: 'Test 2 · Weeks 10–12', category: 'Assignment' },
   ],
-  13: standardSearchItems(13, ['Problem and Stakeholder Fit', 'Benefits and Risks', 'Controls and Ownership', 'Training and Change', 'Timeline and Pilot', 'KPIs and Stop Conditions'], 'AI Implementation Plan', 'Week 13 Homework · AI Implementation Plan'),
-  14: standardSearchItems(14, ['Acceptance Criteria', 'Usability Testing', 'Peer Feedback', 'Risk and Safeguard Testing', 'Revision Priorities', 'Release Readiness'], 'Dashboard Testing and Revision Record', 'Week 14 Homework · Dashboard Testing and Revision'),
+  13: [
+    ...standardSearchItems(13, ['Problem and Stakeholder Fit', 'Benefits and Risks', 'Controls and Ownership', 'Training and Change', 'Timeline and Pilot', 'KPIs and Stop Conditions'], 'AI Implementation Plan', 'Week 13 Homework · AI Implementation Plan'),
+    { id: 'assignment-13-implementation', title: 'Assignment 1 · Implementation Readiness Decision', category: 'Assignment' },
+    { id: 'assignment-13-adoption', title: 'Assignment 2 · Adoption and Measurement Plan', category: 'Assignment' },
+  ],
+  14: [
+    ...standardSearchItems(14, ['Acceptance Criteria', 'Usability Testing', 'Peer Feedback', 'Risk and Safeguard Testing', 'Revision Priorities', 'Release Readiness'], 'Dashboard Testing and Revision Record', 'Week 14 Homework · Dashboard Testing and Revision'),
+    { id: 'assignment-14-testing', title: 'Assignment 1 · Dashboard Acceptance Test', category: 'Assignment' },
+    { id: 'assignment-14-future', title: 'Assignment 2 · Future of AI and Responsible Revision', category: 'Assignment' },
+    { id: 'assessment-quiz-4', title: 'Quiz 4 · Implementation, Testing, and Release Readiness', category: 'Assignment' },
+  ],
   15: [
-    ...['Course Synthesis: From Problem to Product', 'AI Tools, Prompting, and Verification', 'Productivity, Decisions, and Automation', 'Ethics, Bias, Privacy, and Human Oversight', 'Governance, Disclosure, and Accountability', 'Values, Workforce, and Organizational Impact', 'Implementation, Measurement, and Adoption'].map((title, index) => ({ id: `lesson-${index + 1}`, title: `Lesson ${index + 1} · ${title}` })),
-    { id: 'practice-15', title: 'Final Defense Rehearsal' }, { id: 'build-15', title: 'Final Integrated AI Management Dashboard' },
+    { id: 'build-15', title: 'Final Integrated AI Management Dashboard' },
     { id: 'assessment-final-exam', title: 'Final Exam · Cumulative Weeks 1–15', category: 'Assignment' },
     { id: 'submit-final-paper', title: 'Final Paper · AI Management Synthesis', category: 'Assignment' },
     { id: 'submit-final-dashboard', title: 'Final Dashboard Portfolio and Defense', category: 'Assignment' },
-    { id: 'reflect-15', title: 'Final Reflection' }, { id: 'resources-15', title: 'Final Review Resources' },
+    { id: 'reflect-15', title: 'Final Reflection' },
+    { id: 'resources-15', title: 'Final Review Resources' },
   ],
 };
 
