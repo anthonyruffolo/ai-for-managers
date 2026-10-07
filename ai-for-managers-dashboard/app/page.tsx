@@ -5,6 +5,8 @@ import { DueThisWeek } from './due-this-week';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { EasyWeekActivity, easyWeekItems, easyQuizDefinitions } from './easy-week-activities';
 import { FinalizedArtifactBuilder } from './finalized-artifact-builder';
+import { MajorAssessment } from './major-assessment';
+import { quiz3Questions, test2Questions, quiz4Questions } from './major-assessment-data';
 import { CourseLanguage, useCourseLocale } from './useCourseLocale';
 
 type Priority = 'High' | 'Medium' | 'Low';
